@@ -27,6 +27,9 @@ public class physicWalk : MonoBehaviour {
 	public AudioClip footstepSound;
 	public AudioClip fallSound;
 
+	private float sprintTime = 0.0f;
+	private float exhaustTime = 3.0f;
+
 	void Start()
 	{
 		instance = this;
@@ -93,8 +96,19 @@ public class physicWalk : MonoBehaviour {
 		if( Input.GetButton( "Sprint" ) )
 		{
 			speed = maxSprintSpeed;
+			sprintTime += Time.deltaTime;
+			if (sprintTime > 3.0) {
+				speed = maxWalkSpeed;
+			}
 		}
-		else speed = maxWalkSpeed;
+		else {
+			speed = maxWalkSpeed;
+			exhaustTime -= Time.deltaTime;
+			if (exhaustTime < 0.0) {
+				sprintTime = 0.0f;
+				exhaustTime = 3.0f;
+			}
+		}
 	}
 
 	public void playFootstepSound()

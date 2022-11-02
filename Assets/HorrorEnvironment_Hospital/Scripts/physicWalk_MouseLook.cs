@@ -27,6 +27,7 @@ public class physicWalk_MouseLook : MonoBehaviour {
     public float smoothing = 4f;
 
     public bool isCamera = false;
+    public bool isStart = false;
 
     public float wobbleX = 0f;
     public float wobbleY = 0f;
@@ -49,8 +50,8 @@ public class physicWalk_MouseLook : MonoBehaviour {
         startRotation = transform.localRotation;
         if (_camPos != null) camPosBasePosition = _camPos.transform.localPosition;
 
-        rotationX = transform.rotation.eulerAngles.y;
-        rotationY = transform.rotation.eulerAngles.x;
+        rotationX = 90;
+        rotationY = 0;
 
         inputSensitivity += sensitivity;
         inputSensitivity *= 100f;
@@ -58,6 +59,8 @@ public class physicWalk_MouseLook : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        if (!isStart) return;
+
         //Smoothed stuff
         smoothedMouse = Vector2.Lerp(smoothedMouse, new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")), 1f / smoothing);
 
@@ -86,7 +89,8 @@ public class physicWalk_MouseLook : MonoBehaviour {
             rotationY += (smoothedMouse.y * Ydirection * inputSensitivity) * Time.deltaTime;
             rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
 
-            transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, (-smoothedMouse.x * inputSensitivity) * Time.deltaTime);
+            // transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, (-smoothedMouse.x * inputSensitivity) * Time.deltaTime);
+            transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0f);
         }
 
 

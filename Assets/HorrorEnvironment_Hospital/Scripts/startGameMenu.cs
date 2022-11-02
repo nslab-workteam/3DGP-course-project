@@ -6,6 +6,7 @@ public class startGameMenu : MonoBehaviour
 {
 
     public GameObject player;
+    public GameObject menu;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,10 @@ public class startGameMenu : MonoBehaviour
         
     }
 
-    void onStartClicked() {
+    public void OnClick() {
         Cursor.lockState = CursorLockMode.Locked;
+        menu.SetActive(false);
+        player.GetComponent<physicWalk_MouseLook>().isStart = true;
+        player.GetComponentInChildren<Camera>().GetComponent<physicWalk_MouseLook>().isStart = true;
     }
 }
