@@ -155,7 +155,7 @@ public class physicWalk : MonoBehaviour {
 	 	if( horizontal != 0f || vertical != 0f || jump != 0f || !grounded ) GetComponent<Rigidbody>().drag = 0.5f;
 		else
 		{
-			GetComponent<Rigidbody>().drag += 10f;
+			GetComponent<Rigidbody>().drag = 100f;
 			
 			if( GetComponent<Rigidbody>().drag >= 100f ) GetComponent<Rigidbody>().drag = 100f;
 		}
@@ -165,7 +165,7 @@ public class physicWalk : MonoBehaviour {
 			Vector3 forceV = Vector3.Cross( hit.normal, Vector3.Cross( transform.forward, hit.normal ) );
 			forceV = forceV.normalized;
 			
-			if( vertical != 0f && horizontal != 0f ) GetComponent<Rigidbody>().AddForce( (( forceV * vertical ) + ( transform.right * horizontal )) * 0.8f );
+			if( vertical != 0f && horizontal != 0f ) GetComponent<Rigidbody>().AddForce( (( forceV * vertical ) + ( transform.right * horizontal )) * 1.0f );
 			else GetComponent<Rigidbody>().AddForce(( forceV * vertical ) + ( transform.right * horizontal ));
 		}
 	 
