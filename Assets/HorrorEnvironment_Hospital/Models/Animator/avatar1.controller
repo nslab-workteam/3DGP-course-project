@@ -119,13 +119,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: walk_backward
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -147,7 +147,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: walking
-  m_Speed: 0.6
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5685523882150298837}
@@ -161,7 +161,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: c56b87d37c166ab44ba8939ea05748fe, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 648210b31a0764f4d9d524a1c4dedd5a, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -250,7 +250,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: reverse walking
-  m_Speed: -0.6
+  m_Speed: -1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1190523871566138999}
@@ -264,7 +264,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: c56b87d37c166ab44ba8939ea05748fe, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 648210b31a0764f4d9d524a1c4dedd5a, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

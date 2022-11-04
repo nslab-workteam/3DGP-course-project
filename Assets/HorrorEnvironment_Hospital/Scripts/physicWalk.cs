@@ -4,6 +4,8 @@ using System.Collections;
 public class physicWalk : MonoBehaviour {
 	
 	public static physicWalk instance;
+
+	public GameObject myCamera;
 	
 	//
 	public float speed  = 7f;
@@ -103,6 +105,7 @@ public class physicWalk : MonoBehaviour {
 		}
 		else {
 			speed = maxWalkSpeed;
+			
 			exhaustTime -= Time.deltaTime;
 			if (exhaustTime < 0.0) {
 				sprintTime = 0.0f;
@@ -152,12 +155,18 @@ public class physicWalk : MonoBehaviour {
 		
 		////
 	 
-	 	if( horizontal != 0f || vertical != 0f || jump != 0f || !grounded ) GetComponent<Rigidbody>().drag = 0.5f;
-		else
-		{
-			GetComponent<Rigidbody>().drag = 100f;
+	 	if( horizontal != 0f || vertical != 0f || jump != 0f || !grounded ) {
+			GetComponent<Rigidbody>().drag = 0.5f;
+			GetComponentInChildren<Animator>().SetBool("walking", true);
+			Vector3 camPos = myCamera.transform.localPosition;
+			myCamera.transform.localPosition = Vector3.Lerp(camPos, new Vector3(0.053f, 0.759f, 0.422f), 5 * Time.deltaTime);
 			
-			if( GetComponent<Rigidbody>().drag >= 100f ) GetComponent<Rigidbody>().drag = 100f;
+			
+		} else{
+			GetComponent<Rigidbody>().drag = 100f;
+			GetComponentInChildren<Animator>().SetBool("walking", false);
+			Vector3 camPos = myCamera.transform.localPosition;
+			myCamera.transform.localPosition = Vector3.Lerp(camPos, new Vector3(0.053f, 1.247f, 0.181f), 5 * Time.deltaTime);
 		}
 		
 		if( GetComponent<Rigidbody>().velocity.magnitude < speed && grounded == true )
