@@ -6,9 +6,11 @@ public class ghost1Chasing : MonoBehaviour
 {
     public GameObject player;
     public GameObject ghost;
+    public GameObject sound;
 
     private int closeCount = 0;
     private bool closeToGhost = false;
+    private bool isSoundPlayed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +32,11 @@ public class ghost1Chasing : MonoBehaviour
 
             if (Vector3.Magnitude(pos - playerPos) <= 5.0f)
             {
+                if (!isSoundPlayed) {
+                    if (!sound.activeSelf)
+                        sound.SetActive(true);
+                    isSoundPlayed = true;
+                }
                 ghost.transform.LookAt(player.transform, Vector3.up);
                 closeToGhost = true;
             }

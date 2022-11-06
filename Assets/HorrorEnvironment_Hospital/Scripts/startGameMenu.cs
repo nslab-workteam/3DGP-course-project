@@ -23,7 +23,7 @@ public class startGameMenu : MonoBehaviour
     public void OnClick() {
         Cursor.lockState = CursorLockMode.Locked;
         menu.SetActive(false);
-        player.GetComponent<physicWalk_MouseLook>().isStart = true;
-        player.GetComponentInChildren<Camera>().GetComponent<physicWalk_MouseLook>().isStart = true;
+        // player.GetComponent<MouseLook>().isStart = true;
+        player.GetComponentInChildren<Camera>().GetComponent<MouseLook>().isStart = true;
     }
 }

@@ -17,7 +17,7 @@ public class physicWalk : MonoBehaviour {
 	public float footsFrequency = 0.7f;
 
 	//
-	public bool grounded = false;
+	public bool grounded = true;
 	
 	private float fallingForce = 0f;
 	
@@ -137,7 +137,7 @@ public class physicWalk : MonoBehaviour {
 		
 		Vector3 tmpV = transform.position;
 		tmpV.y += 0.1f;
-    	if (Physics.Raycast( tmpV, -Vector3.up, out hit, 0.3f))
+    	if (Physics.Raycast( tmpV, -Vector3.up, out hit, transform.position.y *0.5f + 0.3f))
 		{
         	if( hit.collider.tag == "GROUND" )
 			{
@@ -160,6 +160,8 @@ public class physicWalk : MonoBehaviour {
 			GetComponentInChildren<Animator>().SetBool("walking", true);
 			Vector3 camPos = myCamera.transform.localPosition;
 			myCamera.transform.localPosition = Vector3.Lerp(camPos, new Vector3(0.053f, 0.759f, 0.422f), 5 * Time.deltaTime);
+			Vector3 oriCoidPos = GetComponent<CapsuleCollider>().center;
+			GetComponent<CapsuleCollider>().center = new Vector3(oriCoidPos.x, oriCoidPos.y, 0.422f);
 			
 			
 		} else{
@@ -167,14 +169,20 @@ public class physicWalk : MonoBehaviour {
 			GetComponentInChildren<Animator>().SetBool("walking", false);
 			Vector3 camPos = myCamera.transform.localPosition;
 			myCamera.transform.localPosition = Vector3.Lerp(camPos, new Vector3(0.053f, 1.247f, 0.181f), 5 * Time.deltaTime);
+			Vector3 oriCoidPos = GetComponent<CapsuleCollider>().center;
+			// GetComponent<CapsuleCollider>().center = new Vector3(oriCoidPos.x, oriCoidPos.y, 0.181f);
 		}
 		
-		if( GetComponent<Rigidbody>().velocity.magnitude < speed && grounded == true )
+		Rigidbody rb = GetComponent<Rigidbody>();
+
+		if( GetComponent<Rigidbody>().velocity.magnitude <= speed && grounded == true )
 		{
-			Vector3 forceV = Vector3.Cross( hit.normal, Vector3.Cross( transform.forward, hit.normal ) );
+			Vector3 forceV = Vector3.Cross( hit.normal, Vector3.Cross( transform.forward, hit.normal ));
 			forceV = forceV.normalized;
 			
-			if( vertical != 0f && horizontal != 0f ) GetComponent<Rigidbody>().AddForce( (( forceV * vertical ) + ( transform.right * horizontal )) * 1.0f );
+			if( vertical != 0f && horizontal != 0f ) {
+				GetComponent<Rigidbody>().AddForce( ( forceV * vertical ) + ( transform.right * horizontal ), ForceMode.Force);
+			}
 			else GetComponent<Rigidbody>().AddForce(( forceV * vertical ) + ( transform.right * horizontal ));
 		}
 	 

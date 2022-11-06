@@ -126,8 +126,3 @@ public class physicWalk_MouseLook : MonoBehaviour {
     }
 
 }
-
-
-
-
-
