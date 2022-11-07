@@ -37,7 +37,9 @@ public class ghost1Chasing : MonoBehaviour
                         sound.SetActive(true);
                     isSoundPlayed = true;
                 }
-                ghost.transform.LookAt(player.transform, Vector3.up);
+                Vector3 lookAtPos = player.transform.position;
+                lookAtPos.y = 0;
+                ghost.transform.LookAt(lookAtPos, Vector3.up);
                 closeToGhost = true;
             }
             else if (closeToGhost)
@@ -55,7 +57,7 @@ public class ghost1Chasing : MonoBehaviour
 
         if (closeCount >= 2)
         {
-            // GetComponent<Animator>().SetBool("chasing", true);
+            ghost.GetComponent<Animator>().SetBool("chasing", true);
         }
     }
 }

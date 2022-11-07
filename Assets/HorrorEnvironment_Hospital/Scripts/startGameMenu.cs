@@ -7,11 +7,14 @@ public class startGameMenu : MonoBehaviour
 
     public GameObject player;
     public GameObject menu;
+    public List<GameObject> lightToClose;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        foreach(GameObject o in lightToClose) {
+            Destroy(o);
+        }
     }
 
     // Update is called once per frame

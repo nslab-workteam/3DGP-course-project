@@ -14,6 +14,7 @@ public class setActiveOnTriggerEnter : MonoBehaviour {
 	{
 		if( other.tag == "Player" )
 		{
+			if (objectsToSet.Count == 0) return;
 			foreach( GameObject o in objectsToSet ) o.SetActive( active );
 			
 			if( selfDestroy ) Destroy ( this.gameObject );

@@ -23,12 +23,21 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     Animator player;
 
+    Vector3 idleCamPos;
+    Vector3 movingCamPos;
+    bool isFirstPerson = true;
+
+    GameObject mainCamera;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         player = GetComponentInChildren<Animator>();
+        idleCamPos = new Vector3(0.15f, 1.296f, 0.303f);
+        movingCamPos = new Vector3(0.078f, 0.843f, 0.423f);
+        mainCamera = GameObject.Find("Main Camera");
     }
 
     void MyInput() {
@@ -45,9 +54,11 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.useGravity = false;
             player.SetBool("walking", false);
+            mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, idleCamPos, 20 * Time.deltaTime);
         } else {
             rb.useGravity = true;
             player.SetBool("walking", true);
+            mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, movingCamPos, 20 * Time.deltaTime);
         }
     }
 
