@@ -12,6 +12,7 @@ public class startGameMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject.Find("Fog particals").GetComponentInChildren<ParticleSystem>().Stop();
         foreach(GameObject o in lightToClose) {
             Destroy(o);
         }
