@@ -17,11 +17,12 @@ public class changeViewAspect : MonoBehaviour
     {
         thirdPos = new Vector3(0.15f, 1.561f, -0.6f);
         thirdAngle = new Vector3(20.4f, 0f, 0f);
-        firstPos = new Vector3(0.15f, 1.296f, 0.303f);
-        firstAngle = new Vector3(0f, 0f ,0f);
-        thirdLightPos = new Vector3(-0.078f, -0.627f, 1.212f);
-        firstLightPos = new Vector3(-0.08f, -0.194f, 0.37f);
+        firstPos = transform.localPosition;
+        firstAngle = Vector3.zero;
         flashlight = GameObject.Find("Spot Light");
+        thirdLightPos = new Vector3(-0.078f, -0.627f, 1.212f);
+        firstLightPos = flashlight.transform.localPosition;
+        
     }
 
     // Update is called once per frame

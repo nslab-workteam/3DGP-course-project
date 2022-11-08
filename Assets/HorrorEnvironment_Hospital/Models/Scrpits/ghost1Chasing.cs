@@ -40,7 +40,7 @@ public class ghost1Chasing : MonoBehaviour
         {
             ghost.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
             
-            if (Vector3.Magnitude(pos - playerPos) <= 5.0f)
+            if (Vector3.Magnitude(pos - playerPos) <= 2.0f)
             {
                 if (!isSoundPlayed) {
                     if (!sound.activeSelf)
@@ -82,7 +82,7 @@ public class ghost1Chasing : MonoBehaviour
             playerPos.y = 0;
             if (!isChased) {
                 ghost.transform.position = Vector3.Lerp(pos, playerPos, Time.deltaTime * ghostAccel);
-                ghostAccel += 3.0f;
+                ghostAccel += 1.0f;
             }
             fogParticle.transform.position = ghost.transform.position;
 
