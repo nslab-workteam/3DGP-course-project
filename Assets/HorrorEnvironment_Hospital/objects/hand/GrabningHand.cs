@@ -21,7 +21,7 @@ public class GrabningHand : MonoBehaviour
         
     }
 
-    void OnCollisionEnter(Collision targetObj)
+    void OnTriggerEnter(Collider targetObj)
     {
         if (targetObj.gameObject.name == "HandsPlane")
         {
@@ -29,11 +29,17 @@ public class GrabningHand : MonoBehaviour
             //hand1.SetActive(true);
             hand2.SetActive(true);
             GetComponent<PlayerMovement>().maxWalkSpeed = 0.5f;
+            GetComponentInChildren<Animator>().SetFloat("walkAnimationSpeed", 0.5f);
         }
-        else {
+    }
+
+    void OnTriggerExit(Collider targetObj) {
+        if (targetObj.gameObject.name == "HandsPlane")
+        {
             //hand1.SetActive(false);
             hand2.SetActive(false);
             GetComponent<PlayerMovement>().maxWalkSpeed = 1.5f;
-        }  
+            GetComponentInChildren<Animator>().SetFloat("walkAnimationSpeed", 1f);
+        }
     }
 }
