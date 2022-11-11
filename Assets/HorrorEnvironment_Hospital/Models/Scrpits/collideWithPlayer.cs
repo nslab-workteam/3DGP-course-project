@@ -17,8 +17,8 @@ public class collideWithPlayer : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.tag == "Player") {
-            Physics.IgnoreCollision(collision.gameObject.GetComponent<CapsuleCollider>(), GetComponent<CapsuleCollider>());
+        if (collision.gameObject.tag != "GROUND") {
+            Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<CapsuleCollider>());
         }
     }
 }

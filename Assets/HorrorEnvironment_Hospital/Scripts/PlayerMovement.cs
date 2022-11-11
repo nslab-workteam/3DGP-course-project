@@ -5,14 +5,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    public float moveSpeed;
+    public float maxSprintSpeed;
+    public float maxWalkSpeed;
+    private float moveSpeed;
 
     public float staticDrag;
 
     [Header("Ground Check")]
-    public float playerHeight;
-    public LayerMask whatIsGround;
-    bool grounded;
     public Transform orientation;
 
     float horizontalInput;
@@ -38,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
         idleCamPos = new Vector3(0.15f, 1.296f, 0.303f);
         movingCamPos = new Vector3(0.078f, 0.843f, 0.423f);
         mainCamera = GameObject.Find("Main Camera");
+        moveSpeed = maxWalkSpeed;
     }
 
     void MyInput() {
@@ -54,11 +54,11 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.useGravity = false;
             player.SetBool("walking", false);
-            mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, idleCamPos, 20 * Time.deltaTime);
+            
         } else {
             rb.useGravity = true;
             player.SetBool("walking", true);
-            mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, movingCamPos, 20 * Time.deltaTime);
+            
         }
     }
 
@@ -75,18 +75,30 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void CheckCrouch() {
+        if (Input.GetKey(KeyCode.LeftControl)) {
+            mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, movingCamPos, 20 * Time.deltaTime);
+            player.SetBool("crouch", true);
+        } else {
+            mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, idleCamPos, 20 * Time.deltaTime);
+            player.SetBool("crouch", false);
+        }
+    }
+
+    void CheckSprint() {
+        if (Input.GetKey(KeyCode.LeftShift)) {
+            moveSpeed = maxSprintSpeed;
+        } else {
+            moveSpeed = maxWalkSpeed;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-
+        CheckCrouch();
+        CheckSprint();
         MyInput();
-        
-        // if (grounded)
-        //     rb.drag = 10f;
-        // else
-        //     rb.drag = 0f;
     }
 
     void FixedUpdate() {
