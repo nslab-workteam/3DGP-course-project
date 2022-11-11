@@ -9,8 +9,10 @@ public class GrabningHand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hand1 = GameObject.Find("PLAYER/charater1/mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftFoot");
-        hand2 = GameObject.Find("PLAYER/charater1/mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftFoot/mixamorig:LeftToeBase");
+        //hand1 = GameObject.Find("PLAYER/charater1/mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg/mixamorig:LeftFoot");
+        hand2 = GameObject.Find("PLAYER/charater1/mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg/mixamorig:LeftFoot/mixamorig:LeftToeBase");
+        //hand1.SetActive(false);
+        hand2.SetActive(false);
     }
 
     // Update is called once per frame
@@ -21,18 +23,17 @@ public class GrabningHand : MonoBehaviour
 
     void OnCollisionEnter(Collision targetObj)
     {
-        if (targetObj.gameObject.name == "PLAYER" && close == false)
+        if (targetObj.gameObject.name == "HandsPlane")
         {
-            Debug.Log("collide with floor");
-
-            close = true;
+            Debug.Log("collide with HandsPlane");
+            //hand1.SetActive(true);
+            hand2.SetActive(true);
+            GetComponent<PlayerMovement>().maxWalkSpeed = 0.5f;
         }
-
-        if (close)
-        {
-            door.transform.rotation = Quaternion.Euler(0.0f, 90f, 0.0f);
-            //door.transform.Rotate(0f, -63f, 0f);
-            GetComponent<AudioSource>().Play();
-        }
+        else {
+            //hand1.SetActive(false);
+            hand2.SetActive(false);
+            GetComponent<PlayerMovement>().maxWalkSpeed = 1.5f;
+        }  
     }
 }
