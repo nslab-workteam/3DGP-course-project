@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class DropBehaviourScript : MonoBehaviour
 {
+    private GameObject watcher;
+
     public GameObject gravityManage;
     // Start is called before the first frame update
     void Start()
     {
-     
+        watcher = GameObject.Find("watcher1");
+        watcher.SetActive(false);
     }
 
     // Update is called once per frame
@@ -24,11 +27,9 @@ public class DropBehaviourScript : MonoBehaviour
             {
                 Debug.Log(hit.collider.name);
                 if (hit.collider.name == "curtain2") {
-                    GetComponent<AudioSource>().PlayDelayed(1);
                     gravityManage.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                     gravityManage.GetComponent<Rigidbody>().useGravity = true;
-
-
+                    StartCoroutine(watcherPopUp());
                 }
             }
         }
@@ -41,5 +42,12 @@ public class DropBehaviourScript : MonoBehaviour
         {
             Physics.IgnoreCollision(collision.gameObject.GetComponent<MeshCollider>(), GetComponentInChildren<MeshCollider>());
         }
+    }
+
+    IEnumerator watcherPopUp()
+    {
+        yield return new WaitForSeconds(2f);
+        GetComponent<AudioSource>().PlayDelayed(0.5f);
+        watcher.SetActive(true);
     }
 }
