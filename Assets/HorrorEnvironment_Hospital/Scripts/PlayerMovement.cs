@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     bool isFirstPerson = true;
 
     GameObject mainCamera;
+    float walkingParam = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -49,16 +50,21 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.right * verticalInput - orientation.forward * horizontalInput;
 
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f);
+        player.SetFloat("Walk", Mathf.Lerp(player.GetFloat("Walk"), walkingParam, Time.deltaTime * 10));
 
         if (verticalInput == 0 && horizontalInput == 0) {
             rb.velocity = Vector3.zero;
             rb.useGravity = false;
-            player.SetBool("walking", false);
-            
+            player.SetBool("isWalk", false);
+            walkingParam = 0.0f;
+        }else if(horizontalInput < 0){
+            rb.useGravity = true;
+            player.SetBool("isWalk", true);
+            walkingParam = -1.0f;
         } else {
             rb.useGravity = true;
-            player.SetBool("walking", true);
-            
+            player.SetBool("isWalk", true);
+            walkingParam = 1.0f;
         }
     }
 
@@ -78,16 +84,17 @@ public class PlayerMovement : MonoBehaviour
     void CheckCrouch() {
         if (Input.GetKey(KeyCode.LeftControl)) {
             mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, movingCamPos, 20 * Time.deltaTime);
-            player.SetBool("crouch", true);
+            player.SetBool("isCrouch", true);
         } else {
             mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, idleCamPos, 20 * Time.deltaTime);
-            player.SetBool("crouch", false);
+            player.SetBool("isCrouch", false);
         }
     }
 
     void CheckSprint() {
         if (Input.GetKey(KeyCode.LeftShift)) {
             moveSpeed = maxSprintSpeed;
+            walkingParam = 2.0f;
         } else {
             moveSpeed = maxWalkSpeed;
         }
