@@ -9,7 +9,8 @@ public class AnnieBehaviour : MonoBehaviour
     public GameObject ghost;
     public GameObject myCamera;
     public GameObject fog;
-    public AudioClip audio1, audio2;
+    public AudioClip audio1;
+    public AudioClip audio2;
 
     private AnnieState state = AnnieState.Idle;
     private PostProcessingBehaviour vfx;
@@ -96,6 +97,7 @@ public class AnnieBehaviour : MonoBehaviour
         player.GetComponent<PlayerMovement>().enabled = false;
         myCamera.GetComponent<MouseLook>().isStart = false;
         player.transform.LookAt(ghost.transform.position, Vector3.up);
+        player.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
         ColorGradingModel.Settings settings = vfx.profile.colorGrading.settings;
         settings.basic.contrast = Random.Range(0.3f, 1.7f);
         vfx.profile.colorGrading.settings = settings;
@@ -114,7 +116,7 @@ public class AnnieBehaviour : MonoBehaviour
 
         // transition
         if ((ghost.transform.position - charaterBack).magnitude <= 0.5f) {
-            fog.transform.position = ghost.transform.position;
+            // fog.transform.position = ghost.transform.position;
             fogFlag = FogOn(fogFlag);
             state = AnnieState.Chased;
         }
@@ -141,16 +143,14 @@ public class AnnieBehaviour : MonoBehaviour
 
     bool PlaySound1(bool flag) {
         if (!flag) {
-            sound.clip = audio1;
-            sound.Play();
+            sound.PlayOneShot(audio1);
         }
         return true;
     }
 
     bool PlaySound2(bool flag) {
         if (!flag) {
-            sound.clip = audio2;
-            sound.Play();
+            sound.PlayOneShot(audio2);
         }
         return true;
     }
@@ -179,5 +179,6 @@ public class AnnieBehaviour : MonoBehaviour
     IEnumerator _FogOff() {
         yield return new WaitForSeconds(5f);
         fog.GetComponentInChildren<ParticleSystem>().Stop();
+        Destroy(this);
     }
 }
