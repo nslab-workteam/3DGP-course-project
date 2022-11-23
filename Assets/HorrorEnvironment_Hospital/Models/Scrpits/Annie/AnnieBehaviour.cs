@@ -108,7 +108,7 @@ public class AnnieBehaviour : MonoBehaviour
 
         // behaviour
         Vector3 charaterBack = player.transform.position - player.transform.forward * 3f;
-        soundFlag2 = PlaySound1(soundFlag2);
+        soundFlag2 = PlaySound2(soundFlag2);
         ghost.transform.position = Vector3.Lerp(ghost.transform.position, charaterBack, Time.deltaTime * ghostAccel);
         ghostAccel += 1f;
 

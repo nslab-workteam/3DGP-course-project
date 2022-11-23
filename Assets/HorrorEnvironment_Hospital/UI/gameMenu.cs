@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class gameMenu : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class gameMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) {
             GamePause();
         }
+        pages[1].GetComponentInChildren<Slider>().SetValueWithoutNotify(volume);
     }
 
     void GamePause() {
@@ -88,6 +90,16 @@ public class gameMenu : MonoBehaviour
         volume = Mathf.Clamp(volume - 0.1f, 0f, 1f);
         foreach(GameObject s in SFX) {
             s.GetComponent<AudioSource>().volume = volume;
+        }
+    }
+
+    public void OnLoadSaveClick() {
+        foreach(GameObject o in pages) {
+            if (o.name == "Load_SavePage") {
+                o.SetActive(true);
+            } else {
+                o.SetActive(false);
+            }
         }
     }
 }
