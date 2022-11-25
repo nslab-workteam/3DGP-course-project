@@ -13,6 +13,7 @@ public class gameMenu : MonoBehaviour
     public GameObject[] pages;
     public GameObject[] SFX;
     public GameObject aim;
+    public GameObject dialogue;
     private string breadcrum;
     private float volume = 0.5f;
 
@@ -32,6 +33,7 @@ public class gameMenu : MonoBehaviour
             }
         }
         aim.SetActive(false);
+        dialogue.SetActive(false);
     }
 
     // Update is called once per frame
