@@ -80,7 +80,7 @@ public class AnnieBehaviour : MonoBehaviour
         soundFlag1 = PlaySound1(soundFlag1);
 
         // transition
-        if ((player.transform.position - ghost.transform.position).magnitude >= 5.0f) {
+        if ((player.transform.position - ghost.transform.position).magnitude <= Random.Range(3.0f, 8.0f)) {
             state = AnnieState.MoveToPlayersFront;
         }
     }

@@ -52,19 +52,26 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f);
         player.SetFloat("Walk", Mathf.Lerp(player.GetFloat("Walk"), walkingParam, Time.deltaTime * 10));
 
+
         if (verticalInput == 0 && horizontalInput == 0) {
-            rb.velocity = Vector3.zero;
-            rb.useGravity = false;
+            // rb.velocity = Vector3.zero;
+            RaycastHit hit;
+            bool grounded = Physics.Raycast(transform.position, Vector3.down, out hit, 0.3f);
             player.SetBool("isWalk", false);
             walkingParam = 0.0f;
+            Debug.Log(grounded);
+            if (grounded)
+                rb.drag = staticDrag;
+            else
+                rb.drag = 0.5f;
         }else if(horizontalInput < 0){
-            rb.useGravity = true;
             player.SetBool("isWalk", true);
             walkingParam = -1.0f;
+            rb.drag = 0.5f;
         } else {
-            rb.useGravity = true;
             player.SetBool("isWalk", true);
             walkingParam = 1.0f;
+            rb.drag = 0.5f;
         }
     }
 
@@ -112,4 +119,17 @@ public class PlayerMovement : MonoBehaviour
         SpeedControl();
         MovePlayer();
     }
+
+    // void OnCollisionEnter(Collider other) {
+    //     if (other.gameObject.tag != "GROUND") {
+    //         RaycastHit hit;
+    //         bool grounded = Physics.Raycast(transform.position, Vector3.down, out hit);
+    //         if (hit.collider.tag == "GROUND") {
+    //             Vector3 ground_pos = hit.collider.transform.position;
+    //             Vector3 ground_player_pos = transform.position;
+    //             ground_player_pos.y = ground_pos.y;
+    //             transform.position = Vector3.Lerp(transform.position, ground_player_pos, Time.deltaTime);
+    //         }
+    //     }
+    // }
 }
