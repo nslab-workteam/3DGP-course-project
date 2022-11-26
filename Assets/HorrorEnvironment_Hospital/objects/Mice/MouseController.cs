@@ -11,6 +11,7 @@ public class MouseController : MonoBehaviour
     private GameObject[] miceList;
     private bool startChasing = false;
     private bool startDestroy = false;
+    private bool startPlay = false;
     private int[][] floor1;
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,7 @@ public class MouseController : MonoBehaviour
     void Chasing() {
         if (!startChasing) return;
         Vector3 playerPos = player.transform.position;
+        startPlay = PlayOnce(startPlay);
         foreach (GameObject m in miceList) {
             Vector3 diff = m.transform.position - playerPos;
             diff.y = 0;
@@ -46,7 +48,7 @@ public class MouseController : MonoBehaviour
             } else {
                 m.transform.LookAt(player.transform, Vector3.up);
             }
-            m.GetComponent<Rigidbody>().AddForce((playerPos - m.transform.position).normalized * 5f, ForceMode.Force);
+            m.GetComponent<Rigidbody>().AddForce((playerPos - m.transform.position).normalized * 10f, ForceMode.Force);
         }
     }
 
@@ -62,6 +64,15 @@ public class MouseController : MonoBehaviour
     bool DestroyOnce(bool flag) {
         if (!flag) {
             StartCoroutine(DestroyMouse());
+        }
+        return true;
+    }
+
+    bool PlayOnce(bool flag) {
+        if (!flag) {
+            foreach(AudioSource a in GetComponents<AudioSource>()) {
+                a.Play();
+            }
         }
         return true;
     }

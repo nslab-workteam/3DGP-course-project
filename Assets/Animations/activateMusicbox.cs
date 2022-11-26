@@ -14,6 +14,7 @@ public class activateMusicbox : MonoBehaviour
     private GameObject cat;
     private Vector3 endPos;
     private GameObject musicBoxCam;
+    private float tmp_volume;
 
     public GameObject MainCam;
     public GameObject MusicboxCam;
@@ -58,6 +59,8 @@ public class activateMusicbox : MonoBehaviour
                         GetComponent<AudioSource>().Play();
                         handleAnimator.SetTrigger("musicboxStart");
                         catAnimator.SetTrigger("musicboxStart");
+                        tmp_volume = GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume;
+                        GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = 0.0f;
                     }
                 }
             }
@@ -66,10 +69,10 @@ public class activateMusicbox : MonoBehaviour
             if (!GetComponent<AudioSource>().isPlaying) {
                 Debug.Log("Stop");
                 checkPlaying = false;
-                //¼½©ñ¦y¥sÁn
+                //ï¿½ï¿½ï¿½ï¿½yï¿½sï¿½n
                 GetComponent<AudioSource>().clip = nextmp3;
                 GetComponent<AudioSource>().Play();
-                //¸õ¥X°­
+                //ï¿½ï¿½ï¿½Xï¿½ï¿½
                 ghost.SetActive(true);               
                 cat.SetActive(false);
                 //musicBoxCam.transform.position = Vector3.Lerp(musicBoxCam.transform.position, endPos, Time.deltaTime * 10);
@@ -82,6 +85,7 @@ public class activateMusicbox : MonoBehaviour
 
                 MainCam.SetActive(true);
                 MusicboxCam.SetActive(false);
+                GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = tmp_volume;
             }
         }
     }
