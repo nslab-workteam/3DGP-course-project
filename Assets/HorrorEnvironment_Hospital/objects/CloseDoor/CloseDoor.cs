@@ -6,10 +6,19 @@ public class CloseDoor : MonoBehaviour
 {
     private GameObject door;
     private bool close = false;
+
+    private Animator[] temp;
+    private Animator doorAnimator;
+
+    public bool doorLock = false;
+
     // Start is called before the first frame update
     void Start()
     {
         door = GameObject.Find("CG/FLOOR_1st/TOILETS/doors_A");
+
+        temp = GameObject.Find("CG/FLOOR_1st/TOILETS/doors_A").GetComponentsInChildren<Animator>();
+        doorAnimator = temp[0];
     }
 
     // Update is called once per frame
@@ -22,13 +31,17 @@ public class CloseDoor : MonoBehaviour
         if (targetObj.gameObject.name == "PLAYER" && close == false)
         {
             Debug.Log("collide with floor");
-            
-            close = true;
+
+            if (!doorLock) 
+            {
+                close = true;
+                doorLock = true;
+            }
         }
 
         if (close) {
-            door.transform.rotation = Quaternion.Euler(0.0f, 90f, 0.0f);
-            //door.transform.Rotate(0f, -63f, 0f);
+            doorAnimator.SetTrigger("doorClose");
+
             GetComponent<AudioSource>().Play();
         }
     }

@@ -7,11 +7,19 @@ public class DropBehaviourScript : MonoBehaviour
     private GameObject watcher;
 
     public GameObject gravityManage;
+
+    private Animator[] temp;
+    private Animator doorAnimator;
+
+
     // Start is called before the first frame update
     void Start()
     {
         watcher = GameObject.Find("watcher1");
         watcher.SetActive(false);
+
+        temp = GameObject.Find("CG/FLOOR_1st/TOILETS/doors_A").GetComponentsInChildren<Animator>();
+        doorAnimator = temp[0];
     }
 
     // Update is called once per frame
@@ -30,6 +38,8 @@ public class DropBehaviourScript : MonoBehaviour
                     gravityManage.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                     gravityManage.GetComponent<Rigidbody>().useGravity = true;
                     StartCoroutine(watcherPopUp());
+
+                    doorAnimator.SetTrigger("doorOpen");
                 }
             }
         }
@@ -49,5 +59,7 @@ public class DropBehaviourScript : MonoBehaviour
         yield return new WaitForSeconds(2f);
         GetComponent<AudioSource>().PlayDelayed(0.5f);
         watcher.SetActive(true);
+
+        //doorAnimator.SetTrigger("doorOpen");
     }
 }
