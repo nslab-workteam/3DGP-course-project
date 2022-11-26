@@ -14,6 +14,7 @@ public class gameMenu : MonoBehaviour
     public GameObject[] SFX;
     public GameObject aim;
     public GameObject dialogue;
+    public GameObject dialogueManager;
     private string breadcrum;
     private float volume = 0.5f;
 
@@ -34,16 +35,25 @@ public class gameMenu : MonoBehaviour
         }
         aim.SetActive(false);
         dialogue.SetActive(false);
+        player.GetComponentInChildren<Camera>().GetComponent<MouseLook>().isStart = false;
+        player.GetComponent<PlayerMovement>().isStart = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        // Game pause
         if (Input.GetKeyDown(KeyCode.Escape)) {
             GamePause();
         }
+
+        // Volume slider update
         pages[1].GetComponentInChildren<Slider>().SetValueWithoutNotify(volume);
+
+        // Check dialog finish
+        if (dialogueManager.GetComponentInChildren<UsageCase>().isDialogFinish) {
+            AfterIntroDialog();
+        }
     }
 
     void GamePause() {
@@ -55,10 +65,11 @@ public class gameMenu : MonoBehaviour
     }
 
     public void OnStartClick() {
-        Cursor.lockState = CursorLockMode.Locked;
         menu.SetActive(false);
-        aim.SetActive(true);
-        player.GetComponentInChildren<Camera>().GetComponent<MouseLook>().isStart = true;
+        // call msgSys
+        dialogueManager.GetComponentInChildren<UsageCase>().StartDialog();
+        // wait for msgSys finish
+        
     }
 
     public void OnSettingClick() {
@@ -103,5 +114,13 @@ public class gameMenu : MonoBehaviour
                 o.SetActive(false);
             }
         }
+    }
+
+    public void AfterIntroDialog() {
+        Cursor.lockState = CursorLockMode.Locked;
+        aim.SetActive(true);
+        dialogue.SetActive(false);
+        player.GetComponentInChildren<Camera>().GetComponent<MouseLook>().isStart = true;
+        player.GetComponent<PlayerMovement>().isStart = true;
     }
 }

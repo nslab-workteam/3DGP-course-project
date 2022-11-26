@@ -8,22 +8,45 @@ public class UsageCase : MonoBehaviour
 {
     private ES_MessageSystem msgSys;
     public UnityEngine.UI.Text uiText;
-    public TextAsset textAsset;
+    public TextAsset[] textAssets;
+    public GameObject dialog;
+    public int assetIndex = 0;
+    public bool isDialogFinish = false;
     private List<string> textList = new List<string>();
     private int textIndex = 0;
+    
 
     void Start()
     {
         msgSys = this.GetComponent<ES_MessageSystem>();
+        //add special chars and functions in other component.
+        // msgSys.AddSpecialCharToFuncMap("UsageCase", CustomizedFunction);
+        dialog.SetActive(false);
+    }
+
+    public void StartDialog() {
         if (uiText == null)
         {
             Debug.LogError("UIText Component not assign.");
         }
-        else
-            ReadTextDataFromAsset(textAsset);
+        else {
+            ReadTextDataFromAsset(textAssets[assetIndex++]);
+            textIndex = 0;
+            dialog.SetActive(true);
+        }
+    }
 
-        //add special chars and functions in other component.
-        msgSys.AddSpecialCharToFuncMap("UsageCase", CustomizedFunction);
+    void StartDialog(int i) {
+        if (uiText == null)
+        {
+            Debug.LogError("UIText Component not assign.");
+        }
+        else{
+            ReadTextDataFromAsset(textAssets[i]);
+            assetIndex = i + 1;
+            textIndex = 0;
+            dialog.SetActive(true);
+        }
     }
 
     private void CustomizedFunction()
@@ -54,7 +77,7 @@ public class UsageCase : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             //Continue the messages, stoping by [w] or [lr] keywords.
             msgSys.Next();
@@ -71,6 +94,12 @@ public class UsageCase : MonoBehaviour
         {
             msgSys.SetText(textList[textIndex]);
             textIndex++;
+        }
+
+        Debug.Log("textIndex="+textIndex+", textList.Count="+textList.Count);
+        Debug.Log("isDialogFinish="+isDialogFinish);
+        if (textIndex == textList.Count && textList.Count != 0 && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))) {
+            isDialogFinish = true;
         }
     }
 }

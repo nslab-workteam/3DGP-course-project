@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Ground Check")]
     public Transform orientation;
+    public bool isStart = false;
 
     float horizontalInput;
     float verticalInput;
@@ -59,7 +60,6 @@ public class PlayerMovement : MonoBehaviour
             bool grounded = Physics.Raycast(transform.position, Vector3.down, out hit, 0.3f);
             player.SetBool("isWalk", false);
             walkingParam = 0.0f;
-            Debug.Log(grounded);
             if (grounded)
                 rb.drag = staticDrag;
             else
@@ -110,6 +110,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isStart) return;
         CheckCrouch();
         CheckSprint();
         MyInput();
@@ -117,6 +118,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate() {
         SpeedControl();
+        if (!isStart) return;
         MovePlayer();
     }
 
