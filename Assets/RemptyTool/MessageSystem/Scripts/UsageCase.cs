@@ -12,6 +12,7 @@ public class UsageCase : MonoBehaviour
     public GameObject dialog;
     public int assetIndex = 0;
     public bool isDialogFinish = false;
+    public bool pause = false;
     private List<string> textList = new List<string>();
     private int textIndex = 0;
     
@@ -68,6 +69,7 @@ public class UsageCase : MonoBehaviour
 
     void Update()
     {
+        if (pause) return;
         if (Input.GetKeyDown(KeyCode.S))
         {
             //You can sending the messages from strings or text-based files.
@@ -96,8 +98,8 @@ public class UsageCase : MonoBehaviour
             textIndex++;
         }
 
-        Debug.Log("textIndex="+textIndex+", textList.Count="+textList.Count);
-        Debug.Log("isDialogFinish="+isDialogFinish);
+        // Debug.Log("textIndex="+textIndex+", textList.Count="+textList.Count);
+        // Debug.Log("isDialogFinish="+isDialogFinish);
         if (textIndex == textList.Count && textList.Count != 0 && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))) {
             isDialogFinish = true;
         }

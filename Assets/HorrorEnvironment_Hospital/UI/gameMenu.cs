@@ -15,7 +15,9 @@ public class gameMenu : MonoBehaviour
     public GameObject aim;
     public GameObject dialogue;
     public GameObject dialogueManager;
-    private string breadcrum;
+    public GameObject startButton;
+    public GameObject resumeButton;
+    private string breadcrum = "None";
     private float volume = 0.5f;
 
 
@@ -35,6 +37,8 @@ public class gameMenu : MonoBehaviour
         }
         aim.SetActive(false);
         dialogue.SetActive(false);
+        resumeButton.SetActive(false);
+        startButton.SetActive(true);
         player.GetComponentInChildren<Camera>().GetComponent<MouseLook>().isStart = false;
         player.GetComponent<PlayerMovement>().isStart = false;
     }
@@ -52,7 +56,9 @@ public class gameMenu : MonoBehaviour
 
         // Check dialog finish
         if (dialogueManager.GetComponentInChildren<UsageCase>().isDialogFinish) {
+            Debug.Log("AfterIntroDialog");
             AfterIntroDialog();
+            dialogueManager.GetComponentInChildren<UsageCase>().isDialogFinish = false;
         }
     }
 
@@ -61,15 +67,24 @@ public class gameMenu : MonoBehaviour
         menu.SetActive(true);
         aim.SetActive(false);
         player.GetComponentInChildren<Camera>().GetComponent<MouseLook>().isStart = false;
-        GameObject.Find("StartButton").GetComponentInChildren<TextMeshProUGUI>().text = "Resume";
+        resumeButton.SetActive(true);
+        startButton.SetActive(false);
+        dialogueManager.GetComponentInChildren<UsageCase>().pause = true;
     }
 
     public void OnStartClick() {
         menu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
         // call msgSys
         dialogueManager.GetComponentInChildren<UsageCase>().StartDialog();
+        dialogueManager.GetComponentInChildren<UsageCase>().pause = false;
         // wait for msgSys finish
-        
+    }
+
+    public void OnResumeClick() {
+        menu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        dialogueManager.GetComponentInChildren<UsageCase>().pause = false;
     }
 
     public void OnSettingClick() {
@@ -117,7 +132,6 @@ public class gameMenu : MonoBehaviour
     }
 
     public void AfterIntroDialog() {
-        Cursor.lockState = CursorLockMode.Locked;
         aim.SetActive(true);
         dialogue.SetActive(false);
         player.GetComponentInChildren<Camera>().GetComponent<MouseLook>().isStart = true;

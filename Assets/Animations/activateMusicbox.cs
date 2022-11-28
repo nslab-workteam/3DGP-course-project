@@ -55,12 +55,15 @@ public class activateMusicbox : MonoBehaviour
                         Debug.Log("Play");
                         MusicboxCam.SetActive(true);
                         MainCam.SetActive(false);
+                        MusicboxCam.GetComponent<AudioListener>().enabled = true;
+                        MainCam.GetComponent<AudioListener>().enabled = false;
                         checkPlaying = true;
                         GetComponent<AudioSource>().Play();
                         handleAnimator.SetTrigger("musicboxStart");
                         catAnimator.SetTrigger("musicboxStart");
                         tmp_volume = GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume;
                         GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = 0.0f;
+                        GetComponent<Outline>().enabled = false;
                     }
                 }
             }
@@ -85,6 +88,8 @@ public class activateMusicbox : MonoBehaviour
 
                 MainCam.SetActive(true);
                 MusicboxCam.SetActive(false);
+                MusicboxCam.GetComponent<AudioListener>().enabled = false;
+                MainCam.GetComponent<AudioListener>().enabled = true;
                 GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = tmp_volume;
             }
         }
