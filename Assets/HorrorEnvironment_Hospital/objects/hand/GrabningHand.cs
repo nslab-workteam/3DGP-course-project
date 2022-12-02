@@ -10,7 +10,7 @@ public class GrabningHand : MonoBehaviour
     void Start()
     {
         //hand1 = GameObject.Find("PLAYER/charater1/mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg/mixamorig:LeftFoot");
-        hand2 = GameObject.Find("PLAYER/charater1/mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg/mixamorig:LeftFoot/mixamorig:LeftToeBase");
+        hand2 = GameObject.Find("Grabbing Hand");
         //hand1.SetActive(false);
         hand2.SetActive(false);
     }
