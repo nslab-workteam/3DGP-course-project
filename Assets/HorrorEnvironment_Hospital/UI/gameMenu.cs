@@ -18,6 +18,15 @@ public class gameMenu : MonoBehaviour
     private string breadcrum;
     private float volume = 0.5f;
 
+    //湘的
+    public int pageIndex = 0;
+    public UnityEngine.UI.Button PreviousPageBtn;
+    public UnityEngine.UI.Button NextPageBtn;
+    public GameObject UIRoomChar1;
+    public GameObject UIRoomChar2;
+    private GameObject SceneChar1;
+    private GameObject SceneChar2;
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +46,10 @@ public class gameMenu : MonoBehaviour
         dialogue.SetActive(false);
         player.GetComponentInChildren<Camera>().GetComponent<MouseLook>().isStart = false;
         player.GetComponent<PlayerMovement>().isStart = false;
+
+        //湘的
+        SceneChar1 = GameObject.Find("PLAYER/character1");
+        SceneChar2 = GameObject.Find("PLAYER/character2");
     }
 
     // Update is called once per frame
@@ -122,5 +135,69 @@ public class gameMenu : MonoBehaviour
         dialogue.SetActive(false);
         player.GetComponentInChildren<Camera>().GetComponent<MouseLook>().isStart = true;
         player.GetComponent<PlayerMovement>().isStart = true;
+    }
+
+    public void OnCharacterSelectionClick()
+    {
+        foreach (GameObject o in pages)
+        {
+            if (o.name == "CharacterPage")
+            {
+                o.SetActive(true);
+            }
+            else
+            {
+                o.SetActive(false);
+            }
+        }
+        //湘的
+        PreviousPageBtn.gameObject.SetActive(false);
+        UIRoomChar2.SetActive(false);
+    }
+
+    //湘的
+    public void OnNextButtonClick()
+    {
+        if (pageIndex == 0)
+        {
+            pageIndex = 1;
+            PreviousPageBtn.gameObject.SetActive(true);
+            NextPageBtn.gameObject.SetActive(false);
+            UIRoomChar2.SetActive(true);
+            UIRoomChar1.SetActive(false);
+            //設定場景中的character
+            SceneChar1.SetActive(false);
+            SceneChar2.SetActive(true);
+        }
+    }
+
+    public void OnPreviousButtonClick()
+    {
+        if (pageIndex == 1)
+        {
+            pageIndex = 0;
+            PreviousPageBtn.gameObject.SetActive(false);
+            NextPageBtn.gameObject.SetActive(true);
+            UIRoomChar2.SetActive(false);
+            UIRoomChar1.SetActive(true);
+            //設定場景中的character
+            SceneChar1.SetActive(true);
+            SceneChar2.SetActive(false);
+        }
+    }
+
+    public void OnDemoVideoClick()
+    {
+        foreach (GameObject o in pages)
+        {
+            if (o.name == "DemoVideoPage")
+            {
+                o.SetActive(true);
+            }
+            else
+            {
+                o.SetActive(false);
+            }
+        }
     }
 }
