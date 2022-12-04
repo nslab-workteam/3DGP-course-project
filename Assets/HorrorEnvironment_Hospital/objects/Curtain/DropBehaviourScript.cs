@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DropBehaviourScript : MonoBehaviour
+public class DropBehaviourScript : MonoBehaviour, GameMechanism
 {
     private GameObject watcher;
 
     public GameObject gravityManage;
+    public bool activated = false;
 
     private Animator[] temp;
     private Animator doorAnimator;
@@ -59,7 +60,16 @@ public class DropBehaviourScript : MonoBehaviour
         yield return new WaitForSeconds(2f);
         GetComponent<AudioSource>().PlayDelayed(0.5f);
         watcher.SetActive(true);
-
+        activated = true;
         //doorAnimator.SetTrigger("doorOpen");
+    }
+
+    public void Skip() {
+        watcher.SetActive(true);
+        gravityManage.SetActive(false);
+    }
+
+    public bool isActivated() {
+        return activated;
     }
 }

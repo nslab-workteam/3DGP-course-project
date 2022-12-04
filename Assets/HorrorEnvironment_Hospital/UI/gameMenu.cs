@@ -3,6 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.IO;
+
+enum Character {
+    BOY,
+    GIRL
+}
+
+enum GameProcess {
+    AnnieGhost = 0b1,
+    Curtain = 0b10,
+    MusicBox = 0b100,
+    Picture = 0b1000
+}
+
+class PlayerState {
+    public Vector3 playerPos;
+    public Quaternion rotation;
+    public Character usedCharater;
+    public int gameProcess;
+}
 
 public class gameMenu : MonoBehaviour
 {
@@ -17,8 +37,12 @@ public class gameMenu : MonoBehaviour
     public GameObject dialogueManager;
     public GameObject startButton;
     public GameObject resumeButton;
+    public GameObject LoadSaveCheck_Menu;
+    [Header("Game Process")]
+    public GameObject[] mechs;
     private string breadcrum = "None";
     private float volume = 0.5f;
+    private int stateSlot = 0;
 
 
     // Start is called before the first frame update
@@ -129,6 +153,7 @@ public class gameMenu : MonoBehaviour
                 o.SetActive(false);
             }
         }
+        LoadSaveCheck_Menu.SetActive(false);
     }
 
     public void AfterIntroDialog() {
@@ -136,5 +161,64 @@ public class gameMenu : MonoBehaviour
         dialogue.SetActive(false);
         player.GetComponentInChildren<Camera>().GetComponent<MouseLook>().isStart = true;
         player.GetComponent<PlayerMovement>().isStart = true;
+    }
+
+    public void OnSaveState(int index) {
+        LoadSaveCheck_Menu.SetActive(true);
+        stateSlot = index;
+    }
+
+    public void OnSaveClick() {
+        GameObject button = GameObject.Find("Record"+stateSlot);
+        TextMeshProUGUI textArea = button.GetComponentInChildren<TextMeshProUGUI>();
+        textArea.text = System.DateTime.Now.ToString();
+        // TODO: save json
+        PlayerState state = new PlayerState();
+        state.playerPos = player.transform.position;
+        state.rotation = player.transform.rotation;
+        state.gameProcess = GetGameProcess();
+        state.usedCharater = Character.GIRL;
+        string saveString = JsonUtility.ToJson(state);
+        StreamWriter sw = new StreamWriter(System.IO.Path.Combine(Application.streamingAssetsPath, "record" + stateSlot));
+        sw.Write(saveString);
+        sw.Close();
+
+        LoadSaveCheck_Menu.SetActive(false);
+    }
+
+    public void OnLoadClick() {
+        // TODO: load json
+        LoadSaveCheck_Menu.SetActive(false);
+    }
+
+    public void OnCancelSaveLoadClick() {
+        LoadSaveCheck_Menu.SetActive(false);
+    }
+
+    int GetGameProcess() {
+        int state = 0;
+        foreach(var m in mechs) {
+            if (m.name == "Annie Ghost") {
+                if (m.GetComponent<AnnieBehaviour>().isActivated()) {
+                    state = state | (int)GameProcess.AnnieGhost;
+                }
+            }
+            if (m.name == "curtain") {
+                if (m.GetComponent<DropBehaviourScript>().isActivated()) {
+                    state = state | (int)GameProcess.Curtain;
+                }
+            }
+            if (m.name == "MusicBox_Model") {
+                if (m.GetComponent<activateMusicbox>().isActivated()) {
+                    state = state | (int)GameProcess.MusicBox;
+                }
+            }
+            if (m.name == "Picture Variant") {
+                if (m.GetComponentInChildren<pictureFalling>().isActivated()) {
+                    state = state | (int)GameProcess.Picture;
+                }
+            }
+        }
+        return state;
     }
 }

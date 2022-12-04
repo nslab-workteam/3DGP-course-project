@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PostProcessing;
 
-public class AnnieBehaviour : MonoBehaviour
+public class AnnieBehaviour : MonoBehaviour, GameMechanism
 {
     public GameObject player;
     public GameObject ghost;
@@ -11,6 +11,7 @@ public class AnnieBehaviour : MonoBehaviour
     public GameObject fog;
     public AudioClip audio1;
     public AudioClip audio2;
+    public bool activated = false;
 
     private AnnieState state = AnnieState.Idle;
     private PostProcessingBehaviour vfx;
@@ -179,6 +180,16 @@ public class AnnieBehaviour : MonoBehaviour
     IEnumerator _FogOff() {
         yield return new WaitForSeconds(5f);
         fog.GetComponentInChildren<ParticleSystem>().Stop();
-        Destroy(this);
+        // Destroy(this);
+        activated = true;
+    }
+
+    public void Skip() {
+        GameObject.Find("Annie Ghost").SetActive(false);
+    }
+
+    public bool isActivated()
+    {
+        return activated;
     }
 }
