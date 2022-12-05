@@ -18,6 +18,7 @@ enum GameProcess {
 }
 
 class PlayerState {
+    public string timestamp;
     public Vector3 playerPos;
     public Quaternion rotation;
     public Character usedCharater;
@@ -154,6 +155,19 @@ public class gameMenu : MonoBehaviour
             }
         }
         LoadSaveCheck_Menu.SetActive(false);
+        for(int i=1; i<=6; i++) {
+            if (System.IO.File.Exists(System.IO.Path.Combine(Application.streamingAssetsPath, "record"+i))) {
+                StreamReader file = new StreamReader(System.IO.Path.Combine(Application.streamingAssetsPath, "record"+i));
+                string loadJson = file.ReadToEnd();
+                file.Close();
+                PlayerState state;
+                state = JsonUtility.FromJson<PlayerState>(loadJson);
+
+                GameObject button = GameObject.Find("Record"+i);
+                TextMeshProUGUI textArea = button.GetComponentInChildren<TextMeshProUGUI>();
+                textArea.text = state.timestamp;
+            }
+        }
     }
 
     public void AfterIntroDialog() {
@@ -174,20 +188,31 @@ public class gameMenu : MonoBehaviour
         textArea.text = System.DateTime.Now.ToString();
         // TODO: save json
         PlayerState state = new PlayerState();
+        state.timestamp = textArea.text;
         state.playerPos = player.transform.position;
         state.rotation = player.transform.rotation;
         state.gameProcess = GetGameProcess();
         state.usedCharater = Character.GIRL;
         string saveString = JsonUtility.ToJson(state);
-        StreamWriter sw = new StreamWriter(System.IO.Path.Combine(Application.streamingAssetsPath, "record" + stateSlot));
-        sw.Write(saveString);
-        sw.Close();
+        StreamWriter file = new StreamWriter(System.IO.Path.Combine(Application.streamingAssetsPath, "record" + stateSlot));
+        file.Write(saveString);
+        file.Close();
 
         LoadSaveCheck_Menu.SetActive(false);
     }
 
     public void OnLoadClick() {
         // TODO: load json
+        StreamReader file = new StreamReader(System.IO.Path.Combine(Application.streamingAssetsPath, "record"+stateSlot));
+        string loadJson = file.ReadToEnd();
+        file.Close();
+        PlayerState state;
+        state = JsonUtility.FromJson<PlayerState>(loadJson);
+        player.transform.position = state.playerPos;
+        player.transform.rotation = state.rotation;
+        RestoreGameProcess(state.gameProcess);
+        SetPlayerSkin(state.usedCharater);
+
         LoadSaveCheck_Menu.SetActive(false);
     }
 
@@ -220,5 +245,34 @@ public class gameMenu : MonoBehaviour
             }
         }
         return state;
+    }
+
+    void RestoreGameProcess(int process) {
+        foreach(var m in mechs) {
+            if (m.name == "Annie Ghost") {
+                if ((process & (int)GameProcess.AnnieGhost) != 0) {
+                    m.GetComponent<AnnieBehaviour>().Skip();
+                }
+            }
+            if (m.name == "curtain") {
+                if ((process & (int)GameProcess.Curtain) != 0) {
+                    m.GetComponent<DropBehaviourScript>().Skip();
+                }
+            }
+            if (m.name == "MusicBox_Model") {
+                if ((process & (int)GameProcess.MusicBox) != 0) {
+                    m.GetComponent<activateMusicbox>().Skip();
+                }
+            }
+            if (m.name == "Picture Variant") {
+                if ((process & (int)GameProcess.Picture) != 0) {
+                    m.GetComponentInChildren<pictureFalling>().Skip();
+                }
+            }
+        }
+    }
+
+    void SetPlayerSkin(Character c) {
+        // TODO
     }
 }
