@@ -26,6 +26,8 @@ public class gameMenu : MonoBehaviour
     public GameObject UIRoomChar2;
     private GameObject SceneChar1;
     private GameObject SceneChar2;
+    public GameObject[] CG;
+    private float LightIntensity = 0f;
 
 
     // Start is called before the first frame update
@@ -50,6 +52,8 @@ public class gameMenu : MonoBehaviour
         //湘的
         SceneChar1 = GameObject.Find("PLAYER/character1");
         SceneChar2 = GameObject.Find("PLAYER/character2");
+
+        SceneChar2.SetActive(false);
     }
 
     // Update is called once per frame
@@ -60,8 +64,11 @@ public class gameMenu : MonoBehaviour
             GamePause();
         }
 
-        // Volume slider update
-        pages[1].GetComponentInChildren<Slider>().SetValueWithoutNotify(volume);
+        //// Volume slider update
+        //pages[1].GetComponentInChildren<Slider>().SetValueWithoutNotify(volume);
+
+        //// Brightness slider update
+        //pages[1].GetComponentInChildren<Slider>().SetValueWithoutNotify(LightIntensity);
 
         // Check dialog finish
         if (dialogueManager.GetComponentInChildren<UsageCase>().isDialogFinish) {
@@ -110,6 +117,9 @@ public class gameMenu : MonoBehaviour
         foreach(GameObject s in SFX) {
             s.GetComponent<AudioSource>().volume = volume;
         }
+
+        // Volume slider update
+        pages[1].GetComponentsInChildren<Slider>()[0].SetValueWithoutNotify(volume);
     }
 
     public void OnVolumeDownClick() {
@@ -117,6 +127,9 @@ public class gameMenu : MonoBehaviour
         foreach(GameObject s in SFX) {
             s.GetComponent<AudioSource>().volume = volume;
         }
+
+        // Volume slider update
+        pages[1].GetComponentsInChildren<Slider>()[0].SetValueWithoutNotify(volume);
     }
 
     public void OnLoadSaveClick() {
@@ -133,7 +146,15 @@ public class gameMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         aim.SetActive(true);
         dialogue.SetActive(false);
-        player.GetComponentInChildren<Camera>().GetComponent<MouseLook>().isStart = true;
+
+        Camera[] temp = player.GetComponentsInChildren<Camera>();
+        if (SceneChar1.activeSelf)
+        {
+            temp[0].GetComponent<MouseLook>().isStart = true;
+        }
+        else {
+            temp[1].GetComponent<MouseLook>().isStart = true;
+        }
         player.GetComponent<PlayerMovement>().isStart = true;
     }
 
@@ -166,8 +187,8 @@ public class gameMenu : MonoBehaviour
             UIRoomChar2.SetActive(true);
             UIRoomChar1.SetActive(false);
             //設定場景中的character
-            SceneChar1.SetActive(false);
             SceneChar2.SetActive(true);
+            SceneChar1.SetActive(false);
         }
     }
 
@@ -199,5 +220,35 @@ public class gameMenu : MonoBehaviour
                 o.SetActive(false);
             }
         }
+    }
+
+    public void SetQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
+    }
+
+    public void OnBrightUpClick()
+    {
+        //volume = Mathf.Clamp(volume + 0.1f, 0f, 1f);
+        LightIntensity = Mathf.Clamp(LightIntensity+0.5f, 0f, 8f);
+        foreach (GameObject s in CG)
+        {
+            s.GetComponent<Light>().intensity = LightIntensity;
+        }
+
+        // Brightness slider update
+        pages[1].GetComponentsInChildren<Slider>()[1].SetValueWithoutNotify(LightIntensity);
+    }
+
+    public void OnBrightDownClick()
+    {
+        LightIntensity = Mathf.Clamp(LightIntensity - 0.5f, 0f, 8f);
+        foreach (GameObject s in CG)
+        {
+            s.GetComponent<Light>().intensity = LightIntensity;
+        }
+
+        // Brightness slider update
+        pages[1].GetComponentsInChildren<Slider>()[1].SetValueWithoutNotify(LightIntensity);
     }
 }

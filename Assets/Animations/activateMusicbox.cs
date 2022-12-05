@@ -19,6 +19,8 @@ public class activateMusicbox : MonoBehaviour
     public GameObject MainCam;
     public GameObject MusicboxCam;
 
+    public GameObject menu;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,55 +40,60 @@ public class activateMusicbox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ray ray;
-        RaycastHit hit;
 
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (Input.GetMouseButtonDown(0))
+        if (!menu) {
+            Ray ray;
+            RaycastHit hit;
+
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.collider.name);
-                if (hit.collider.name == "MusicBox_Model")
+                if (Input.GetMouseButtonDown(0))
                 {
-                    bool start = handleAnimator.GetBool("musicboxStart");
-                    if (!start)
+                    Debug.Log(hit.collider.name);
+                    if (hit.collider.name == "MusicBox_Model")
                     {
-                        Debug.Log("Play");
-                        MusicboxCam.SetActive(true);
-                        MainCam.SetActive(false);
-                        checkPlaying = true;
-                        GetComponent<AudioSource>().Play();
-                        handleAnimator.SetTrigger("musicboxStart");
-                        catAnimator.SetTrigger("musicboxStart");
-                        tmp_volume = GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume;
-                        GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = 0.0f;
+                        bool start = handleAnimator.GetBool("musicboxStart");
+                        if (!start)
+                        {
+                            Debug.Log("Play");
+                            MusicboxCam.SetActive(true);
+                            MainCam.SetActive(false);
+                            checkPlaying = true;
+                            GetComponent<AudioSource>().Play();
+                            handleAnimator.SetTrigger("musicboxStart");
+                            catAnimator.SetTrigger("musicboxStart");
+                            tmp_volume = GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume;
+                            GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = 0.0f;
+                        }
                     }
                 }
             }
-        }
-        if (checkPlaying) {
-            if (!GetComponent<AudioSource>().isPlaying) {
-                Debug.Log("Stop");
-                checkPlaying = false;
-                //����y�s�n
-                GetComponent<AudioSource>().clip = nextmp3;
-                GetComponent<AudioSource>().Play();
-                //���X��
-                ghost.SetActive(true);               
-                cat.SetActive(false);
-                //musicBoxCam.transform.position = Vector3.Lerp(musicBoxCam.transform.position, endPos, Time.deltaTime * 10);
-                musicBoxCam.transform.position = endPos;
+            if (checkPlaying)
+            {
+                if (!GetComponent<AudioSource>().isPlaying)
+                {
+                    Debug.Log("Stop");
+                    checkPlaying = false;
+                    //����y�s�n
+                    GetComponent<AudioSource>().clip = nextmp3;
+                    GetComponent<AudioSource>().Play();
+                    //���X��
+                    ghost.SetActive(true);
+                    cat.SetActive(false);
+                    //musicBoxCam.transform.position = Vector3.Lerp(musicBoxCam.transform.position, endPos, Time.deltaTime * 10);
+                    musicBoxCam.transform.position = endPos;
 
-                handleAnimator.ResetTrigger("musicboxStart");
-                catAnimator.ResetTrigger("musicboxStart");
-                handleAnimator.speed = 0;
-                catAnimator.speed = 0;
+                    handleAnimator.ResetTrigger("musicboxStart");
+                    catAnimator.ResetTrigger("musicboxStart");
+                    handleAnimator.speed = 0;
+                    catAnimator.speed = 0;
 
-                MainCam.SetActive(true);
-                MusicboxCam.SetActive(false);
-                GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = tmp_volume;
+                    MainCam.SetActive(true);
+                    MusicboxCam.SetActive(false);
+                    GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = tmp_volume;
+                }
             }
         }
-    }
+    }  
 }
