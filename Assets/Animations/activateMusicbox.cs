@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class activateMusicbox : MonoBehaviour
+public class activateMusicbox : MonoBehaviour, GameMechanism
 {
     private Animator[] temp;
     private Animator handleAnimator;
@@ -18,6 +18,7 @@ public class activateMusicbox : MonoBehaviour
 
     public GameObject MainCam;
     public GameObject MusicboxCam;
+    public bool activated = false;
 
     public GameObject menu;
 
@@ -48,7 +49,7 @@ public class activateMusicbox : MonoBehaviour
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && !activated)
                 {
                     Debug.Log(hit.collider.name);
                     if (hit.collider.name == "MusicBox_Model")
@@ -65,6 +66,7 @@ public class activateMusicbox : MonoBehaviour
                             catAnimator.SetTrigger("musicboxStart");
                             tmp_volume = GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume;
                             GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = 0.0f;
+                            GetComponent<Outline>().enabled = false;
                         }
                     }
                 }
@@ -88,12 +90,25 @@ public class activateMusicbox : MonoBehaviour
                     catAnimator.ResetTrigger("musicboxStart");
                     handleAnimator.speed = 0;
                     catAnimator.speed = 0;
+				}
+                activated = true;
 
-                    MainCam.SetActive(true);
-                    MusicboxCam.SetActive(false);
-                    GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = tmp_volume;
-                }
+                MainCam.SetActive(true);
+                MusicboxCam.SetActive(false);
+                MusicboxCam.GetComponent<AudioListener>().enabled = false;
+                MainCam.GetComponent<AudioListener>().enabled = true;
+                GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = tmp_volume;
             }
         }
-    }  
+    }
+
+    public void Skip() {
+        ghost.SetActive(true);
+        cat.SetActive(false);
+        activated = true;
+    }
+
+    public bool isActivated() {
+        return activated;
+    }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pictureFalling : MonoBehaviour
+public class pictureFalling : MonoBehaviour, GameMechanism
 {
     private GameObject cuteCatPic;
     public GameObject glass;
@@ -11,6 +11,7 @@ public class pictureFalling : MonoBehaviour
 
     private bool count = false;
     public float timer, interval;
+    public bool isClicked = false;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +35,7 @@ public class pictureFalling : MonoBehaviour
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !isClicked)
             {
                 Debug.Log(hit.collider.name);
                 if (hit.collider.name == "Picture" || hit.collider.name == "glass" || hit.collider.name == "cuteCatPic")
@@ -59,5 +60,24 @@ public class pictureFalling : MonoBehaviour
                 count = false;
             }
         }
+    }
+
+    public void Skip() {
+        picture.GetComponent<Rigidbody>().useGravity = true;
+        glass.GetComponent<Rigidbody>().useGravity = true;
+        timer += Time.deltaTime;
+        if (timer >= interval)
+        {
+            // crackGlass.GetComponent<AudioSource>().Play();
+            glass.SetActive(false);
+            crackGlass.SetActive(true);
+            cuteCatPic.SetActive(false);
+            timer = 0f;
+            count = false;
+        }
+    }
+
+    public bool isActivated() {
+        return isClicked;
     }
 }
