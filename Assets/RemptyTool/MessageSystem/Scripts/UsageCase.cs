@@ -102,6 +102,7 @@ public class UsageCase : MonoBehaviour
         // Debug.Log("isDialogFinish="+isDialogFinish);
         if (textIndex == textList.Count && textList.Count != 0 && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))) {
             isDialogFinish = true;
+            dialog.SetActive(false);
         }
     }
 }

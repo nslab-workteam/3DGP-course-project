@@ -17504,11 +17504,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFirstPerson: 1
---- !u!20 &487530666 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 2000000, guid: cb02e926568a7224ab8485770de84356, type: 3}
-  m_PrefabInstance: {fileID: 708323029}
+--- !u!114 &487530667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487530655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 22226d33871987348b36301047398593, type: 2}
 --- !u!4 &490727041 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8ffc42e4c3db82e45878fb94755c8359, type: 3}
@@ -38386,7 +38394,7 @@ RectTransform:
   m_Children:
   - {fileID: 1192481681}
   m_Father: {fileID: 1435985209}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -46413,7 +46421,7 @@ RectTransform:
   m_Children:
   - {fileID: 1560391575}
   m_Father: {fileID: 1435985209}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -55694,12 +55702,6 @@ MonoBehaviour:
   aim: {fileID: 609167382}
   dialogue: {fileID: 575644085}
   dialogueManager: {fileID: 79924289}
-  pageIndex: 0
-  PreviousPageBtn: {fileID: 1823461791}
-  NextPageBtn: {fileID: 1651935954}
-  UIRoomChar1: {fileID: 275233201}
-  UIRoomChar2: {fileID: 54262821}
-  CG: []
   startButton: {fileID: 1099512219}
   resumeButton: {fileID: 1406256147}
   LoadSaveCheck_Menu: {fileID: 1515958225}
@@ -55708,6 +55710,12 @@ MonoBehaviour:
   - {fileID: 1129474571}
   - {fileID: 1845158971}
   - {fileID: 947980143}
+  pageIndex: 0
+  PreviousPageBtn: {fileID: 1823461791}
+  NextPageBtn: {fileID: 1651935954}
+  UIRoomChar1: {fileID: 275233201}
+  UIRoomChar2: {fileID: 54262821}
+  CG: []
 --- !u!224 &1336784081
 RectTransform:
   m_ObjectHideFlags: 0
@@ -68575,6 +68583,10 @@ MonoBehaviour:
   aim: {fileID: 0}
   dialogue: {fileID: 0}
   dialogueManager: {fileID: 0}
+  startButton: {fileID: 0}
+  resumeButton: {fileID: 0}
+  LoadSaveCheck_Menu: {fileID: 0}
+  mechs: []
   pageIndex: 0
   PreviousPageBtn: {fileID: 1823461791}
   NextPageBtn: {fileID: 1651935954}
@@ -74772,6 +74784,10 @@ MonoBehaviour:
   aim: {fileID: 0}
   dialogue: {fileID: 0}
   dialogueManager: {fileID: 0}
+  startButton: {fileID: 0}
+  resumeButton: {fileID: 0}
+  LoadSaveCheck_Menu: {fileID: 0}
+  mechs: []
   pageIndex: 0
   PreviousPageBtn: {fileID: 1823461791}
   NextPageBtn: {fileID: 1651935954}
@@ -77726,6 +77742,7 @@ GameObject:
   - component: {fileID: 1899073848}
   - component: {fileID: 1899073846}
   - component: {fileID: 1899073845}
+  - component: {fileID: 1899073851}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -77838,6 +77855,19 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1899073851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899073843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 22226d33871987348b36301047398593, type: 2}
 --- !u!1001 &1899835819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79014,7 +79044,6 @@ Transform:
   - {fileID: 1649165192}
   - {fileID: 427553564}
   - {fileID: 1432168762}
-  - {fileID: 1621023388}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
