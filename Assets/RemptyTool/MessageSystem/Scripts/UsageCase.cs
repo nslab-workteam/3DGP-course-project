@@ -34,6 +34,7 @@ public class UsageCase : MonoBehaviour
             ReadTextDataFromAsset(textAssets[assetIndex++]);
             textIndex = 0;
             dialog.SetActive(true);
+            pause = false;
         }
     }
 
@@ -47,6 +48,7 @@ public class UsageCase : MonoBehaviour
             assetIndex = i + 1;
             textIndex = 0;
             dialog.SetActive(true);
+            pause = false;
         }
     }
 
@@ -103,6 +105,16 @@ public class UsageCase : MonoBehaviour
         if (textIndex == textList.Count && textList.Count != 0 && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))) {
             isDialogFinish = true;
             dialog.SetActive(false);
+            pause = true;
+            Cursor.lockState = CursorLockMode.Locked;
         }
+    }
+
+    public void SkipDialog() {
+        textIndex = textList.Count;
+        isDialogFinish = true;
+        dialog.SetActive(false);
+        pause = true;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

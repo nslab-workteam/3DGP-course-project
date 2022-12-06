@@ -83,6 +83,7 @@ public class gameMenu : MonoBehaviour
         SceneChar2 = GameObject.Find("PLAYER/character2");
 
         SceneChar2.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
     }
 
     // Update is called once per frame
@@ -119,7 +120,6 @@ public class gameMenu : MonoBehaviour
 
     public void OnStartClick() {
         menu.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
         // call msgSys
         dialogueManager.GetComponentInChildren<UsageCase>().StartDialog();
         dialogueManager.GetComponentInChildren<UsageCase>().pause = false;
