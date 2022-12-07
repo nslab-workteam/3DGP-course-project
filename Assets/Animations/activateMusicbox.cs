@@ -20,6 +20,7 @@ public class activateMusicbox : MonoBehaviour, GameMechanism
     public GameObject MusicboxCam;
     public bool activated = false;
 
+    private int usingChar;
     public GameObject menu;
 
     // Start is called before the first frame update
@@ -45,8 +46,13 @@ public class activateMusicbox : MonoBehaviour, GameMechanism
         Ray ray;
         RaycastHit hit;
 
+        usingChar = GameObject.Find("UIManager").GetComponent<gameMenu>().usingChar;
+        MainCam = GameObject.Find("PLAYER/character"+usingChar+"/Main Camera");
+
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
+
+        Debug.DrawRay(ray.origin, ray.direction * 3f);
+        if (Physics.Raycast(ray, out hit, 3f))
         {
             if (Input.GetMouseButtonDown(0) && !activated)
             {
@@ -101,14 +107,15 @@ public class activateMusicbox : MonoBehaviour, GameMechanism
                 MusicboxCam.GetComponent<AudioListener>().enabled = false;
                 MainCam.GetComponent<AudioListener>().enabled = true;
                 GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = tmp_volume;
-            }
-            activated = true;
 
-            MainCam.SetActive(true);
-            MusicboxCam.SetActive(false);
-            MusicboxCam.GetComponent<AudioListener>().enabled = false;
-            MainCam.GetComponent<AudioListener>().enabled = true;
-            GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = tmp_volume;
+                activated = true;
+
+                MainCam.SetActive(true);
+                MusicboxCam.SetActive(false);
+                MusicboxCam.GetComponent<AudioListener>().enabled = false;
+                MainCam.GetComponent<AudioListener>().enabled = true;
+                GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = tmp_volume;
+            }
         }
     }
 
