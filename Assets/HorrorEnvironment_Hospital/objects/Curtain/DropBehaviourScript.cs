@@ -39,8 +39,6 @@ public class DropBehaviourScript : MonoBehaviour, GameMechanism
                     gravityManage.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                     gravityManage.GetComponent<Rigidbody>().useGravity = true;
                     StartCoroutine(watcherPopUp());
-
-                    doorAnimator.SetTrigger("doorOpen");
                 }
             }
         }
@@ -61,7 +59,6 @@ public class DropBehaviourScript : MonoBehaviour, GameMechanism
         GetComponent<AudioSource>().PlayDelayed(0.5f);
         watcher.SetActive(true);
         activated = true;
-        //doorAnimator.SetTrigger("doorOpen");
     }
 
     public void Skip() {
