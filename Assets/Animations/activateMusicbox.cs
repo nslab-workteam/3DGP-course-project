@@ -62,6 +62,9 @@ public class activateMusicbox : MonoBehaviour, GameMechanism
                     {
                         Debug.Log("Play musicbox");
                         MusicboxCam.SetActive(true);
+                        MusicboxCam.tag = "MainCamera";
+                        MusicboxCam.GetComponent<AudioListener>().enabled = true;
+                        MainCam.GetComponent<AudioListener>().enabled = false;
                         MainCam.SetActive(false);
                         checkPlaying = true;
                         GetComponent<AudioSource>().Play();
@@ -69,7 +72,6 @@ public class activateMusicbox : MonoBehaviour, GameMechanism
                         catAnimator.SetTrigger("musicboxStart");
                         tmp_volume = GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume;
                         GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = 0.0f;
-                        GetComponent<Outline>().enabled = false;
                         Debug.Log("End of musicbox");
                     }
                 }
@@ -97,6 +99,7 @@ public class activateMusicbox : MonoBehaviour, GameMechanism
 
                 activated = true;
 
+                MusicboxCam.tag = "Untagged";
                 MainCam.SetActive(true);
                 MusicboxCam.SetActive(false);
                 MusicboxCam.GetComponent<AudioListener>().enabled = false;

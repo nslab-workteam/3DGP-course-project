@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class OutlineControl : MonoBehaviour
 {
-    public Camera mainCam;
     public GameObject[] objects;
 
     // Start is called before the first frame update
@@ -19,7 +18,7 @@ public class OutlineControl : MonoBehaviour
     void Update()
     {
         RaycastHit hit;
-        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 3f)) {
             foreach (GameObject o in objects) {
                 if (hit.collider.name == o.name)
