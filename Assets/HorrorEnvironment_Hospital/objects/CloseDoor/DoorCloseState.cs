@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorIdle : StateMachineBehaviour
+public class DoorCloseState : StateMachineBehaviour
 {
-    public GameObject floor;
-    public GameObject curtain;
+    GameObject curtain;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        curtain = GameObject.Find("curtain");
+    }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       
+        if (curtain.GetComponent<DropBehaviourScript>().isActivated())
+        {
+            animator.SetTrigger("doorOpen");
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

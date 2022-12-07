@@ -17402,7 +17402,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 475670552}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e42e127618d58b46b7d47f02548780a, type: 3}
   m_Name: 
@@ -18798,6 +18798,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1048776413}
     m_Modifications:
+    - target: {fileID: 100000, guid: 27e6949f6248bbe4aa353a53f0863fbd, type: 3}
+      propertyPath: m_Name
+      value: doors_A_can_close
+      objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 27e6949f6248bbe4aa353a53f0863fbd, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -55308,6 +55312,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1300428322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300428314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4619e409df3338d42a41db77ba85ff5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1302546368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58615,6 +58631,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1048776413}
     m_Modifications:
+    - target: {fileID: 100000, guid: 488f0a72079744143aaa5b713e99c99e, type: 3}
+      propertyPath: m_Name
+      value: floorPlaneTrigger
+      objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 488f0a72079744143aaa5b713e99c99e, type: 3}
       propertyPath: m_Layer
       value: 10
