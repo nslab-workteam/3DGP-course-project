@@ -21,8 +21,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
-    Animator[] player;
-    Animator mPlayer;
+    Animator player;
 
     Vector3 idleCamPos;
     Vector3 movingCamPos;
@@ -31,20 +30,16 @@ public class PlayerMovement : MonoBehaviour
     GameObject mainCamera;
     float walkingParam = 0.0f;
 
-    gameMenu gMenu;
-
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        player = GetComponentsInChildren<Animator>();
-        mPlayer = player[0];
+        player = GetComponentInChildren<Animator>();
         idleCamPos = new Vector3(0.15f, 1.296f, 0.303f);
         movingCamPos = new Vector3(0.078f, 0.843f, 0.423f);
         mainCamera = GameObject.Find("Main Camera");
         moveSpeed = maxWalkSpeed;
-        gMenu = GameObject.Find("UIManager").GetComponent<gameMenu>();
     }
 
     void MyInput() {
@@ -56,25 +51,25 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.right * verticalInput - orientation.forward * horizontalInput;
 
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f);
-        mPlayer.SetFloat("Walk", Mathf.Lerp(mPlayer.GetFloat("Walk"), walkingParam, Time.deltaTime * 10));
+        player.SetFloat("Walk", Mathf.Lerp(player.GetFloat("Walk"), walkingParam, Time.deltaTime * 10));
 
 
         if (verticalInput == 0 && horizontalInput == 0) {
             // rb.velocity = Vector3.zero;
             RaycastHit hit;
             bool grounded = Physics.Raycast(transform.position, Vector3.down, out hit, 0.3f);
-            mPlayer.SetBool("isWalk", false);
+            player.SetBool("isWalk", false);
             walkingParam = 0.0f;
             if (grounded)
                 rb.drag = staticDrag;
             else
                 rb.drag = 0.5f;
         }else if(horizontalInput < 0){
-            mPlayer.SetBool("isWalk", true);
+            player.SetBool("isWalk", true);
             walkingParam = -1.0f;
             rb.drag = 0.5f;
         } else {
-            mPlayer.SetBool("isWalk", true);
+            player.SetBool("isWalk", true);
             walkingParam = 1.0f;
             rb.drag = 0.5f;
         }
@@ -96,10 +91,10 @@ public class PlayerMovement : MonoBehaviour
     void CheckCrouch() {
         if (Input.GetKey(KeyCode.LeftControl)) {
             mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, movingCamPos, 20 * Time.deltaTime);
-            mPlayer.SetBool("isCrouch", true);
+            player.SetBool("isCrouch", true);
         } else {
             mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, idleCamPos, 20 * Time.deltaTime);
-            mPlayer.SetBool("isCrouch", false);
+            player.SetBool("isCrouch", false);
         }
     }
 
@@ -116,7 +111,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (!isStart) return;
-        mPlayer = player[gMenu.usingChar-1];
         CheckCrouch();
         CheckSprint();
         MyInput();
@@ -127,4 +121,17 @@ public class PlayerMovement : MonoBehaviour
         if (!isStart) return;
         MovePlayer();
     }
+
+    // void OnCollisionEnter(Collider other) {
+    //     if (other.gameObject.tag != "GROUND") {
+    //         RaycastHit hit;
+    //         bool grounded = Physics.Raycast(transform.position, Vector3.down, out hit);
+    //         if (hit.collider.tag == "GROUND") {
+    //             Vector3 ground_pos = hit.collider.transform.position;
+    //             Vector3 ground_player_pos = transform.position;
+    //             ground_player_pos.y = ground_pos.y;
+    //             transform.position = Vector3.Lerp(transform.position, ground_player_pos, Time.deltaTime);
+    //         }
+    //     }
+    // }
 }

@@ -5,6 +5,11 @@ using TMPro;
 using UnityEngine.UI;
 using System.IO;
 
+enum Character {
+    BOY,
+    GIRL
+}
+
 enum GameProcess {
     AnnieGhost = 0b1,
     Curtain = 0b10,
@@ -16,7 +21,7 @@ class PlayerState {
     public string timestamp;
     public Vector3 playerPos;
     public Quaternion rotation;
-    public int usedCharater;
+    public Character usedCharater;
     public int gameProcess;
 }
 
@@ -34,7 +39,6 @@ public class gameMenu : MonoBehaviour
     public GameObject startButton;
     public GameObject resumeButton;
     public GameObject LoadSaveCheck_Menu;
-
     [Header("Game Process")]
     public GameObject[] mechs;
     private string breadcrum = "None";
@@ -49,13 +53,8 @@ public class gameMenu : MonoBehaviour
     public GameObject UIRoomChar2;
     private GameObject SceneChar1;
     private GameObject SceneChar2;
-    public int usingChar;
     public GameObject[] CG;
     private float LightIntensity = 0f;
-
-    // character camera
-    GameObject cam1;
-    GameObject cam2;
 
 
     // Start is called before the first frame update
@@ -83,10 +82,6 @@ public class gameMenu : MonoBehaviour
         SceneChar1 = GameObject.Find("PLAYER/character1");
         SceneChar2 = GameObject.Find("PLAYER/character2");
 
-        cam1 = GameObject.Find("PLAYER/character1/Main Camera");
-        cam2 = GameObject.Find("PLAYER/character2/Main Camera");
-
-        usingChar = 1;
         SceneChar2.SetActive(false);
         Cursor.lockState = CursorLockMode.None;
     }
@@ -204,12 +199,14 @@ public class gameMenu : MonoBehaviour
     public void AfterIntroDialog() {
         aim.SetActive(true);
         dialogue.SetActive(false);
+
+        Camera[] temp = player.GetComponentsInChildren<Camera>();
         if (SceneChar1.activeSelf)
         {
-            cam1.GetComponent<MouseLook>().isStart = true;
+            temp[0].GetComponent<MouseLook>().isStart = true;
         }
         else {
-            cam2.GetComponent<MouseLook>().isStart = true;
+            temp[1].GetComponent<MouseLook>().isStart = true;
         }
         player.GetComponent<PlayerMovement>().isStart = true;
     }
@@ -245,7 +242,6 @@ public class gameMenu : MonoBehaviour
             //�]�w��������character
             SceneChar2.SetActive(true);
             SceneChar1.SetActive(false);
-            usingChar = 2;
         }
     }
 
@@ -261,7 +257,6 @@ public class gameMenu : MonoBehaviour
             //�]�w��������character
             SceneChar1.SetActive(true);
             SceneChar2.SetActive(false);
-            usingChar = 1;
         }
     }
 
@@ -295,7 +290,7 @@ public class gameMenu : MonoBehaviour
         state.playerPos = player.transform.position;
         state.rotation = player.transform.rotation;
         state.gameProcess = GetGameProcess();
-        state.usedCharater = usingChar;
+        state.usedCharater = Character.GIRL;
         string saveString = JsonUtility.ToJson(state);
         StreamWriter file = new StreamWriter(System.IO.Path.Combine(Application.streamingAssetsPath, "record" + stateSlot));
         file.Write(saveString);
@@ -404,7 +399,7 @@ public class gameMenu : MonoBehaviour
         pages[1].GetComponentsInChildren<Slider>()[1].SetValueWithoutNotify(LightIntensity);
     }
     
-    void SetPlayerSkin(int c) {
+    void SetPlayerSkin(Character c) {
         // TODO
     }
 }
