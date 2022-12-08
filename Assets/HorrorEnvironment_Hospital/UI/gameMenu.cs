@@ -46,7 +46,7 @@ public class gameMenu : MonoBehaviour
     private int stateSlot = 0;
 
     //��
-    public int pageIndex = 0;
+    public int CharPageIndex = 0;
     public UnityEngine.UI.Button PreviousPageBtn;
     public UnityEngine.UI.Button NextPageBtn;
     public GameObject UIRoomChar1;
@@ -232,9 +232,9 @@ public class gameMenu : MonoBehaviour
     //��
     public void OnNextButtonClick()
     {
-        if (pageIndex == 0)
+        if (CharPageIndex == 0)
         {
-            pageIndex = 1;
+            CharPageIndex = 1;
             PreviousPageBtn.gameObject.SetActive(true);
             NextPageBtn.gameObject.SetActive(false);
             UIRoomChar2.SetActive(true);
@@ -247,9 +247,9 @@ public class gameMenu : MonoBehaviour
 
     public void OnPreviousButtonClick()
     {
-        if (pageIndex == 1)
+        if (CharPageIndex == 1)
         {
-            pageIndex = 0;
+            CharPageIndex = 0;
             PreviousPageBtn.gameObject.SetActive(false);
             NextPageBtn.gameObject.SetActive(true);
             UIRoomChar2.SetActive(false);
