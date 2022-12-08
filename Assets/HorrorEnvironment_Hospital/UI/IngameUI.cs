@@ -1,14 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
+public enum ObjectToPick {
+    scissors,
+    doll,
+    pass_case,
+    glove,
+    magnifier,
+    pillow,
+    liquid,
+    records,
+    formula
+}
 
 public class IngameUI : MonoBehaviour
 {
     public GameObject inGameUI;
     public GameObject[] inGameUIPages;
     public GameObject backpack;
+    public Sprite[] imageList;
+    public GameObject[] slotButtons;
     PlayerMovement playerMovement;
     bool isBackpackOpened = false;
+    int slotPointer = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +53,15 @@ public class IngameUI : MonoBehaviour
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = true;
                 playerMovement.isStart = true;
             }
+        }
+    }
+
+    public void pickUp(ObjectToPick pick) {
+        slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[(int)pick];
+        switch(pick) {
+            case ObjectToPick.scissors:
+                 
+                break;
         }
     }
 }
