@@ -14468,6 +14468,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ffc42e4c3db82e45878fb94755c8359, type: 3}
+--- !u!1 &378836150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 082d975eb5e145c4f8a2ddd550436c2d, type: 3}
+  m_PrefabInstance: {fileID: 1083108390}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &381287637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27287,7 +27292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cb02e926568a7224ab8485770de84356, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cb02e926568a7224ab8485770de84356, type: 3}
       propertyPath: m_LocalPosition.x
@@ -42408,6 +42413,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 4bb27e69e5844ad41a212b7ae2a3db1e, type: 3}
   m_PrefabInstance: {fileID: 600381411}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1081774014 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 082d975eb5e145c4f8a2ddd550436c2d, type: 3}
+  m_PrefabInstance: {fileID: 1563150618}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1082456186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43866,6 +43876,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf73b7fd575bef46b3da30a0d0686d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Char1Hand: {fileID: 378836150}
+  Char2Hand: {fileID: 1081774014}
 --- !u!4 &1111757014 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: aeea0b19e5fc2f645a32d9adf42caf4d, type: 3}
@@ -57113,7 +57125,7 @@ MonoBehaviour:
   - {fileID: 1129474571}
   - {fileID: 1845158971}
   - {fileID: 947980143}
-  pageIndex: 0
+  CharPageIndex: 0
   PreviousPageBtn: {fileID: 1823461791}
   NextPageBtn: {fileID: 1651935954}
   UIRoomChar1: {fileID: 275233201}
@@ -70336,6 +70348,7 @@ GameObject:
   - component: {fileID: 1651935957}
   - component: {fileID: 1651935955}
   - component: {fileID: 1651935954}
+  - component: {fileID: 1651935959}
   m_Layer: 5
   m_Name: NextButton
   m_TagString: Untagged
@@ -70481,7 +70494,7 @@ MonoBehaviour:
   resumeButton: {fileID: 0}
   LoadSaveCheck_Menu: {fileID: 0}
   mechs: []
-  pageIndex: 0
+  CharPageIndex: 0
   PreviousPageBtn: {fileID: 1823461791}
   NextPageBtn: {fileID: 1651935954}
   UIRoomChar1: {fileID: 275233201}
@@ -76688,6 +76701,7 @@ GameObject:
   - component: {fileID: 1823461793}
   - component: {fileID: 1823461792}
   - component: {fileID: 1823461791}
+  - component: {fileID: 1823461794}
   m_Layer: 5
   m_Name: PreviousButton
   m_TagString: Untagged
@@ -76833,7 +76847,7 @@ MonoBehaviour:
   resumeButton: {fileID: 0}
   LoadSaveCheck_Menu: {fileID: 0}
   mechs: []
-  pageIndex: 0
+  CharPageIndex: 0
   PreviousPageBtn: {fileID: 1823461791}
   NextPageBtn: {fileID: 1651935954}
   UIRoomChar1: {fileID: 275233201}
