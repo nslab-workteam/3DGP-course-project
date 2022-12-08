@@ -56,6 +56,7 @@ public class gameMenu : MonoBehaviour
     // character camera
     GameObject cam1;
     GameObject cam2;
+    GameObject inGameUi;
 
 
     // Start is called before the first frame update
@@ -78,6 +79,7 @@ public class gameMenu : MonoBehaviour
         startButton.SetActive(true);
         player.GetComponentInChildren<Camera>().GetComponent<MouseLook>().isStart = false;
         player.GetComponent<PlayerMovement>().isStart = false;
+        inGameUi = GameObject.Find("InGameUI");
 
         //��
         SceneChar1 = GameObject.Find("PLAYER/character1");
@@ -108,7 +110,7 @@ public class gameMenu : MonoBehaviour
 
         // Check dialog finish
         if (dialogueManager.GetComponentInChildren<UsageCase>().isDialogFinish) {
-            Debug.Log("AfterIntroDialog");
+            // Debug.Log("AfterIntroDialog");
             AfterIntroDialog();
             dialogueManager.GetComponentInChildren<UsageCase>().isDialogFinish = false;
         }
@@ -126,6 +128,7 @@ public class gameMenu : MonoBehaviour
 
     public void OnStartClick() {
         menu.SetActive(false);
+        inGameUi.SetActive(false);
         // call msgSys
         dialogueManager.GetComponentInChildren<UsageCase>().StartDialog();
         dialogueManager.GetComponentInChildren<UsageCase>().pause = false;
