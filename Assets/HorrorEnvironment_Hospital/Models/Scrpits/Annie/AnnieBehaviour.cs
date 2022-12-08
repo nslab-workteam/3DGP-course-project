@@ -36,6 +36,8 @@ public class AnnieBehaviour : MonoBehaviour, GameMechanism
     // Update is called once per frame
     void Update()
     {
+        myCamera = GameObject.FindGameObjectWithTag("MainCamera");
+
         sound.transform.position = ghost.transform.position;
 
         switch(state) {
