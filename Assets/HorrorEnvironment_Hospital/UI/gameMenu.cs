@@ -128,7 +128,6 @@ public class gameMenu : MonoBehaviour
 
     public void OnStartClick() {
         menu.SetActive(false);
-        inGameUi.SetActive(false);
         // call msgSys
         dialogueManager.GetComponentInChildren<UsageCase>().StartDialog();
         dialogueManager.GetComponentInChildren<UsageCase>().pause = false;
