@@ -82,7 +82,7 @@ public class IngameUI : MonoBehaviour
 
     public void OnSlot1Click() 
     {
-        if (slotButtons[0].GetComponent<Image>().sprite == null)    //ªÅªº¡AÁÙªF¦è
+        if (slotButtons[0].GetComponent<Image>().sprite == null)    //ï¿½Åªï¿½ï¿½Aï¿½ÙªFï¿½ï¿½
         {
             if (holdObject.GetComponent<Image>().sprite != null)
             {
@@ -105,14 +105,14 @@ public class IngameUI : MonoBehaviour
             }
         }
         else
-        { //®³ªF¦è
+        { //ï¿½ï¿½ï¿½Fï¿½ï¿½
             
         }
     }
 
     public void OnSlot2Click()
     {
-        //ªÅªº¡AÁÙªF¦è
+        //ï¿½Åªï¿½ï¿½Aï¿½ÙªFï¿½ï¿½
         if (slotButtons[1].GetComponent<Image>().sprite == null)
         {
             if (holdObject.GetComponent<Image>().sprite != null)
