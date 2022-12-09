@@ -76,50 +76,38 @@ public class IngameUI : MonoBehaviour
     }
 
     public void OnBackClick()
-    { 
-        
+    {
+
     }
 
-    public void OnSlot1Click() 
-    {
-        if (slotButtons[0].GetComponent<Image>().sprite == null)    //�Ū��A�٪F��
-        {
-            if (holdObject.GetComponent<Image>().sprite != null)
-            {
-                slotButtons[0].GetComponent<Image>().sprite = holdObject.GetComponent<Image>().sprite;
-                holdObject.GetComponent<Image>().sprite = null;
-            }
-        }
-        else if (slotButtons[0].GetComponent<Image>().sprite == "PaperStack")
-        {
-            foreach (GameObject o in inGameUIPages)
-            {
-                if (o.name == "MedicalRecordPage")
-                {
-                    o.SetActive(true);
-                }
-                else
-                {
-                    o.SetActive(false);
-                }
-            }
-        }
-        else
-        { //���F��
-            
-        }
-    }
+    //public void OnSlot1Click() 
+    //{
+    //    if (slotButtons[0].GetComponent<Image>().sprite == null)    //�Ū��A�٪F��
+    //    {
+    //        if (holdObject.GetComponent<Image>().sprite != null)
+    //        {
+    //            slotButtons[0].GetComponent<Image>().sprite = holdObject.GetComponent<Image>().sprite;
+    //            holdObject.GetComponent<Image>().sprite = null;
+    //        }
+    //    }
+    //    else if (slotButtons[0].GetComponent<Image>().sprite == "PaperStack")
+    //    {
+    //        foreach (GameObject o in inGameUIPages)
+    //        {
+    //            if (o.name == "MedicalRecordPage")
+    //            {
+    //                o.SetActive(true);
+    //            }
+    //            else
+    //            {
+    //                o.SetActive(false);
+    //            }
+    //        }
+    //    }
+    //    else
+    //    { //���F��
 
-    public void OnSlot2Click()
-    {
-        //�Ū��A�٪F��
-        if (slotButtons[1].GetComponent<Image>().sprite == null)
-        {
-            if (holdObject.GetComponent<Image>().sprite != null)
-            {
-                slotButtons[1].GetComponent<Image>().sprite = holdObject.GetComponent<Image>().sprite;
-                holdObject.GetComponent<Image>().sprite = null;
-            }
-        }
-    }
+    //    }
+    //}
+
 }
