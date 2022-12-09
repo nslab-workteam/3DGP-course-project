@@ -25,6 +25,7 @@ public class IngameUI : MonoBehaviour
     PlayerMovement playerMovement;
     bool isBackpackOpened = false;
     int slotPointer = 0;
+    int recordPagePointer = 1;
 
     public GameObject holdObject;
 
@@ -70,44 +71,63 @@ public class IngameUI : MonoBehaviour
         slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[(int)pick];
         switch(pick) {
             case ObjectToPick.scissors:
-                 
+                break;
+            case ObjectToPick.records:
+                Button.ButtonClickedEvent recordsEvent = new Button.ButtonClickedEvent();
+                recordsEvent.AddListener(() => {
+                    foreach (GameObject o in inGameUIPages)
+                    {
+                        if (o.name == "MedicalRecordPage")
+                        {
+                            o.SetActive(true);
+                        }
+                        else
+                        {
+                            o.SetActive(false);
+                        }
+                    }
+                });
+                slotButtons[slotPointer].GetComponent<Button>().onClick = recordsEvent;
                 break;
         }
     }
 
-    public void OnBackClick()
-    {
-
+    public void OnRecordNextClick() {
+        recordPagePointer++;
+        if (recordPagePointer > 3) {
+            recordPagePointer = 1;
+        }
+        for(int i=1; i<3; i++) {
+            GameObject.Find("Page"+i).GetComponent<Image>().enabled = true;
+        }
+        for(int i=1; i<recordPagePointer; i++) {
+            GameObject.Find("Page"+i).GetComponent<Image>().enabled = false;
+        }
     }
 
-    //public void OnSlot1Click() 
-    //{
-    //    if (slotButtons[0].GetComponent<Image>().sprite == null)    //�Ū��A�٪F��
-    //    {
-    //        if (holdObject.GetComponent<Image>().sprite != null)
-    //        {
-    //            slotButtons[0].GetComponent<Image>().sprite = holdObject.GetComponent<Image>().sprite;
-    //            holdObject.GetComponent<Image>().sprite = null;
-    //        }
-    //    }
-    //    else if (slotButtons[0].GetComponent<Image>().sprite == "PaperStack")
-    //    {
-    //        foreach (GameObject o in inGameUIPages)
-    //        {
-    //            if (o.name == "MedicalRecordPage")
-    //            {
-    //                o.SetActive(true);
-    //            }
-    //            else
-    //            {
-    //                o.SetActive(false);
-    //            }
-    //        }
-    //    }
-    //    else
-    //    { //���F��
+    public void OnRecordPreviousClick() {
+        recordPagePointer--;
+        if (recordPagePointer < 1) {
+            recordPagePointer = 3;
+        }
+        for(int i=1; i<3; i++) {
+            GameObject.Find("Page"+i).GetComponent<Image>().enabled = true;
+        }
+        for(int i=1; i<recordPagePointer; i++) {
+            GameObject.Find("Page"+i).GetComponent<Image>().enabled = false;
+        }
+    }
 
-    //    }
-    //}
+    public void OnRecordBackClick()
+    {
+        foreach (GameObject o in inGameUIPages)
+        {
+            o.SetActive(false);
+        }
+        Cursor.lockState = CursorLockMode.Locked;
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = true;
+        playerMovement.isStart = true;
+        isBackpackOpened = false;
+    }
 
 }

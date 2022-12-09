@@ -26011,9 +26011,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1336784080}
-        m_TargetAssemblyTypeName: gameMenu, Assembly-CSharp
-        m_MethodName: OnBackClick
+      - m_Target: {fileID: 1948518573}
+        m_TargetAssemblyTypeName: IngameUI, Assembly-CSharp
+        m_MethodName: OnRecordBackClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -43410,7 +43410,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1421709052}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -4.458}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -60197,7 +60197,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1355294720}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1948518573}
+        m_TargetAssemblyTypeName: IngameUI, Assembly-CSharp
+        m_MethodName: OnRecordNextClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1355294720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62425,9 +62437,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 677557078}
-  - {fileID: 1729645653}
-  - {fileID: 238961578}
   - {fileID: 1079355034}
+  - {fileID: 238961578}
+  - {fileID: 1729645653}
   - {fileID: 1355294718}
   - {fileID: 1996719290}
   m_Father: {fileID: 1106182602}
@@ -75928,15 +75940,15 @@ RectTransform:
   m_GameObject: {fileID: 1729645652}
   m_LocalRotation: {x: -0, y: -0, z: 0.028655414, w: 0.9995894}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8.545814, y: 8.644075, z: 2.0339}
+  m_LocalScale: {x: 8.545815, y: 8.644075, z: 2.0339}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1421709052}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.284}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.871024, y: -5.3425}
+  m_AnchoredPosition: {x: -10.871094, y: -5.3425}
   m_SizeDelta: {x: 78.2575, y: 110.685}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1729645654
@@ -83855,7 +83867,7 @@ MonoBehaviour:
   - {fileID: 1701236363}
   - {fileID: 450202061}
   - {fileID: 2053879401}
-  holdObject: {fileID: 1664114037}
+  holdObject: {fileID: 0}
 --- !u!1001 &1948979630
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85715,7 +85727,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1996719292}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1948518573}
+        m_TargetAssemblyTypeName: IngameUI, Assembly-CSharp
+        m_MethodName: OnRecordPreviousClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1996719292
 MonoBehaviour:
   m_ObjectHideFlags: 0
