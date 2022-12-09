@@ -10,6 +10,7 @@ public class CopyParticle : MonoBehaviour
     void Start()
     {
         original_pos = particle.transform.position;
+        particle.SetActive(false);
     }
 
     // Update is called once per frame
@@ -18,8 +19,10 @@ public class CopyParticle : MonoBehaviour
         
     }
 
-    void AddMoreLiquid(Color color) {
+    public void AddMoreLiquid(Color color) {
         GameObject _particle = Instantiate(particle, original_pos, Quaternion.identity);
+        _particle.SetActive(true);
+        _particle.GetComponent<SpriteRenderer>().enabled = true;
         _particle.GetComponent<SpriteRenderer>().color = color;
         for(int i=0; i<32; i++) {
             Instantiate(_particle,
