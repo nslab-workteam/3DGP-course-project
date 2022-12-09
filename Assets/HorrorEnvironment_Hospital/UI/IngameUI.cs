@@ -57,7 +57,7 @@ public class IngameUI : MonoBehaviour
     }
 
     public void pickUp(ObjectToPick pick) {
-        slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[(int)pick];
+        slotButtons[slotPointer++].GetComponent<Image>().sprite = imageList[(int)pick];
         switch(pick) {
             case ObjectToPick.scissors:
                  
