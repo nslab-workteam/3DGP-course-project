@@ -22,10 +22,15 @@ public class IngameUI : MonoBehaviour
     public GameObject backpack;
     public Sprite[] imageList;
     public GameObject[] slotButtons;
+    public GameObject liquidSimulator;
     PlayerMovement playerMovement;
     bool isBackpackOpened = false;
     int slotPointer = 0;
     int recordPagePointer = 1;
+    int[] pourTimesLimit = {3, 1, 2, 4, 6, 2, 3, 3, 5, 1};
+    int[] pourTimes;
+    int totalPourTimes = 0;
+    GameObject beaker;
 
     public GameObject holdObject;
 
@@ -36,6 +41,8 @@ public class IngameUI : MonoBehaviour
         foreach(GameObject o in inGameUIPages) {
             o.SetActive(false);
         }
+        pourTimes = new int[10];
+        beaker = GameObject.Find("Beaker");
     }
 
     // Update is called once per frame
@@ -128,6 +135,52 @@ public class IngameUI : MonoBehaviour
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = true;
         playerMovement.isStart = true;
         isBackpackOpened = false;
+    }
+
+    public void PourPotion(int n) {
+        if (n == 1 || n == 3 || n == 5) {
+            liquidSimulator.GetComponent<CopyParticle>().AddMoreLiquid(Color.red);
+        } else if (n == 2 || n == 4 || n == 6) {
+            liquidSimulator.GetComponent<CopyParticle>().AddMoreLiquid(Color.blue);
+        } else if (n == 7 || n == 9) {
+            liquidSimulator.GetComponent<CopyParticle>().AddMoreLiquid(Color.green);
+        } else {
+            liquidSimulator.GetComponent<CopyParticle>().AddMoreLiquid(new Color(255f, 135f, 0f));
+        }
+        pourTimes[n-1]++;
+        int count = 0;
+        for(int i=0; i<10; i++) {
+            if (pourTimesLimit[i] != pourTimes[i])
+                break;
+            else
+                count++;
+        }
+        if (count == 10) {
+            // TODO: Finish medical
+        }
+        totalPourTimes++;
+        if (totalPourTimes > 35) {
+            totalPourTimes = 0;
+            for(int i=0; i<10; i++) {
+                pourTimes[i] = 0;
+            }
+            ClearBeaker();
+        }
+    }
+
+    public void ClearBeaker() {
+        Animator beakerAnimator = GameObject.Find("Beaker").GetComponent<Animator>();
+        beakerAnimator.SetTrigger("pouring");
+    }
+
+    public void OnPotionBackClick() {
+         foreach (GameObject o in inGameUIPages)
+        {
+            o.SetActive(false);
+        }
+        Cursor.lockState = CursorLockMode.Locked;
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = true;
+        playerMovement.isStart = true;
     }
 
 }
