@@ -20,7 +20,6 @@ public class setParentOnTriggerEnter : MonoBehaviour {
 			{
 				parentObject.transform.parent = null;
 			}
-			
 			if( selfDestroy ) Destroy ( this.gameObject );
 		}
 	}

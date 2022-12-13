@@ -17,7 +17,7 @@ public class MixPotionsBehaviour : MonoBehaviour
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 3f)) {
-            if (Input.GetMouseButtonDown(0)) {
+            if (hit.collider.name == "Potions" && Input.GetMouseButtonDown(0)) {
                 potionMixturePage.SetActive(true);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = true;
                 Cursor.lockState = CursorLockMode.None;
