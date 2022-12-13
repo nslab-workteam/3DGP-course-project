@@ -24,4 +24,12 @@ public class setParentOnTriggerEnter : MonoBehaviour {
 			if( selfDestroy ) Destroy ( this.gameObject );
 		}
 	}
+
+	void OnTriggerExit(Collider other) {
+		if( other.tag == "Player" )
+		{
+			parentObject.transform.parent = null;
+			if( selfDestroy ) Destroy ( this.gameObject );
+		}
+	}
 }
