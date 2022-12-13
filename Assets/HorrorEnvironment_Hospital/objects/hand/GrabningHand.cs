@@ -38,6 +38,7 @@ public class GrabningHand : MonoBehaviour
             }
 
             GetComponent<PlayerMovement>().maxWalkSpeed = 0.5f;
+            GetComponent<PlayerMovement>().maxSprintSpeed = 1.5f;
             GetComponentInChildren<Animator>().SetBool("isSlow", true);
             GetComponentInChildren<Animator>().speed = 0.5f / 1.5f;
         }
@@ -56,6 +57,7 @@ public class GrabningHand : MonoBehaviour
             }
 
             GetComponent<PlayerMovement>().maxWalkSpeed = 1.5f;
+            GetComponent<PlayerMovement>().maxSprintSpeed = 3f;
             GetComponentInChildren<Animator>().SetBool("isSlow", false);
             GetComponentInChildren<Animator>().speed = 1f;
         }
