@@ -9,18 +9,12 @@ public class DropBehaviourScript : MonoBehaviour, GameMechanism
     public GameObject gravityManage;
     public bool activated = false;
 
-    private Animator[] temp;
-    private Animator doorAnimator;
-
 
     // Start is called before the first frame update
     void Start()
     {
         watcher = GameObject.Find("watcher1");
         watcher.SetActive(false);
-
-        temp = GameObject.Find("CG/FLOOR_1st/TOILETS/doors_A").GetComponentsInChildren<Animator>();
-        doorAnimator = temp[0];
     }
 
     // Update is called once per frame
