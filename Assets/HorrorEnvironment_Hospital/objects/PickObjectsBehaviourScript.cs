@@ -62,8 +62,6 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                     Scissor2.SetActive(true);
                     this.StartCoroutine(_delayedPillowCutEffect());
                     scissor2Animator.SetTrigger("Scissor2Start");
-                    gloveAnimator.SetTrigger("GloveAnimated");
-                    //����
                     this.StartCoroutine(_delayedGloveAnimation());
 
                     //GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.pillow);
