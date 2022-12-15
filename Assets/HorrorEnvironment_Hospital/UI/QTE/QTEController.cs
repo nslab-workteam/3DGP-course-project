@@ -37,7 +37,7 @@ public class QTEController : MonoBehaviour
         qtePointer.SetActive(false);
         qteBoard.SetActive(false);
         pointerAnimator = qtePointer.GetComponent<Animator>();
-        StartQTE(15);
+        // StartQTE(15);
     }
 
     // Update is called once per frame

@@ -44,6 +44,10 @@ public class gameMenu : MonoBehaviour
     private GameObject SceneChar2;
     public GameObject[] CG;
     public int usingChar;
+    [Header("Character Description")]
+    [SerializeField] private GameObject charName;
+    [SerializeField] private GameObject description;
+    [SerializeField] private TextAsset[] charDescriptions;
     private float LightIntensity = 0f;
 
     // character camera
@@ -253,7 +257,10 @@ public class gameMenu : MonoBehaviour
             NextPageBtn.gameObject.SetActive(false);
             UIRoomChar2.SetActive(true);
             UIRoomChar1.SetActive(false);
-            //�]�w��������character
+            //choose 2nd character
+            charName.GetComponent<TextMeshProUGUI>().text = "小芬";
+            description.GetComponent<TextMeshProUGUI>().text = charDescriptions[1].text;
+
             SceneChar2.SetActive(true);
             SceneChar1.SetActive(false);
             usingChar = 2;
@@ -269,7 +276,10 @@ public class gameMenu : MonoBehaviour
             NextPageBtn.gameObject.SetActive(true);
             UIRoomChar2.SetActive(false);
             UIRoomChar1.SetActive(true);
-            //�]�w��������character
+            //choose 1st character
+            charName.GetComponent<TextMeshProUGUI>().text = "小美";
+            description.GetComponent<TextMeshProUGUI>().text = charDescriptions[0].text;
+
             SceneChar1.SetActive(true);
             SceneChar2.SetActive(false);
             usingChar = 1;
@@ -305,7 +315,9 @@ public class gameMenu : MonoBehaviour
         state.timestamp = textArea.text;
         state.playerPos = player.transform.position;
         state.rotation = player.transform.rotation;
+
         state.gameProcess = GetGameProcess();
+
         state.usedCharater = usingChar;
         string saveString = JsonUtility.ToJson(state);
         StreamWriter file = new StreamWriter(System.IO.Path.Combine(Application.streamingAssetsPath, "record" + stateSlot));
@@ -324,7 +336,9 @@ public class gameMenu : MonoBehaviour
         state = JsonUtility.FromJson<PlayerState>(loadJson);
         player.transform.position = state.playerPos;
         player.transform.rotation = state.rotation;
+
         RestoreGameProcess(state.gameProcess);
+
         SetPlayerSkin(state.usedCharater);
 
         LoadSaveCheck_Menu.SetActive(false);
