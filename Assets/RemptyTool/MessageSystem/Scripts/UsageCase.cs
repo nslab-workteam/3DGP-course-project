@@ -36,6 +36,7 @@ public class UsageCase : MonoBehaviour
             gameMenuManager.GetComponent<gameMenu>().StartDialog();
             ReadTextDataFromAsset(textAssets[assetIndex++]);
             textIndex = 0;
+            msgSys.Next();
             dialog.SetActive(true);
             pause = false;
         }
