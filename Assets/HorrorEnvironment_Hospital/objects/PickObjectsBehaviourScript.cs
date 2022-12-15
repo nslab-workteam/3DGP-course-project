@@ -7,10 +7,26 @@ public class PickObjectsBehaviourScript : MonoBehaviour
     private int usingChar;
     public GameObject MainCam;
 
+    private Animator[] temp;
+    private Animator scissor2Animator;
+    private Animator gloveAnimator;
+    private GameObject PillowCutEffect;
+    private GameObject Scissor2;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Scissor2 = GameObject.Find("Scissor2");
+        PillowCutEffect = GameObject.Find("PillowCutEffect");
+
+        PillowCutEffect.SetActive(false);
+        Scissor2.SetActive(false);
+
+        temp = Scissor2.GetComponentsInChildren<Animator>();
+        scissor2Animator = temp[0];
+
+        temp = GameObject.Find("Glove").GetComponentsInChildren<Animator>();
+        gloveAnimator = temp[0];
     }
 
     // Update is called once per frame
@@ -42,8 +58,14 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                 }
                 else if (hit.collider.name == "Pillow")
                 {
-                    GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.pillow);
-                    GameObject.Find("Pillow").SetActive(false);
+                    Scissor2.SetActive(true);
+                    PillowCutEffect.SetActive(true);
+                    scissor2Animator.SetTrigger("Scissor2Start");
+                    //©µ¿ð
+                    gloveAnimator.SetTrigger("GloveAnimated");
+
+                    //GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.pillow);
+                    //GameObject.Find("Pillow").SetActive(false);
                 }
                 else if (hit.collider.name == "Glove")
                 {
