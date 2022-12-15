@@ -28,8 +28,6 @@ public class PickObjectsBehaviourScript : MonoBehaviour
 
         temp = GameObject.Find("Glove").GetComponentsInChildren<Animator>();
         gloveAnimator = temp[0];
-        usingChar = GameObject.Find("UIManager").GetComponent<gameMenu>().usingChar;
-        MainCam = GameObject.Find("PLAYER/character" + usingChar + "/Main Camera");
         inGameUiManager = GameObject.Find("IngameUIManager");
         
     }
@@ -64,7 +62,6 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                     Scissor2.SetActive(true);
                     PillowCutEffect.SetActive(true);
                     scissor2Animator.SetTrigger("Scissor2Start");
-                    //����
                     gloveAnimator.SetTrigger("GloveAnimated");
 
                     //GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.pillow);
@@ -82,8 +79,12 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                 }
                 else if (hit.collider.name == "suitcase")
                 {
-                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.pass_case);
-                    GameObject.Find("suitcase").SetActive(false);
+                    inGameUiManager.GetComponent<IngameUI>().inGameUIPages[4].SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
+                    GameObject.Find("PLAYER").GetComponent<PlayerMovement>().enabled = false;
+                    Camera.main.GetComponent<MouseLook>().isStart = false;
+                    // inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.pass_case);
+                    // GameObject.Find("suitcase").SetActive(false);
                 }
                 else if (hit.collider.name == "Worn_Paper_Figures_FBX")
                 {
