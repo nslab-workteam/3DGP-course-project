@@ -7,12 +7,6 @@ public class OutlineControl : MonoBehaviour
 {
     public GameObject[] objects;
     public bool[] canClicked;
-    public enum objectMapping {
-        MusicBox, curtain, layingDeadCarpet, cuteCatPic,
-        PaperStack, LittleGril, Scissor, Pillow,
-        Magnify, suitcase, Potions, SpecialLiquid,
-        Teddy, button_1f, button_2f, button_b1
-    }
 
     // Start is called before the first frame update
     void Start()
