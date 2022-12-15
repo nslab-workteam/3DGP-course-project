@@ -206,4 +206,15 @@ public class IngameUI : MonoBehaviour
         }
     }
 
+     public void OnKeypadBackClick()
+    {
+        foreach (GameObject o in inGameUIPages)
+        {
+            o.SetActive(false);
+        }
+        Cursor.lockState = CursorLockMode.Locked;
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = true;
+        GameObject.Find("PLAYER").GetComponent<PlayerMovement>().enabled = true;
+        playerMovement.isStart = true;
+    }
 }
