@@ -62,10 +62,10 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                 else if (hit.collider.name == "Pillow")
                 {
                     Scissor2.SetActive(true);
-                    PillowCutEffect.SetActive(true);
+                    this.StartCoroutine(_delayedPillowCutEffect());
                     scissor2Animator.SetTrigger("Scissor2Start");
                     //����
-                    gloveAnimator.SetTrigger("GloveAnimated");
+                    this.StartCoroutine(_delayedGloveAnimation());
 
                     //GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.pillow);
                     //GameObject.Find("Pillow").SetActive(false);
@@ -82,8 +82,8 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                 }
                 else if (hit.collider.name == "suitcase")
                 {
-                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.pass_case);
-                    GameObject.Find("suitcase").SetActive(false);
+                    // inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.pass_case);
+                    // GameObject.Find("suitcase").SetActive(false);
                 }
                 else if (hit.collider.name == "Worn_Paper_Figures_FBX")
                 {
@@ -103,5 +103,14 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                 
             }
         }
+    }
+    IEnumerator _delayedGloveAnimation(){
+        yield return new WaitForSeconds(4f);
+        Scissor2.SetActive(false);
+        gloveAnimator.SetTrigger("GloveAnimated");
+    }
+    IEnumerator _delayedPillowCutEffect(){
+        yield return new WaitForSeconds(1.5f);
+        PillowCutEffect.SetActive(true);
     }
 }
