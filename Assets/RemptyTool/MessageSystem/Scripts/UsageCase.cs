@@ -10,6 +10,7 @@ public class UsageCase : MonoBehaviour
     public UnityEngine.UI.Text uiText;
     public TextAsset[] textAssets;
     public GameObject dialog;
+    [SerializeField] private GameObject gameMenuManager;
     public int assetIndex = 0;
     public bool isDialogFinish = false;
     public bool pause = false;
@@ -31,6 +32,8 @@ public class UsageCase : MonoBehaviour
             Debug.LogError("UIText Component not assign.");
         }
         else {
+            Cursor.lockState = CursorLockMode.None;
+            gameMenuManager.GetComponent<gameMenu>().StartDialog();
             ReadTextDataFromAsset(textAssets[assetIndex++]);
             textIndex = 0;
             dialog.SetActive(true);
@@ -44,6 +47,8 @@ public class UsageCase : MonoBehaviour
             Debug.LogError("UIText Component not assign.");
         }
         else{
+            Cursor.lockState = CursorLockMode.None;
+            gameMenuManager.GetComponent<gameMenu>().StartDialog();
             ReadTextDataFromAsset(textAssets[i]);
             assetIndex = i + 1;
             textIndex = 0;
@@ -107,6 +112,7 @@ public class UsageCase : MonoBehaviour
             dialog.SetActive(false);
             pause = true;
             Cursor.lockState = CursorLockMode.Locked;
+            gameMenuManager.GetComponent<gameMenu>().AfterIntroDialog();
         }
     }
 

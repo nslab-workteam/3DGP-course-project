@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public enum ObjectToPick {
     scissors,
@@ -31,6 +32,7 @@ public class IngameUI : MonoBehaviour
     int[] pourTimes;
     int totalPourTimes = 0;
     GameObject beaker;
+    [SerializeField] GameObject hintText;
 
     public GameObject holdObject;
 
@@ -181,6 +183,27 @@ public class IngameUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = true;
         playerMovement.isStart = true;
+    }
+
+    public void ShowHint(string text) {
+        foreach(GameObject o in inGameUIPages) {
+            if (o.name == "Hint") {
+                o.SetActive(true);
+                break;
+            }
+        }
+        hintText.GetComponent<TextMeshProUGUI>().text = text;
+        hintText.GetComponent<Animator>().SetTrigger("showText");
+    }
+
+    IEnumerator CloseHintAfterSecond() {
+        yield return new WaitForSeconds(6f);
+        foreach(GameObject o in inGameUIPages) {
+            if (o.name == "Hint") {
+                o.SetActive(false);
+                break;
+            }
+        }
     }
 
 }

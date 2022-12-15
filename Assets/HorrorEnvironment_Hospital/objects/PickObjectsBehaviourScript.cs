@@ -6,10 +6,14 @@ public class PickObjectsBehaviourScript : MonoBehaviour
 {
     private int usingChar;
     public GameObject MainCam;
+    public GameObject inGameUiManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        usingChar = GameObject.Find("UIManager").GetComponent<gameMenu>().usingChar;
+        MainCam = GameObject.Find("PLAYER/character" + usingChar + "/Main Camera");
+        inGameUiManager = GameObject.Find("IngameUIManager");
         
     }
 
@@ -18,9 +22,6 @@ public class PickObjectsBehaviourScript : MonoBehaviour
     {
         Ray ray;
         RaycastHit hit;
-
-        usingChar = GameObject.Find("UIManager").GetComponent<gameMenu>().usingChar;
-        MainCam = GameObject.Find("PLAYER/character" + usingChar + "/Main Camera");
 
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -32,47 +33,48 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                 Debug.Log("PickObjectsBehaviourScript: " + hit.collider.name);
                 if (hit.collider.name == "PaperStack")
                 {
-                    GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.records);
-                    GameObject.Find("PaperStack").SetActive(false);
+                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.records);
+                    inGameUiManager.GetComponent<IngameUI>().ShowHint("您已獲得病歷表");
+                    // GameObject.Find("PaperStack").SetActive(false);
                 } 
                 else if (hit.collider.name == "Scissor")
                 {
-                    GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.scissors);
+                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.scissors);
                     GameObject.Find("Scissor").SetActive(false);
                 }
                 else if (hit.collider.name == "Pillow")
                 {
-                    GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.pillow);
+                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.pillow);
                     GameObject.Find("Pillow").SetActive(false);
                 }
                 else if (hit.collider.name == "Glove")
                 {
-                    GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.glove);
+                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.glove);
                     GameObject.Find("Glove").SetActive(false);
                 }
                 else if (hit.collider.name == "Magnify Glass")
                 {
-                    GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.magnifier);
+                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.magnifier);
                     GameObject.Find("Magnify Glass").SetActive(false);
                 }
                 else if (hit.collider.name == "suitcase")
                 {
-                    GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.pass_case);
+                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.pass_case);
                     GameObject.Find("suitcase").SetActive(false);
                 }
                 else if (hit.collider.name == "Worn_Paper_Figures_FBX")
                 {
-                    GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.formula);
+                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.formula);
                     GameObject.Find("Worn_Paper_Figures_FBX").SetActive(false);
                 }
                 else if (hit.collider.name == "SpecialLiquid")
                 {
-                    GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.liquid);
+                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.liquid);
                     GameObject.Find("SpecialLiquid").SetActive(false);
                 }
                 else if (hit.collider.name == "Teddy")
                 {
-                    GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.doll);
+                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.doll);
                     GameObject.Find("Teddy").SetActive(false);
                 }
                 
