@@ -5,13 +5,6 @@ using TMPro;
 using UnityEngine.UI;
 using System.IO;
 
-enum GameProcess {
-    AnnieGhost = 0b1,
-    Curtain = 0b10,
-    MusicBox = 0b100,
-    Picture = 0b1000
-}
-
 class PlayerState {
     public string timestamp;
     public Vector3 playerPos;
@@ -218,6 +211,20 @@ public class gameMenu : MonoBehaviour
         player.GetComponent<PlayerMovement>().isStart = true;
     }
 
+    public void StartDialog() {
+        aim.SetActive(false);
+        dialogue.SetActive(true);
+
+        if (SceneChar1.activeSelf)
+        {
+            cam1.GetComponent<MouseLook>().isStart = false;
+        }
+        else {
+            cam2.GetComponent<MouseLook>().isStart = false;
+        }
+        player.GetComponent<PlayerMovement>().isStart = false;
+    }
+
     public void OnCharacterSelectionClick()
     {
         foreach (GameObject o in pages)
@@ -329,55 +336,14 @@ public class gameMenu : MonoBehaviour
 
     int GetGameProcess() {
         int state = 0;
-        foreach(var m in mechs) {
-            if (m.name == "Annie Ghost") {
-                if (m.GetComponent<AnnieBehaviour>().isActivated()) {
-                    state = state | (int)GameProcess.AnnieGhost;
-                }
-            }
-            if (m.name == "curtain") {
-                if (m.GetComponent<DropBehaviourScript>().isActivated()) {
-                    state = state | (int)GameProcess.Curtain;
-                }
-            }
-            if (m.name == "MusicBox_Model") {
-                if (m.GetComponent<activateMusicbox>().isActivated()) {
-                    state = state | (int)GameProcess.MusicBox;
-                }
-            }
-            if (m.name == "Picture Variant") {
-                if (m.GetComponentInChildren<pictureFalling>().isActivated()) {
-                    state = state | (int)GameProcess.Picture;
-                }
-            }
-        }
+        
         return state;
     }
 
     void RestoreGameProcess(int process) {
-        foreach(var m in mechs) {
-            if (m.name == "Annie Ghost") {
-                if ((process & (int)GameProcess.AnnieGhost) != 0) {
-                    m.GetComponent<AnnieBehaviour>().Skip();
-                }
-            }
-            if (m.name == "curtain") {
-                if ((process & (int)GameProcess.Curtain) != 0) {
-                    m.GetComponent<DropBehaviourScript>().Skip();
-                }
-            }
-            if (m.name == "MusicBox_Model") {
-                if ((process & (int)GameProcess.MusicBox) != 0) {
-                    m.GetComponent<activateMusicbox>().Skip();
-                }
-            }
-            if (m.name == "Picture Variant") {
-                if ((process & (int)GameProcess.Picture) != 0) {
-                    m.GetComponentInChildren<pictureFalling>().Skip();
-                }
-            }
-        }
+        
     }
+    
     public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
