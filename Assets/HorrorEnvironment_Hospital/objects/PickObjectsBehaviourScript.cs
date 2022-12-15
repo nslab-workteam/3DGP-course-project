@@ -8,9 +8,26 @@ public class PickObjectsBehaviourScript : MonoBehaviour
     public GameObject MainCam;
     public GameObject inGameUiManager;
 
+    private Animator[] temp;
+    private Animator scissor2Animator;
+    private Animator gloveAnimator;
+    private GameObject PillowCutEffect;
+    private GameObject Scissor2;
+
     // Start is called before the first frame update
     void Start()
     {
+        Scissor2 = GameObject.Find("Scissor2");
+        PillowCutEffect = GameObject.Find("PillowCutEffect");
+
+        PillowCutEffect.SetActive(false);
+        Scissor2.SetActive(false);
+
+        temp = Scissor2.GetComponentsInChildren<Animator>();
+        scissor2Animator = temp[0];
+
+        temp = GameObject.Find("Glove").GetComponentsInChildren<Animator>();
+        gloveAnimator = temp[0];
         usingChar = GameObject.Find("UIManager").GetComponent<gameMenu>().usingChar;
         MainCam = GameObject.Find("PLAYER/character" + usingChar + "/Main Camera");
         inGameUiManager = GameObject.Find("IngameUIManager");
@@ -44,8 +61,14 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                 }
                 else if (hit.collider.name == "Pillow")
                 {
-                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.pillow);
-                    GameObject.Find("Pillow").SetActive(false);
+                    Scissor2.SetActive(true);
+                    this.StartCoroutine(_delayedPillowCutEffect());
+                    scissor2Animator.SetTrigger("Scissor2Start");
+                    //����
+                    this.StartCoroutine(_delayedGloveAnimation());
+
+                    //GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.pillow);
+                    //GameObject.Find("Pillow").SetActive(false);
                 }
                 else if (hit.collider.name == "Glove")
                 {
@@ -59,8 +82,8 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                 }
                 else if (hit.collider.name == "suitcase")
                 {
-                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.pass_case);
-                    GameObject.Find("suitcase").SetActive(false);
+                    // inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.pass_case);
+                    // GameObject.Find("suitcase").SetActive(false);
                 }
                 else if (hit.collider.name == "Worn_Paper_Figures_FBX")
                 {
@@ -80,5 +103,14 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                 
             }
         }
+    }
+    IEnumerator _delayedGloveAnimation(){
+        yield return new WaitForSeconds(4f);
+        Scissor2.SetActive(false);
+        gloveAnimator.SetTrigger("GloveAnimated");
+    }
+    IEnumerator _delayedPillowCutEffect(){
+        yield return new WaitForSeconds(1.5f);
+        PillowCutEffect.SetActive(true);
     }
 }

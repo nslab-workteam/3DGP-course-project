@@ -89,7 +89,7 @@ public class AnnieBehaviour : MonoBehaviour, GameMechanism
     }
 
     void MoveToPlayersFrontState() {
-
+        
         //behaviour
         Vector3 charaterFront = player.transform.position + player.transform.forward * 3f;
         ghost.transform.position = Vector3.Lerp(ghost.transform.position, charaterFront, Time.deltaTime * ghostAccel);
