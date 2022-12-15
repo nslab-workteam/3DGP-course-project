@@ -13,6 +13,7 @@ public class PickObjectsBehaviourScript : MonoBehaviour
     private Animator gloveAnimator;
     private GameObject PillowCutEffect;
     private GameObject Scissor2;
+    private OutlineControl outlineManager;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,8 @@ public class PickObjectsBehaviourScript : MonoBehaviour
         temp = GameObject.Find("Glove").GetComponentsInChildren<Animator>();
         gloveAnimator = temp[0];
         inGameUiManager = GameObject.Find("IngameUIManager");
+
+        outlineManager = GameObject.Find("OutlineManager").GetComponent<OutlineControl>();
         
     }
 
@@ -46,18 +49,18 @@ public class PickObjectsBehaviourScript : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Debug.Log("PickObjectsBehaviourScript: " + hit.collider.name);
-                if (hit.collider.name == "PaperStack")
+                if (hit.collider.name == "PaperStack" && outlineManager.canClicked[(int)objectMapping.PaperStack])
                 {
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.records);
                     inGameUiManager.GetComponent<IngameUI>().ShowHint("您已獲得病歷表");
                     // GameObject.Find("PaperStack").SetActive(false);
                 } 
-                else if (hit.collider.name == "Scissor")
+                else if (hit.collider.name == "Scissor" && outlineManager.canClicked[(int)objectMapping.Scissor])
                 {
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.scissors);
                     GameObject.Find("Scissor").SetActive(false);
                 }
-                else if (hit.collider.name == "Pillow")
+                else if (hit.collider.name == "Pillow" && outlineManager.canClicked[(int)objectMapping.Pillow])
                 {
                     Scissor2.SetActive(true);
                     this.StartCoroutine(_delayedPillowCutEffect());
@@ -67,12 +70,12 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                     //GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.pillow);
                     //GameObject.Find("Pillow").SetActive(false);
                 }
-                else if (hit.collider.name == "Glove")
+                else if (hit.collider.name == "Glove" && outlineManager.canClicked[(int)objectMapping.Glove])
                 {
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.glove);
                     GameObject.Find("Glove").SetActive(false);
                 }
-                else if (hit.collider.name == "Magnify Glass")
+                else if (hit.collider.name == "Magnify Glass" && outlineManager.canClicked[(int)objectMapping.Magnify])
                 {
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.magnifier);
                     GameObject.Find("Magnify Glass").SetActive(false);
@@ -86,17 +89,17 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                     // inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.pass_case);
                     // GameObject.Find("suitcase").SetActive(false);
                 }
-                else if (hit.collider.name == "Worn_Paper_Figures_FBX")
+                else if (hit.collider.name == "Recipe" && outlineManager.canClicked[(int)objectMapping.Recipe])
                 {
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.formula);
-                    GameObject.Find("Worn_Paper_Figures_FBX").SetActive(false);
+                    GameObject.Find("Recipe").SetActive(false);
                 }
-                else if (hit.collider.name == "SpecialLiquid")
+                else if (hit.collider.name == "SpecialLiquid" && outlineManager.canClicked[(int)objectMapping.SpecialLiquid])
                 {
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.liquid);
                     GameObject.Find("SpecialLiquid").SetActive(false);
                 }
-                else if (hit.collider.name == "Teddy")
+                else if (hit.collider.name == "Teddy" && outlineManager.canClicked[(int)objectMapping.Teddy])
                 {
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.doll);
                     GameObject.Find("Teddy").SetActive(false);

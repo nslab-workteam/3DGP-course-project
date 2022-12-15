@@ -24,8 +24,8 @@ public class PlayerMovement : MonoBehaviour
     Animator[] player;
     Animator mPlayer;
 
-    Vector3 idleCamPos;
-    Vector3 movingCamPos;
+    Vector3 idleCamPos, idleCamPos2;
+    Vector3 movingCamPos, movingCamPos2;
     bool isFirstPerson = true;
 
     GameObject mainCamera;
@@ -40,9 +40,13 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
         player = GetComponentsInChildren<Animator>();
         mPlayer = player[0];
+
         idleCamPos = new Vector3(0.15f, 1.296f, 0.303f);
         movingCamPos = new Vector3(0.078f, 0.843f, 0.423f);
-        mainCamera = GameObject.Find("Main Camera");
+
+        idleCamPos2 = new Vector3(-0.011f, 1.468f, 0.119f);
+        movingCamPos2 = new Vector3(-0.011f,0.869f,0.442f);
+        
         moveSpeed = maxWalkSpeed;
         gMenu = GameObject.Find("UIManager").GetComponent<gameMenu>();
     }
@@ -94,13 +98,25 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void CheckCrouch() {
-        if (Input.GetKey(KeyCode.LeftControl)) {
-            mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, movingCamPos, 20 * Time.deltaTime);
-            mPlayer.SetBool("isCrouch", true);
+        mainCamera = Camera.main.gameObject;
+        if (gMenu.usingChar == 1) {
+            if (Input.GetKey(KeyCode.LeftControl)) {
+                mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, movingCamPos, 20 * Time.deltaTime);
+                mPlayer.SetBool("isCrouch", true);
+            } else {
+                mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, idleCamPos, 20 * Time.deltaTime);
+                mPlayer.SetBool("isCrouch", false);
+            }
         } else {
-            mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, idleCamPos, 20 * Time.deltaTime);
-            mPlayer.SetBool("isCrouch", false);
+            if (Input.GetKey(KeyCode.LeftControl)) {
+                mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, movingCamPos2, 20 * Time.deltaTime);
+                mPlayer.SetBool("isCrouch", true);
+            } else {
+                mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, idleCamPos2, 20 * Time.deltaTime);
+                mPlayer.SetBool("isCrouch", false);
+            }
         }
+        
     }
 
     void CheckSprint() {
