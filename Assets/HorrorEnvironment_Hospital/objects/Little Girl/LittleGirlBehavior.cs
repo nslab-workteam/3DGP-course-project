@@ -33,6 +33,9 @@ public class LittleGirlBehavior : MonoBehaviour
                 }
             }
         }
+        if (dialogManager.GetComponent<UsageCase>().isDialogFinish) {
+            startDialogFlg = false;
+        }
     }
 
     void StartDialogOnce(ref bool flg) {

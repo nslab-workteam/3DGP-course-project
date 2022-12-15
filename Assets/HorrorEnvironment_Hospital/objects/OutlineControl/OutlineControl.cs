@@ -6,7 +6,13 @@ using System;
 public class OutlineControl : MonoBehaviour
 {
     public GameObject[] objects;
-    bool[] hasClicked;
+    public bool[] canClicked;
+    public enum objectMapping {
+        MusicBox, curtain, layingDeadCarpet, cuteCatPic,
+        PaperStack, LittleGril, Scissor, Pillow,
+        Magnify, suitcase, Potions, SpecialLiquid,
+        Teddy, button_1f, button_2f, button_b1
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -19,10 +25,18 @@ public class OutlineControl : MonoBehaviour
                 // Debug.LogError(e.StackTrace);
             }
         }
-        hasClicked = new bool[objects.GetLength(0)];
-        for(int i=0; i<hasClicked.GetLength(0); i++) {
-            hasClicked[i] = false;
+        canClicked = new bool[objects.GetLength(0)];
+        for(int i=0; i<canClicked.GetLength(0); i++) {
+            canClicked[i] = false;
         }
+        for(int i=0; i<4; i++) {
+            canClicked[i] = true;
+        }
+        for(int i=13; i<16; i++) {
+            canClicked[i] = true;
+        }
+        canClicked[(int)objectMapping.PaperStack] = true;
+        canClicked[(int)objectMapping.LittleGril] = true;
     }
 
     // Update is called once per frame
@@ -33,11 +47,14 @@ public class OutlineControl : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 3f)) {
             for(int i=0; i<objects.GetLength(0); i++) {
                 try {
-                    if (hit.collider.name == objects[i].name){
+                    Reclickable clickTest;
+                    if (hit.collider.name == objects[i].name && canClicked[i]){
                         objects[i].GetComponent<Outline>().enabled = true;
                         if (Input.GetMouseButton(0)) {
-                            hasClicked[i] = true;
+                            canClicked[i] = true;
                         }
+                    }else if (hit.collider.gameObject.TryGetComponent<Reclickable>(out clickTest)) {
+                        hit.collider.gameObject.GetComponent<Outline>().enabled = true;
                     }else {
                         objects[i].GetComponent<Outline>().enabled = false;
                     }

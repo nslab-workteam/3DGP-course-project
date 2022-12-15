@@ -243,6 +243,8 @@ public class gameMenu : MonoBehaviour
             }
         }
         //��
+        charName.GetComponent<TextMeshProUGUI>().text = "小美";
+        description.GetComponent<TextMeshProUGUI>().text = charDescriptions[0].text;
         PreviousPageBtn.gameObject.SetActive(false);
         UIRoomChar2.SetActive(false);
     }
