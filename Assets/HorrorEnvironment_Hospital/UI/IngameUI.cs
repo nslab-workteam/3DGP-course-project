@@ -71,21 +71,24 @@ public class IngameUI : MonoBehaviour
 
     public void pickUp(ObjectToPick pick) {
         Debug.Log("Pick up " + pick);
-        for (int i = 0; i < 10; i++) {
-            if (slotButtons[i].GetComponent<Image>().sprite == null) 
-            {
-                slotPointer = i;
-                break;
-            }
-        }
+        slotPointer = (int)pick;
         slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[(int)pick];
         switch(pick) {
             case ObjectToPick.scissors:
-                holdObject.GetComponent<HoldingItem>().holdingObject = (int)ObjectToPick.scissors;
+                Button.ButtonClickedEvent _recordsEvent1 = new Button.ButtonClickedEvent();
+                _recordsEvent1.AddListener(() => {
+                    holdObject.GetComponent<HoldingItem>().holdingObject = (int)ObjectToPick.scissors;
+                    slotButtons[slotPointer].GetComponent<Image>().sprite = null;
+                    slotButtons[slotPointer].GetComponent<Button>().enabled = false;
+                });
+                slotButtons[slotPointer].GetComponent<Button>().onClick = _recordsEvent1;
                 break;
             case ObjectToPick.records:
-                Button.ButtonClickedEvent recordsEvent = new Button.ButtonClickedEvent();
-                recordsEvent.AddListener(() => {
+                Button.ButtonClickedEvent _recordsEvent2 = new Button.ButtonClickedEvent();
+                _recordsEvent2.AddListener(() => {
+                    holdObject.GetComponent<HoldingItem>().holdingObject = (int)ObjectToPick.records;
+                    slotButtons[slotPointer].GetComponent<Image>().sprite = null;
+                    slotButtons[slotPointer].GetComponent<Button>().enabled = false;
                     foreach (GameObject o in inGameUIPages)
                     {
                         if (o.name == "MedicalRecordPage")
@@ -98,9 +101,16 @@ public class IngameUI : MonoBehaviour
                         }
                     }
                 });
-                slotButtons[slotPointer].GetComponent<Button>().onClick = recordsEvent;
+                slotButtons[slotPointer].GetComponent<Button>().onClick = _recordsEvent2;
                 break;
         }
+    }
+
+    public void ReturnObject() {
+        int obj = holdObject.GetComponent<HoldingItem>().holdingObject;
+        slotButtons[obj].GetComponent<Image>().sprite = imageList[obj];
+        slotButtons[obj].GetComponent<Button>().enabled = true;
+        holdObject.GetComponent<HoldingItem>().holdingObject = -1;
     }
 
     public void OnRecordNextClick() {
