@@ -15,7 +15,8 @@ public class PickObjectsBehaviourScript : MonoBehaviour
     private GameObject PillowCutEffect;
     private GameObject Scissor2;
     private OutlineControl outlineManager;
-
+    private GameObject PasswordSpotLight;
+    private GameObject PasswordCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +34,12 @@ public class PickObjectsBehaviourScript : MonoBehaviour
         inGameUiManager = GameObject.Find("IngameUIManager");
 
         outlineManager = GameObject.Find("OutlineManager").GetComponent<OutlineControl>();
+
+        PasswordSpotLight = GameObject.Find("Password Spot Light");
+        PasswordSpotLight.SetActive(false);
+
+        PasswordCamera = GameObject.Find("Password Camera");
+        PasswordCamera.SetActive(false);
         
     }
 
@@ -61,7 +68,7 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.scissors);
                     GameObject.Find("Scissor").SetActive(false);
                 }
-                else if (hit.collider.name == "Pillow" && outlineManager.canClicked[(int)objectMapping.Pillow])
+                else if (hit.collider.name == "Pillow")
                 {
                     Scissor2.SetActive(true);
                     this.StartCoroutine(_delayedPillowCutEffect());
@@ -105,7 +112,16 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.doll);
                     GameObject.Find("Teddy").SetActive(false);
                 }
-                
+                else if (hit.collider.name == "SuitcasePassword")
+                {
+                    //打開燈
+                    PasswordSpotLight.SetActive(true);
+                    //切換相機
+                    Camera.main.GetComponent<AudioListener>().enabled = false;
+                    PasswordCamera.SetActive(true);
+                    PasswordCamera.GetComponent<AudioListener>().enabled = true;
+                    this.StartCoroutine(_RoomOutPassword());
+                }
             }
         }
     }
@@ -117,5 +133,11 @@ public class PickObjectsBehaviourScript : MonoBehaviour
     IEnumerator _delayedPillowCutEffect(){
         yield return new WaitForSeconds(1.5f);
         PillowCutEffect.SetActive(true);
+    }
+    IEnumerator _RoomOutPassword(){
+        yield return new WaitForSeconds(3f);
+        PasswordCamera.GetComponent<AudioListener>().enabled = false;
+        PasswordCamera.SetActive(false);
+        Camera.main.GetComponent<AudioListener>().enabled = true;
     }
 }
