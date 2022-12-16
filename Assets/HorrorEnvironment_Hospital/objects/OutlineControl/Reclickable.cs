@@ -1,19 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Reclickable : MonoBehaviour
-{
-    public bool isReclickable = true;
-    // Start is called before the first frame update
-    void Start()
+namespace GameObjectBehavior{
+    public class Reclickable
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public bool isReclickable = true;
+        // Start is called before the first frame update
     }
 }
