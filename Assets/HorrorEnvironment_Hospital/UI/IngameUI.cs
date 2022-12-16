@@ -74,15 +74,6 @@ public class IngameUI : MonoBehaviour
         slotPointer = (int)pick;
         slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[(int)pick];
         switch(pick) {
-            case ObjectToPick.scissors:
-                Button.ButtonClickedEvent _recordsEvent1 = new Button.ButtonClickedEvent();
-                _recordsEvent1.AddListener(() => {
-                    holdObject.GetComponent<HoldingItem>().holdingObject = (int)ObjectToPick.scissors;
-                    slotButtons[slotPointer].GetComponent<Image>().sprite = null;
-                    slotButtons[slotPointer].GetComponent<Button>().enabled = false;
-                });
-                slotButtons[slotPointer].GetComponent<Button>().onClick = _recordsEvent1;
-                break;
             case ObjectToPick.records:
                 Button.ButtonClickedEvent _recordsEvent2 = new Button.ButtonClickedEvent();
                 _recordsEvent2.AddListener(() => {
@@ -102,6 +93,18 @@ public class IngameUI : MonoBehaviour
                     }
                 });
                 slotButtons[slotPointer].GetComponent<Button>().onClick = _recordsEvent2;
+                break;
+            case ObjectToPick.formula:
+                break;
+            default:
+                slotButtons[slotPointer].GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
+                slotButtons[slotPointer].GetComponent<Button>().onClick.AddListener(
+                    () => {
+                        holdObject.GetComponent<HoldingItem>().holdingObject = (int)pick;
+                        slotButtons[slotPointer].GetComponent<Image>().sprite = null;
+                        slotButtons[slotPointer].GetComponent<Button>().enabled = false;
+                    }
+                );
                 break;
         }
     }
