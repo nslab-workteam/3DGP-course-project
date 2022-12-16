@@ -70,6 +70,7 @@ public class IngameUI : MonoBehaviour
     }
 
     public void pickUp(ObjectToPick pick) {
+        Debug.Log("Pick up " + pick);
         for (int i = 0; i < 10; i++) {
             if (slotButtons[i].GetComponent<Image>().sprite == null) 
             {
@@ -80,6 +81,7 @@ public class IngameUI : MonoBehaviour
         slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[(int)pick];
         switch(pick) {
             case ObjectToPick.scissors:
+                holdObject.GetComponent<HoldingItem>().holdingObject = (int)ObjectToPick.scissors;
                 break;
             case ObjectToPick.records:
                 Button.ButtonClickedEvent recordsEvent = new Button.ButtonClickedEvent();

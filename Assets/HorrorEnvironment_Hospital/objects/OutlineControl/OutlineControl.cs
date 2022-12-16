@@ -22,16 +22,8 @@ public class OutlineControl : MonoBehaviour
         }
         canClicked = new bool[objects.GetLength(0)];
         for(int i=0; i<canClicked.GetLength(0); i++) {
-            canClicked[i] = false;
-        }
-        for(int i=0; i<4; i++) {
             canClicked[i] = true;
         }
-        for(int i=13; i<16; i++) {
-            canClicked[i] = true;
-        }
-        canClicked[(int)objectMapping.PaperStack] = true;
-        canClicked[(int)objectMapping.LittleGril] = true;
     }
 
     // Update is called once per frame
@@ -48,8 +40,6 @@ public class OutlineControl : MonoBehaviour
                         if (Input.GetMouseButton(0)) {
                             canClicked[i] = true;
                         }
-                    }else if (hit.collider.gameObject.TryGetComponent<Reclickable>(out clickTest)) {
-                        hit.collider.gameObject.GetComponent<Outline>().enabled = true;
                     }else {
                         objects[i].GetComponent<Outline>().enabled = false;
                     }

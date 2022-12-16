@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void CheckCrouch() {
-        mainCamera = Camera.main.gameObject;
+        mainCamera = GameObject.Find("PLAYER/character" + gMenu.usingChar + "/Main Camera");
         if (gMenu.usingChar == 1) {
             if (Input.GetKey(KeyCode.LeftControl)) {
                 mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, movingCamPos, 20 * Time.deltaTime);

@@ -92,7 +92,7 @@ public class activateMusicbox : MonoBehaviour, GameMechanism
                 ghost.SetActive(true);
                 cat.SetActive(false);
                 //musicBoxCam.transform.position = Vector3.Lerp(musicBoxCam.transform.position, endPos, Time.deltaTime * 10);
-                musicBoxCam.transform.position = endPos;
+                // musicBoxCam.transform.position = endPos;
 
                 handleAnimator.ResetTrigger("musicboxStart");
                 catAnimator.ResetTrigger("musicboxStart");
