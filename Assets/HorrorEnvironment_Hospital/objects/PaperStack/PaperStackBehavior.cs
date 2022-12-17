@@ -1,20 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-
-class PaperStackState {
-    public string name;
-    public bool state;
-}
 
 public class PaperStackBehavior : MonoBehaviour
 {
-    
+    public bool isPickedUp = false;
+    GameObject inGameUiManager;
     // Start is called before the first frame update
     void Start()
     {
-        
+        inGameUiManager = GameObject.Find("IngameUIManager");
     }
 
     // Update is called once per frame
@@ -26,16 +21,11 @@ public class PaperStackBehavior : MonoBehaviour
             if (Input.GetMouseButtonDown(0)) {
                 Debug.Log(this.name + ": " + hit.collider.name);
                 if (hit.collider.name == "PaperStack") {
-                    StreamWriter file = new StreamWriter(System.IO.Path.Combine(Application.streamingAssetsPath, "gameprogress", "paperstack.json"));
-                    PaperStackState state = new PaperStackState();
-                    state.name = "paperstack";
-                    state.state = true;
-                    file.Write(JsonUtility.ToJson(state));
-                    file.Close();
-                    Debug.Log("Save file");
+                    isPickedUp = true;
                     GameObject.Find("PaperStack").SetActive(false);
+                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.records);
+                    inGameUiManager.GetComponent<IngameUI>().ShowHint("您已獲得病歷表");
                 }
-                
             }
         }
     }

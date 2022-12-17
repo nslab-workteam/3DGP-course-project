@@ -42,7 +42,7 @@ public class UsageCase : MonoBehaviour
         }
     }
 
-    void StartDialog(int i) {
+    public void StartDialog(int i) {
         if (uiText == null)
         {
             Debug.LogError("UIText Component not assign.");
@@ -53,6 +53,7 @@ public class UsageCase : MonoBehaviour
             ReadTextDataFromAsset(textAssets[i]);
             assetIndex = i + 1;
             textIndex = 0;
+            msgSys.Next();
             dialog.SetActive(true);
             pause = false;
         }

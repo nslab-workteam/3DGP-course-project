@@ -14347,6 +14347,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 79924289}
+  paperStack: {fileID: 1066922998}
+  hasTalkedTo: 0
 --- !u!1001 &294834894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58648,6 +58650,19 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &1172037540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172037534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d8f8b1f5990887439f5607d848ae026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  littleGirl: {fileID: 294509843}
 --- !u!1001 &1173098509
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87227,6 +87242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abac4279b39058c40964d6842fefda68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPickedUp: 0
 --- !u!1001 &1652919706
 PrefabInstance:
   m_ObjectHideFlags: 0
