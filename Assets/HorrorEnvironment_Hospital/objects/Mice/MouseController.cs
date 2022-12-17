@@ -38,10 +38,11 @@ public class MouseController : MonoBehaviour
         if (startChasing) {
             startPlay = PlayOnce(startPlay);
             for (int i=0; i<miceList.GetLength(0); i++) {
+                miceList[i].transform.LookAt(player.transform.position);
                 var nav = miceList[i].GetComponent<NavMeshAgent>();
                 nav.SetDestination(player.transform.position);
-                Debug.Log("ramaining: "+nav.remainingDistance);
-                if (nav.remainingDistance <= 0.2f) {
+                // Debug.Log("ramaining: "+nav.remainingDistance);
+                if (nav.remainingDistance <= 1f) {
                     startDestroy = DestroyOnce(startDestroy);
                 }
             }
