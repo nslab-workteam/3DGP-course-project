@@ -63,11 +63,11 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                 //     inGameUiManager.GetComponent<IngameUI>().ShowHint("您已獲得病歷表");
                 //     GameObject.Find("PaperStack").SetActive(false);
                 // } 
-                if (hit.collider.name == "Scissor")
-                {
-                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.scissors);
-                    GameObject.Find("Scissor").SetActive(false);
-                }
+                // if (hit.collider.name == "Scissor")
+                // {
+                //     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.scissors);
+                //     GameObject.Find("Scissor").SetActive(false);
+                // }
                 if (hit.collider.name == "Pillow")
                 {
                     Scissor2.SetActive(true);

@@ -76427,20 +76427,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4747795219173961485, guid: b4cd311db72412840933837939642188, type: 3}
---- !u!114 &1426071832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426071828}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8980f662ca6335d46910e9f06e993cec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MainCam: {fileID: 0}
-  inGameUiManager: {fileID: 0}
 --- !u!65 &1426071833
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -76472,6 +76458,20 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &1426071837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426071828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf0a78d20f2f524c9e11443071a1864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scissors: {fileID: 1172037534}
+  scissors2: {fileID: 0}
 --- !u!1001 &1426571950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -93371,20 +93371,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5afb0ca5a93319e49b5073d0be13bc00, type: 3}
   m_PrefabInstance: {fileID: 407356815}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1793075936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1793075933}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8980f662ca6335d46910e9f06e993cec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MainCam: {fileID: 0}
-  inGameUiManager: {fileID: 0}
 --- !u!95 &1793075937
 Animator:
   serializedVersion: 4
