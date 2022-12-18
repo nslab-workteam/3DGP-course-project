@@ -43,7 +43,7 @@ public class PickObjectsBehaviourScript : MonoBehaviour
         PasswordCamera = GameObject.Find("Password Camera");
         PasswordCamera.SetActive(false);
         
-        WaterDropParticleSystem = GameObject.Find("Water DropParticle System");
+        WaterDropParticleSystem = GameObject.Find("Water Drop Particle System");
         // WaterDropParticleSystem.SetActive(false);
         WaterDropParticleSystem.GetComponent<ParticleSystem>().Pause();
 
@@ -77,16 +77,16 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                 //     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.scissors);
                 //     GameObject.Find("Scissor").SetActive(false);
                 // }
-                if (hit.collider.name == "Pillow")
-                {
-                    Scissor2.SetActive(true);
-                    this.StartCoroutine(_delayedPillowCutEffect());
-                    scissor2Animator.SetTrigger("Scissor2Start");
-                    this.StartCoroutine(_delayedGloveAnimation());
+                // if (hit.collider.name == "Pillow")
+                // {
+                //     Scissor2.SetActive(true);
+                //     this.StartCoroutine(_delayedPillowCutEffect());
+                //     scissor2Animator.SetTrigger("Scissor2Start");
+                //     this.StartCoroutine(_delayedGloveAnimation());
 
-                    //GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.pillow);
-                    //GameObject.Find("Pillow").SetActive(false);
-                }
+                //     //GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.pillow);
+                //     //GameObject.Find("Pillow").SetActive(false);
+                // }
                 if (hit.collider.name == "Glove")
                 {
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.glove);

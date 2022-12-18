@@ -1155,6 +1155,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 306fde77f10bf8d44bcd385d5d892492, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 306fde77f10bf8d44bcd385d5d892492, type: 3}
 --- !u!1001 &18886236
@@ -11398,7 +11402,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1ef0e5956f8ba414bbcde6305d6bef5d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14432,11 +14436,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1 &294080459 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 306fde77f10bf8d44bcd385d5d892492, type: 3}
-  m_PrefabInstance: {fileID: 18254580}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &294509843 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1a8755a0a79390148b404e700b54de60, type: 3}
@@ -19142,24 +19141,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 306fde77f10bf8d44bcd385d5d892492, type: 3}
   m_PrefabInstance: {fileID: 18254580}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &399252792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 294080459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 0.08451489, g: 0.014667199, b: 0.9716981, a: 1}
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!4 &399511860 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 558ad7c66f616a746a9258ea6f5c980d, type: 3}
@@ -20892,7 +20873,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1ef0e5956f8ba414bbcde6305d6bef5d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -36614,7 +36595,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1ef0e5956f8ba414bbcde6305d6bef5d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -46113,7 +46094,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1ef0e5956f8ba414bbcde6305d6bef5d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -46655,6 +46636,7 @@ GameObject:
   - component: {fileID: 925873380}
   - component: {fileID: 925873379}
   - component: {fileID: 925873378}
+  - component: {fileID: 925873381}
   m_Layer: 10
   m_Name: ElevatorMessage
   m_TagString: Untagged
@@ -46698,7 +46680,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 925873376}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -46741,6 +46723,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 925873376}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &925873381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925873376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 0.17619658, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!4 &925911911 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: ab34b340a656ce34c8ca8f7354c04fce, type: 3}
@@ -47455,7 +47455,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8ed23907285af00459725570c686510c, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -73335,7 +73335,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1ef0e5956f8ba414bbcde6305d6bef5d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -76614,7 +76614,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scissors: {fileID: 1172037534}
-  scissors2: {fileID: 0}
+  scissors2: {fileID: 1793075933}
+  pillowCutEffect: {fileID: 1048928858}
+  gloveAnimator: {fileID: 1540978045}
 --- !u!1001 &1426571950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83925,14 +83927,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587139451}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00002405047}
-  m_LocalPosition: {x: 8.139867, y: 11.4, z: 5.200295}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 2.586, y: 12.74, z: 7.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 36809625}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!199 &1587139453
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -84020,9 +84022,9 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -84140,9 +84142,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startSpeed:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 5
-      minScalar: 5
+      minScalar: 3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -84257,8 +84259,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.5
+      scalar: 0.5
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -84415,9 +84417,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
-      minScalar: 0
+      minScalar: 0.5235988
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -84468,9 +84470,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
-      minScalar: 0
+      minScalar: 0.5235988
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -84521,9 +84523,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotation:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
-      minScalar: 0
+      minScalar: 5.2359877
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -84576,7 +84578,7 @@ ParticleSystem:
     maxNumParticles: 100
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
-    rotation3D: 0
+    rotation3D: 1
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
@@ -84634,7 +84636,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 25
+    angle: 10
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -84720,7 +84722,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 0.1
       mode: 0
       spread: 0
       speed:
@@ -87355,7 +87357,7 @@ ParticleSystem:
     range: {x: 0, y: 1}
     separateAxes: 0
   RotationBySpeedModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -87784,7 +87786,7 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 0
+    enabled: 1
     ratio: 0
     light: {fileID: 0}
     randomDistribution: 1
@@ -90353,7 +90355,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1ef0e5956f8ba414bbcde6305d6bef5d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -94542,7 +94544,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1ef0e5956f8ba414bbcde6305d6bef5d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -98989,7 +98991,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1ef0e5956f8ba414bbcde6305d6bef5d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -105612,15 +105614,15 @@ MonoBehaviour:
   - {fileID: 82239348}
   backpack: {fileID: 1810003790}
   imageList:
-  - {fileID: 21300000, guid: 0655491e470cf664b8cd95fe5e1c0793, type: 3}
-  - {fileID: 21300000, guid: 3baf6cffd802723459239f17b5cabc8e, type: 3}
+  - {fileID: 21300000, guid: 075b284fcf457044a92cb7c6348a9b3c, type: 3}
+  - {fileID: 21300000, guid: 8dccc02dc10ff2247904d1da469cc230, type: 3}
   - {fileID: 21300000, guid: e519179178725f84b8fd06022008fe4b, type: 3}
-  - {fileID: 21300000, guid: 29b803f01eaa97f4f99c1b1327e2bc94, type: 3}
-  - {fileID: 21300000, guid: 0b2ff02487196164fb0de156be768345, type: 3}
-  - {fileID: 21300000, guid: 1b8b7653be499fe449cf4bcd92234d86, type: 3}
-  - {fileID: 21300000, guid: a57036fe95eb72d499b9e8449a3e0c65, type: 3}
-  - {fileID: 21300000, guid: 5619e387ba0fa1747b54f9b0820ae923, type: 3}
-  - {fileID: 21300000, guid: b876d24800ea2d54188e90207fc4409e, type: 3}
+  - {fileID: 21300000, guid: 5508dbfc2eaaeaa428b200ff3c7ba76f, type: 3}
+  - {fileID: 21300000, guid: 91d7ac7b8e8a6784b9161a00168902c3, type: 3}
+  - {fileID: 21300000, guid: ad6bc33cf6e1ef64eb2f190d68f6f963, type: 3}
+  - {fileID: 21300000, guid: ef8a17a1ff0a0d248a48cf7538278914, type: 3}
+  - {fileID: 21300000, guid: 0021ae74079f26045b73cc7e4496508f, type: 3}
+  - {fileID: 21300000, guid: 6aa6d6dddc717ca44a8090f71a6834d0, type: 3}
   slotButtons:
   - {fileID: 902680940}
   - {fileID: 1619191594}
@@ -109924,7 +109926,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8ed23907285af00459725570c686510c, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1

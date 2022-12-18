@@ -100,6 +100,7 @@ public class IngameUI : MonoBehaviour
                 slotButtons[slotPointer].GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
                 slotButtons[slotPointer].GetComponent<Button>().onClick.AddListener(
                     () => {
+                        if (holdObject.GetComponent<HoldingItem>().holdingObject == -1) return;
                         holdObject.GetComponent<HoldingItem>().holdingObject = (int)pick;
                         slotButtons[slotPointer].GetComponent<Image>().sprite = null;
                         slotButtons[slotPointer].GetComponent<Button>().enabled = false;
