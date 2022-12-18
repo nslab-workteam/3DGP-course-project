@@ -121,7 +121,7 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.doll);
                     GameObject.Find("Teddy").SetActive(false);
                 }
-                else if (hit.collider.name == "SuitcasePassword")
+                else if (hit.collider.name == "suitcasePwdPlane")
                 {
                     //打開燈
                     PasswordSpotLight.SetActive(true);
