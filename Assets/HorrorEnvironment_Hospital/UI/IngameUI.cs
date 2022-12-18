@@ -77,6 +77,7 @@ public class IngameUI : MonoBehaviour
             case ObjectToPick.records:
                 Button.ButtonClickedEvent _recordsEvent2 = new Button.ButtonClickedEvent();
                 _recordsEvent2.AddListener(() => {
+                    if (holdObject.GetComponent<HoldingItem>().holdingObject != -1) return;
                     holdObject.GetComponent<HoldingItem>().holdingObject = (int)ObjectToPick.records;
                     slotButtons[slotPointer].GetComponent<Image>().sprite = null;
                     slotButtons[slotPointer].GetComponent<Button>().enabled = false;
@@ -100,9 +101,9 @@ public class IngameUI : MonoBehaviour
                 slotButtons[slotPointer].GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
                 slotButtons[slotPointer].GetComponent<Button>().onClick.AddListener(
                     () => {
-                        if (holdObject.GetComponent<HoldingItem>().holdingObject == -1) return;
+                        if (holdObject.GetComponent<HoldingItem>().holdingObject != -1) return;
                         holdObject.GetComponent<HoldingItem>().holdingObject = (int)pick;
-                        slotButtons[slotPointer].GetComponent<Image>().sprite = null;
+                        slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[9];
                         slotButtons[slotPointer].GetComponent<Button>().enabled = false;
                     }
                 );

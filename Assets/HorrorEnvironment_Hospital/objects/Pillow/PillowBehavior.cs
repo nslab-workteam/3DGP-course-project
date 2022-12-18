@@ -40,6 +40,7 @@ public class PillowBehavior : MonoBehaviour
         yield return new WaitForSeconds(4f);
         scissors2.SetActive(false);
         gloveAnimator.SetTrigger("GloveAnimated");
+        Destroy(this);
     }
 
     IEnumerator _delayedPillowCutEffect(){
