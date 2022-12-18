@@ -7,7 +7,6 @@ using TMPro;
 public enum ObjectToPick {
     scissors,
     doll,
-    pass_case,
     glove,
     magnifier,
     pillow,
@@ -79,7 +78,7 @@ public class IngameUI : MonoBehaviour
                 _recordsEvent2.AddListener(() => {
                     if (holdObject.GetComponent<HoldingItem>().holdingObject != -1) return;
                     holdObject.GetComponent<HoldingItem>().holdingObject = (int)ObjectToPick.records;
-                    slotButtons[slotPointer].GetComponent<Image>().sprite = null;
+                    slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[8];
                     slotButtons[slotPointer].GetComponent<Button>().enabled = false;
                     foreach (GameObject o in inGameUIPages)
                     {
@@ -103,7 +102,7 @@ public class IngameUI : MonoBehaviour
                     () => {
                         if (holdObject.GetComponent<HoldingItem>().holdingObject != -1) return;
                         holdObject.GetComponent<HoldingItem>().holdingObject = (int)pick;
-                        slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[9];
+                        slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[8];
                         slotButtons[slotPointer].GetComponent<Button>().enabled = false;
                     }
                 );
@@ -113,6 +112,7 @@ public class IngameUI : MonoBehaviour
 
     public void ReturnObject() {
         int obj = holdObject.GetComponent<HoldingItem>().holdingObject;
+        if (obj == -1) return;
         slotButtons[obj].GetComponent<Image>().sprite = imageList[obj];
         slotButtons[obj].GetComponent<Button>().enabled = true;
         holdObject.GetComponent<HoldingItem>().holdingObject = -1;
@@ -213,17 +213,7 @@ public class IngameUI : MonoBehaviour
         hintText.GetComponent<Animator>().SetTrigger("showText");
     }
 
-    IEnumerator CloseHintAfterSecond() {
-        yield return new WaitForSeconds(6f);
-        foreach(GameObject o in inGameUIPages) {
-            if (o.name == "Hint") {
-                o.SetActive(false);
-                break;
-            }
-        }
-    }
-
-     public void OnKeypadBackClick()
+    public void OnKeypadBackClick()
     {
         foreach (GameObject o in inGameUIPages)
         {

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using GameObjectBehavior;
 
 public class OutlineControl : MonoBehaviour
 {
@@ -34,8 +33,7 @@ public class OutlineControl : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 3f)) {
             for(int i=0; i<objects.GetLength(0); i++) {
                 try {
-                    Reclickable clickTest;
-                    if (hit.collider.name == objects[i].name && canClicked[i]){
+                    if (hit.collider.name == objects[i].name){
                         objects[i].GetComponent<Outline>().enabled = true;
                         if (Input.GetMouseButton(0)) {
                             canClicked[i] = true;

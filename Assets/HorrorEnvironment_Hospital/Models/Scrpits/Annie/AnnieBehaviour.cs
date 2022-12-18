@@ -137,7 +137,7 @@ public class AnnieBehaviour : MonoBehaviour, GameMechanism
         settings.channelMixer.blue = new Vector3(0f, 0f, 1f);
         vfx.profile.colorGrading.settings = settings;
         ghost.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
-        this.StartCoroutine(_FogOff());
+        // this.StartCoroutine(_FogOff());
 
         // transition
         state = AnnieState.End;

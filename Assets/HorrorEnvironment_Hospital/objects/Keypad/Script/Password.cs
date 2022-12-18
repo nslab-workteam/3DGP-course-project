@@ -37,13 +37,14 @@ public class Password : MonoBehaviour
     {
         if(Nr == code)
         {
-            // inGameUiManager.GetComponent<IngameUI>().ShowHint("密碼正確");
+            inGameUiManager.GetComponent<IngameUI>().ShowHint("密碼正確");
             Debug.Log("Password is correct");
             suitcaseAnimator.SetTrigger("OpenSuitcase");
             recipeAnimator.SetTrigger("RecipeAnimation");
+            inGameUiManager.GetComponent<IngameUI>().OnKeypadBackClick();
         }
         else{
-            // inGameUiManager.GetComponent<IngameUI>().ShowHint("密碼錯誤");
+            inGameUiManager.GetComponent<IngameUI>().ShowHint("密碼錯誤");
             Debug.Log("Password is wrong");
         }
     }

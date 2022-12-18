@@ -87,25 +87,25 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                 //     //GameObject.Find("IngameUIManager").GetComponent<IngameUI>().pickUp(ObjectToPick.pillow);
                 //     //GameObject.Find("Pillow").SetActive(false);
                 // }
-                if (hit.collider.name == "Glove")
-                {
-                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.glove);
-                    GameObject.Find("Glove").SetActive(false);
-                }
-                if (hit.collider.name == "Magnify Glass")
-                {
-                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.magnifier);
-                    GameObject.Find("Magnify Glass").SetActive(false);
-                }
-                if (hit.collider.name == "suitcase")
-                {
-                    inGameUiManager.GetComponent<IngameUI>().inGameUIPages[4].SetActive(true);
-                    Cursor.lockState = CursorLockMode.None;
-                    GameObject.Find("PLAYER").GetComponent<PlayerMovement>().enabled = false;
-                    Camera.main.GetComponent<MouseLook>().isStart = false;
-                    // inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.pass_case);
-                    // GameObject.Find("suitcase").SetActive(false);
-                }
+                // if (hit.collider.name == "Glove")
+                // {
+                //     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.glove);
+                //     GameObject.Find("Glove").SetActive(false);
+                // }
+                // if (hit.collider.name == "Magnify Glass")
+                // {
+                //     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.magnifier);
+                //     GameObject.Find("Magnify Glass").SetActive(false);
+                // }
+                // if (hit.collider.name == "suitcase")
+                // {
+                //     inGameUiManager.GetComponent<IngameUI>().inGameUIPages[4].SetActive(true);
+                //     Cursor.lockState = CursorLockMode.None;
+                //     GameObject.Find("PLAYER").GetComponent<PlayerMovement>().enabled = false;
+                //     Camera.main.GetComponent<MouseLook>().isStart = false;
+                //     // inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.pass_case);
+                //     // GameObject.Find("suitcase").SetActive(false);
+                // }
                 if (hit.collider.name == "Recipe")
                 {
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.formula);
