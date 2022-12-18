@@ -17,6 +17,8 @@ public class PickObjectsBehaviourScript : MonoBehaviour
     private OutlineControl outlineManager;
     private GameObject PasswordSpotLight;
     private GameObject PasswordCamera;
+    private GameObject WaterDropParticleSystem;
+    private GameObject ElevatorMessage;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +43,13 @@ public class PickObjectsBehaviourScript : MonoBehaviour
         PasswordCamera = GameObject.Find("Password Camera");
         PasswordCamera.SetActive(false);
         
+        WaterDropParticleSystem = GameObject.Find("Water DropParticle System");
+        // WaterDropParticleSystem.SetActive(false);
+        WaterDropParticleSystem.GetComponent<ParticleSystem>().Pause();
+
+        ElevatorMessage = GameObject.Find("ElevatorMessage");
+        // ElevatorMessage.SetActive(false);
+        ElevatorMessage.GetComponent<MeshRenderer>().enabled = false;
     }
 
     // Update is called once per frame
@@ -122,6 +131,12 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                     PasswordCamera.GetComponent<AudioListener>().enabled = true;
                     this.StartCoroutine(_RoomOutPassword());
                 }
+                else if (hit.collider.name == "ElevatorMessageWall")
+                {
+                    // WaterDropParticleSystem.SetActive(true);
+                    WaterDropParticleSystem.GetComponent<ParticleSystem>().Play();
+                    this.StartCoroutine(_ElevatorMessageShowUp());
+                }
             }
         }
     }
@@ -136,8 +151,14 @@ public class PickObjectsBehaviourScript : MonoBehaviour
     }
     IEnumerator _RoomOutPassword(){
         yield return new WaitForSeconds(3f);
+        PasswordSpotLight.SetActive(false);
         PasswordCamera.GetComponent<AudioListener>().enabled = false;
         PasswordCamera.SetActive(false);
         Camera.main.GetComponent<AudioListener>().enabled = true;
+    }
+    IEnumerator _ElevatorMessageShowUp(){
+        yield return new WaitForSeconds(3f);
+        // ElevatorMessage.SetActive(true);
+        ElevatorMessage.GetComponent<MeshRenderer>().enabled = true;
     }
 }
