@@ -41,6 +41,7 @@ public class Password : MonoBehaviour
             Debug.Log("Password is correct");
             suitcaseAnimator.SetTrigger("OpenSuitcase");
             recipeAnimator.SetTrigger("RecipeAnimation");
+            GameObject.Find("suitcase").GetComponent<SuitcaseBehavior>().hasOpened = true;
             inGameUiManager.GetComponent<IngameUI>().OnKeypadBackClick();
         }
         else{

@@ -5,6 +5,7 @@ using UnityEngine;
 public class SuitcaseBehavior : MonoBehaviour
 {
     [SerializeField] private GameObject inGameUiManager;
+    public bool hasOpened = false;
     // Start is called before the first frame update
     void Start()
     {

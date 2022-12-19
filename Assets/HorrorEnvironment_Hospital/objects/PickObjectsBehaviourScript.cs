@@ -106,11 +106,11 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                 //     // inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.pass_case);
                 //     // GameObject.Find("suitcase").SetActive(false);
                 // }
-                if (hit.collider.name == "Recipe")
-                {
-                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.formula);
-                    GameObject.Find("Recipe").SetActive(false);
-                }
+                // if (hit.collider.name == "Recipe")
+                // {
+                //     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.formula);
+                //     GameObject.Find("Recipe").SetActive(false);
+                // }
                 if (hit.collider.name == "SpecialLiquid")
                 {
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.liquid);
@@ -121,17 +121,17 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.doll);
                     GameObject.Find("Teddy").SetActive(false);
                 }
-                else if (hit.collider.name == "suitcasePwdPlane")
-                {
-                    //打開燈
-                    PasswordSpotLight.SetActive(true);
-                    //切換相機
-                    Camera.main.GetComponent<AudioListener>().enabled = false;
-                    PasswordCamera.SetActive(true);
-                    PasswordCamera.GetComponent<AudioListener>().enabled = true;
-                    this.StartCoroutine(_RoomOutPassword());
-                }
-                else if (hit.collider.name == "ElevatorMessageWall")
+                // if (hit.collider.name == "suitcasePwdPlane")
+                // {
+                //     //打開燈
+                //     PasswordSpotLight.SetActive(true);
+                //     //切換相機
+                //     Camera.main.GetComponent<AudioListener>().enabled = false;
+                //     PasswordCamera.SetActive(true);
+                //     PasswordCamera.GetComponent<AudioListener>().enabled = true;
+                //     this.StartCoroutine(_RoomOutPassword());
+                // }
+                if (hit.collider.name == "ElevatorMessageWall")
                 {
                     // WaterDropParticleSystem.SetActive(true);
                     WaterDropParticleSystem.GetComponent<ParticleSystem>().Play();

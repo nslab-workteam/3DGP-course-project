@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MixPotionsBehaviour : MonoBehaviour
 {
     public GameObject potionMixturePage;
+    [SerializeField] private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -21,6 +23,13 @@ public class MixPotionsBehaviour : MonoBehaviour
                 potionMixturePage.SetActive(true);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = true;
                 Cursor.lockState = CursorLockMode.None;
+                GameObject.Find("PLAYER").GetComponent<PlayerMovement>().enabled = false;
+                Camera.main.GetComponent<MouseLook>().isStart = false;
+                if (player.GetComponent<HoldingItem>().holdingObject == (int)ObjectToPick.formula) {
+                    GameObject.FindWithTag("hint").GetComponent<Image>().enabled = true;
+                } else {
+                    GameObject.FindWithTag("hint").GetComponent<Image>().enabled = false;
+                }
             }
         }
     }
