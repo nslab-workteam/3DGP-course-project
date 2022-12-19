@@ -25,7 +25,7 @@ public class MixPotionsBehaviour : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 GameObject.Find("PLAYER").GetComponent<PlayerMovement>().enabled = false;
                 Camera.main.GetComponent<MouseLook>().isStart = false;
-                if (player.GetComponent<HoldingItem>().holdingObject == (int)ObjectToPick.formula) {
+                if (player.GetComponent<HoldingItem>().holdingObjectLeft == (int)ObjectToPick.formula) {
                     GameObject.FindWithTag("hint").GetComponent<Image>().enabled = true;
                 } else {
                     GameObject.FindWithTag("hint").GetComponent<Image>().enabled = false;
