@@ -153,10 +153,10 @@ BlendTree:
   m_Name: Walk BlendTree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: e6c8abadc619164498a70892464b3c07, type: 3}
+    m_Motion: {fileID: -203655887218126122, guid: 08a1bf813a423ab498781d446eb80996, type: 3}
     m_Threshold: -1
     m_Position: {x: 0, y: 0}
-    m_TimeScale: -1
+    m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
@@ -177,10 +177,10 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: e6c8abadc619164498a70892464b3c07, type: 3}
+    m_Motion: {fileID: -203655887218126122, guid: 76020614b60bbd04594e0f5d1ccac3ef, type: 3}
     m_Threshold: 2
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 2
+    m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Walk
     m_Mirror: 0

@@ -24,7 +24,6 @@ public class PaperStackBehavior : MonoBehaviour
                     isPickedUp = true;
                     GameObject.Find("PaperStack").SetActive(false);
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.records);
-                    inGameUiManager.GetComponent<IngameUI>().ShowHint("您已獲得病歷表");
                 }
             }
         }

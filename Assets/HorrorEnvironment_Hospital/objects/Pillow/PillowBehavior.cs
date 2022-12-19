@@ -10,6 +10,7 @@ public class PillowBehavior : MonoBehaviour
     GameObject player;
     Animator scissors2Animator;
     [SerializeField] Animator gloveAnimator;
+    public bool hasCut = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,8 @@ public class PillowBehavior : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 3f)) {
             if (Input.GetMouseButtonDown(0) && 
-                hit.collider.name == "Pillow" && 
+                hit.collider.name == "Pillow" &&
+                !hasCut && 
                 scissors.GetComponent<ScissorsBehavior>().hasPickedUp &&
                 player.GetComponent<HoldingItem>().holdingObject == (int)ObjectToPick.scissors) {
                 
@@ -40,7 +42,7 @@ public class PillowBehavior : MonoBehaviour
         yield return new WaitForSeconds(4f);
         scissors2.SetActive(false);
         gloveAnimator.SetTrigger("GloveAnimated");
-        Destroy(this);
+        hasCut = true;
     }
 
     IEnumerator _delayedPillowCutEffect(){

@@ -7,7 +7,6 @@ using TMPro;
 public enum ObjectToPick {
     scissors,
     doll,
-    pass_case,
     glove,
     magnifier,
     pillow,
@@ -35,6 +34,9 @@ public class IngameUI : MonoBehaviour
     [SerializeField] GameObject hintText;
 
     public GameObject holdObject;
+    private string[] ObjectName = {
+        "剪刀", "娃娃", "手套", "放大鏡", "枕頭", "特殊液體", "病歷表", "配方"
+    };
 
     // Start is called before the first frame update
     void Start()
@@ -71,6 +73,7 @@ public class IngameUI : MonoBehaviour
 
     public void pickUp(ObjectToPick pick) {
         Debug.Log("Pick up " + pick);
+        ShowHint("您已獲得" + ObjectName[(int)pick]);
         slotPointer = (int)pick;
         slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[(int)pick];
         switch(pick) {
@@ -79,7 +82,7 @@ public class IngameUI : MonoBehaviour
                 _recordsEvent2.AddListener(() => {
                     if (holdObject.GetComponent<HoldingItem>().holdingObject != -1) return;
                     holdObject.GetComponent<HoldingItem>().holdingObject = (int)ObjectToPick.records;
-                    slotButtons[slotPointer].GetComponent<Image>().sprite = null;
+                    slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[8];
                     slotButtons[slotPointer].GetComponent<Button>().enabled = false;
                     foreach (GameObject o in inGameUIPages)
                     {
@@ -96,6 +99,26 @@ public class IngameUI : MonoBehaviour
                 slotButtons[slotPointer].GetComponent<Button>().onClick = _recordsEvent2;
                 break;
             case ObjectToPick.formula:
+                slotButtons[slotPointer].GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
+                slotButtons[slotPointer].GetComponent<Button>().onClick.AddListener(
+                    () => {
+                        if (holdObject.GetComponent<HoldingItem>().holdingObject != -1) return;
+                        holdObject.GetComponent<HoldingItem>().holdingObject = (int)pick;
+                        slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[8];
+                        slotButtons[slotPointer].GetComponent<Button>().enabled = false;
+                        foreach (GameObject o in inGameUIPages)
+                        {
+                            if (o.name == "RecipePage")
+                            {
+                                o.SetActive(true);
+                            }
+                            else
+                            {
+                                o.SetActive(false);
+                            }
+                        }
+                    }
+                );
                 break;
             default:
                 slotButtons[slotPointer].GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
@@ -103,7 +126,7 @@ public class IngameUI : MonoBehaviour
                     () => {
                         if (holdObject.GetComponent<HoldingItem>().holdingObject != -1) return;
                         holdObject.GetComponent<HoldingItem>().holdingObject = (int)pick;
-                        slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[9];
+                        slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[8];
                         slotButtons[slotPointer].GetComponent<Button>().enabled = false;
                     }
                 );
@@ -113,6 +136,7 @@ public class IngameUI : MonoBehaviour
 
     public void ReturnObject() {
         int obj = holdObject.GetComponent<HoldingItem>().holdingObject;
+        if (obj == -1) return;
         slotButtons[obj].GetComponent<Image>().sprite = imageList[obj];
         slotButtons[obj].GetComponent<Button>().enabled = true;
         holdObject.GetComponent<HoldingItem>().holdingObject = -1;
@@ -175,7 +199,8 @@ public class IngameUI : MonoBehaviour
                 count++;
         }
         if (count == 10) {
-            // TODO: Finish medical
+            Debug.Log("TODO: Finish medical");
+            
         }
         totalPourTimes++;
         if (totalPourTimes > 35) {
@@ -190,6 +215,10 @@ public class IngameUI : MonoBehaviour
     public void ClearBeaker() {
         Animator beakerAnimator = GameObject.Find("Beaker").GetComponent<Animator>();
         beakerAnimator.SetTrigger("pouring");
+        for(int i=0; i<pourTimes.GetLength(0); i++) {
+            pourTimes[i] = 0;
+        }
+        totalPourTimes = 0;
     }
 
     public void OnPotionBackClick() {
@@ -209,11 +238,12 @@ public class IngameUI : MonoBehaviour
                 break;
             }
         }
-        hintText.GetComponent<TextMeshProUGUI>().text = text;
+        hintText.GetComponent<Text>().text = text;
         hintText.GetComponent<Animator>().SetTrigger("showText");
+        StartCoroutine(_delayCloseHint());
     }
 
-    IEnumerator CloseHintAfterSecond() {
+    IEnumerator _delayCloseHint() {
         yield return new WaitForSeconds(6f);
         foreach(GameObject o in inGameUIPages) {
             if (o.name == "Hint") {
@@ -223,7 +253,7 @@ public class IngameUI : MonoBehaviour
         }
     }
 
-     public void OnKeypadBackClick()
+    public void OnKeypadBackClick()
     {
         foreach (GameObject o in inGameUIPages)
         {
