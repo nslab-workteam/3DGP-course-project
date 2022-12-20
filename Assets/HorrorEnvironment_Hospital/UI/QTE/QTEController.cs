@@ -32,6 +32,8 @@ public class QTEController : MonoBehaviour
     bool turnPointer = false;
     float totalTime = 0f;
     float limitTime = 0f;
+    int counter = 0;
+    int threshold = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -52,9 +54,10 @@ public class QTEController : MonoBehaviour
         timePassed += Time.deltaTime;
         if (timePassed >= 0.5f) {
             int _tmp = Random.Range(1, 100);
-            if (_tmp <= 10) {
+            if (_tmp <= threshold) {
                 TriggerSoundOnce(ref soundFlg);
                 TriggerQTEOnce(ref qteFlg);
+                counter += 1;
             }
             timePassed = 0f;
         }
@@ -96,6 +99,10 @@ public class QTEController : MonoBehaviour
 
         float fillAmount = (float)totalTime / (float)limitTime;
         progressBarMask.GetComponent<Image>().fillAmount = fillAmount;
+
+        if (totalTime >= 0.5 * limitTime && counter <= 1) {
+            threshold = 20;
+        }
 
         if (totalTime >= limitTime) {
             if (!soundFlg) {

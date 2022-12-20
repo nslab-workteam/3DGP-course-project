@@ -7,9 +7,11 @@ public class LittleGirlBehavior : MonoBehaviour
     [SerializeField] private GameObject dialogManager;
     [SerializeField] private GameObject paperStack;
     [SerializeField] private HoldingItem hold;
+    [SerializeField] private PlayerMovement movement;
     
     bool startDialogFlg = false;
     public bool hasTalkedTo = false;
+    int stage = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,17 +24,22 @@ public class LittleGirlBehavior : MonoBehaviour
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 3f)) {
-            if (Input.GetMouseButtonDown(0) && hit.collider.name == "Little Girl") {
-                if (paperStack.GetComponent<PaperStackBehavior>().isPickedUp &&
-                    hold.holdingObjectLeft == (int)ObjectToPick.records) {
-                        Debug.Log("Has picked up record");
-                        StartDialogOnce(ref startDialogFlg, 1);
-                } else if (paperStack.GetComponent<PaperStackBehavior>().isPickedUp){
-                    Debug.Log("Haven't picked up record");
-                    StartDialogOnce(ref startDialogFlg, 2);
+            if (Input.GetMouseButtonDown(0) && hit.collider.name == "Little Girl" && movement.isStart) {
+                if (stage == 0) {
+                    if (paperStack.GetComponent<PaperStackBehavior>().isPickedUp &&
+                        hold.holdingObjectLeft == (int)ObjectToPick.records) {
+                            Debug.Log("Has picked up record");
+                            StartDialogOnce(ref startDialogFlg, 1);
+                            stage = 1;
+                    }else {
+                        Debug.Log("Haven't picked up record");
+                        StartDialogOnce(ref startDialogFlg, 2);
+                    }
                 }
-                if (hold.holdingObject == (int)ObjectToPick.doll) {
-                    StartDialogOnce(ref startDialogFlg, 3);
+                if (stage == 1) {
+                    if (hold.holdingObject == (int)ObjectToPick.doll) {
+                        StartDialogOnce(ref startDialogFlg, 3);
+                    }
                 }
             }
         }

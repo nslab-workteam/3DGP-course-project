@@ -87,17 +87,6 @@ public class IngameUI : MonoBehaviour
                     holdObject.GetComponent<HoldingItem>().holdingObjectLeft = (int)ObjectToPick.records;
                     slotButtons[(int)ObjectToPick.records].GetComponent<Image>().sprite = imageList[8];
                     slotButtons[(int)ObjectToPick.records].GetComponent<Button>().enabled = false;
-                    foreach (GameObject o in inGameUIPages)
-                    {
-                        if (o.name == "MedicalRecordPage")
-                        {
-                            o.SetActive(true);
-                        }
-                        else
-                        {
-                            o.SetActive(false);
-                        }
-                    }
                 });
                 slotButtons[slotPointer].GetComponent<Button>().onClick = _recordsEvent2;
                 break;
@@ -109,17 +98,6 @@ public class IngameUI : MonoBehaviour
                         holdObject.GetComponent<HoldingItem>().holdingObjectLeft = (int)ObjectToPick.formula;
                         slotButtons[(int)ObjectToPick.formula].GetComponent<Image>().sprite = imageList[8];
                         slotButtons[(int)ObjectToPick.formula].GetComponent<Button>().enabled = false;
-                        foreach (GameObject o in inGameUIPages)
-                        {
-                            if (o.name == "RecipePage")
-                            {
-                                o.SetActive(true);
-                            }
-                            else
-                            {
-                                o.SetActive(false);
-                            }
-                        }
                     }
                 );
                 break;
