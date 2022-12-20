@@ -6,6 +6,7 @@ public class LittleGirlBehavior : MonoBehaviour
 {
     [SerializeField] private GameObject dialogManager;
     [SerializeField] private GameObject paperStack;
+    [SerializeField] private HoldingItem hold;
     
     bool startDialogFlg = false;
     public bool hasTalkedTo = false;
@@ -22,11 +23,13 @@ public class LittleGirlBehavior : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 3f)) {
             if (Input.GetMouseButtonDown(0) && hit.collider.name == "Little Girl") {
-                if (paperStack.GetComponent<PaperStackBehavior>().isPickedUp) {
-                    Debug.Log("Has picked up record");
-                    StartDialogOnce(ref startDialogFlg);
+                if (paperStack.GetComponent<PaperStackBehavior>().isPickedUp &&
+                    hold.holdingObjectLeft == (int)ObjectToPick.records) {
+                        Debug.Log("Has picked up record");
+                        StartDialogOnce(ref startDialogFlg, 1);
                 } else {
                     Debug.Log("Haven't picked up record");
+                    StartDialogOnce(ref startDialogFlg, 2);
                 }
             }
         }
@@ -36,9 +39,9 @@ public class LittleGirlBehavior : MonoBehaviour
         }
     }
 
-    void StartDialogOnce(ref bool flg) {
+    void StartDialogOnce(ref bool flg, int index) {
         if (!flg) {
-            dialogManager.GetComponent<UsageCase>().StartDialog(1);
+            dialogManager.GetComponent<UsageCase>().StartDialog(index);
             flg = true;
         }
     }
