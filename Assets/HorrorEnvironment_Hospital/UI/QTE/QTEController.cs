@@ -52,7 +52,7 @@ public class QTEController : MonoBehaviour
         timePassed += Time.deltaTime;
         if (timePassed >= 0.5f) {
             int _tmp = Random.Range(1, 100);
-            if (_tmp <= 20) {
+            if (_tmp <= 10) {
                 TriggerSoundOnce(ref soundFlg);
                 TriggerQTEOnce(ref qteFlg);
             }
