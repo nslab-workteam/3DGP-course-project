@@ -23,7 +23,7 @@ public class PaperStackBehavior : MonoBehaviour
                 if (hit.collider.name == "PaperStack") {
                     isPickedUp = true;
                     GameObject.Find("PaperStack").SetActive(false);
-                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.records);
+                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.hammer);
                 }
             }
         }
