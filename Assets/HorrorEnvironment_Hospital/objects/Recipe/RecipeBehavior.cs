@@ -23,6 +23,20 @@ public class RecipeBehavior : MonoBehaviour
                 suitcase.GetComponent<SuitcaseBehavior>().hasOpened) {
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.formula);
                     GameObject.Find("Recipe").SetActive(false);
+                    foreach (GameObject o in inGameUiManager.GetComponent<IngameUI>().inGameUIPages)
+                    {
+                        if (o.name == "RecipePage")
+                        {
+                            o.SetActive(true);
+                        }
+                        else
+                        {
+                            o.SetActive(false);
+                        }
+                    }
+                    Cursor.lockState = CursorLockMode.None;
+                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = false;
+                    GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().isStart = false;
                 }
         }
     }

@@ -24,6 +24,20 @@ public class PaperStackBehavior : MonoBehaviour
                     isPickedUp = true;
                     GameObject.Find("PaperStack").SetActive(false);
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.records);
+                    foreach (GameObject o in inGameUiManager.GetComponent<IngameUI>().inGameUIPages)
+                    {
+                        if (o.name == "MedicalRecordPage")
+                        {
+                            o.SetActive(true);
+                        }
+                        else
+                        {
+                            o.SetActive(false);
+                        }
+                    }
+                    Cursor.lockState = CursorLockMode.None;
+                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = false;
+                    GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().isStart = false;
                 }
             }
         }
