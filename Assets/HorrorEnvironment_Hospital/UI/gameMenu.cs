@@ -50,11 +50,12 @@ public class gameMenu : MonoBehaviour
     [SerializeField] private TextAsset[] charDescriptions;
     private float LightIntensity = 0f;
 
+    public GameObject myTimer;
+
     // character camera
     GameObject cam1;
     GameObject cam2;
     GameObject inGameUi;
-
 
     // Start is called before the first frame update
     void Start()
@@ -121,6 +122,8 @@ public class gameMenu : MonoBehaviour
         resumeButton.SetActive(true);
         startButton.SetActive(false);
         dialogueManager.GetComponentInChildren<UsageCase>().pause = true;
+
+        myTimer.GetComponent<Timer>().timerIsRunning = false;
     }
 
     public void OnStartClick() {
@@ -129,12 +132,15 @@ public class gameMenu : MonoBehaviour
         dialogueManager.GetComponentInChildren<UsageCase>().StartDialog();
         dialogueManager.GetComponentInChildren<UsageCase>().pause = false;
         // wait for msgSys finish
+
+        myTimer.GetComponent<Timer>().timerIsRunning = true;
     }
 
     public void OnResumeClick() {
         menu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         dialogueManager.GetComponentInChildren<UsageCase>().pause = false;
+        myTimer.GetComponent<Timer>().timerIsRunning = true;
     }
 
     public void OnSettingClick() {
