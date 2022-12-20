@@ -27,9 +27,12 @@ public class LittleGirlBehavior : MonoBehaviour
                     hold.holdingObjectLeft == (int)ObjectToPick.records) {
                         Debug.Log("Has picked up record");
                         StartDialogOnce(ref startDialogFlg, 1);
-                } else {
+                } else if (paperStack.GetComponent<PaperStackBehavior>().isPickedUp){
                     Debug.Log("Haven't picked up record");
                     StartDialogOnce(ref startDialogFlg, 2);
+                }
+                if (hold.holdingObject == (int)ObjectToPick.doll) {
+                    StartDialogOnce(ref startDialogFlg, 3);
                 }
             }
         }

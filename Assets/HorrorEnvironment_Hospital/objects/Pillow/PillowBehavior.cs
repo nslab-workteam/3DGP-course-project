@@ -18,11 +18,14 @@ public class PillowBehavior : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         scissors2Animator = scissors2.GetComponent<Animator>();
+        scissors2.SetActive(false);
+        pillowCutEffect.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (hasCut) return;
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 3f)) {
@@ -54,5 +57,6 @@ public class PillowBehavior : MonoBehaviour
     IEnumerator _delayedPillowCutEffect(){
         yield return new WaitForSeconds(1.5f);
         pillowCutEffect.SetActive(true);
+        pillowCutEffect.GetComponentInChildren<ParticleSystem>().Play();
     }
 }
