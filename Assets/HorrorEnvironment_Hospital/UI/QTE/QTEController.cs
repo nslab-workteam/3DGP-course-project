@@ -10,8 +10,11 @@ public class QTEController : MonoBehaviour
     public GameObject qtePointer;
     public Sprite[] qteTypes;
     public AudioClip[] sounds;
+    [SerializeField] private GameObject progressBar;
+    [SerializeField] private GameObject progressBarMask;
+    [SerializeField] private GameObject mission;
     Animator pointerAnimator;
-    bool qteShow = false;
+    public bool qteShow = false;
     float timePassed = 0f;
     bool soundFlg = false;
     bool qteFlg = false;
@@ -37,7 +40,7 @@ public class QTEController : MonoBehaviour
         qtePointer.SetActive(false);
         qteBoard.SetActive(false);
         pointerAnimator = qtePointer.GetComponent<Animator>();
-        // StartQTE(15);
+        // StartQTE(15, "剪開枕頭");
     }
 
     // Update is called once per frame
@@ -74,6 +77,8 @@ public class QTEController : MonoBehaviour
                     qteImage.GetComponent<Image>().color = Color.red;
                     pointerAnimator.speed = 0;
                     turnPointer = false;
+                    totalTime -= 3f;
+                    limitTime += 1f;
                     StartCoroutine(EndOfQTE());
                 }
             }
@@ -83,9 +88,14 @@ public class QTEController : MonoBehaviour
                 qteImage.GetComponent<Image>().color = Color.red;
                 pointerAnimator.speed = 0;
                 turnPointer = false;
+                totalTime -= 3f;
+                limitTime += 1f;
                 StartCoroutine(EndOfQTE());
             }
         }
+
+        float fillAmount = (float)totalTime / (float)limitTime;
+        progressBarMask.GetComponent<Image>().fillAmount = fillAmount;
 
         if (totalTime >= limitTime) {
             if (!soundFlg) {
@@ -97,15 +107,17 @@ public class QTEController : MonoBehaviour
 
     IEnumerator EndOfQTE() {
         yield return new WaitForSeconds(0.5f);
+        qteImage.GetComponent<Image>().color = Color.white;
         qteImage.SetActive(false);
         qtePointer.SetActive(false);
         soundFlg = false;
         qteFlg = false;
     }
 
-    void StartQTE(int second) {
+    public void StartQTE(int second, string missionText) {
         qteShow = true;
         qteBoard.SetActive(true);
+        mission.GetComponent<Text>().text = missionText;
         limitTime = second;
     }
 

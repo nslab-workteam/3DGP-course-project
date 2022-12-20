@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PillowBehavior : MonoBehaviour
 {
+    [SerializeField] private GameObject qteController;
     [SerializeField] private GameObject scissors;
     [SerializeField] private GameObject scissors2;
     [SerializeField] private GameObject pillowCutEffect;
@@ -11,6 +12,7 @@ public class PillowBehavior : MonoBehaviour
     Animator scissors2Animator;
     [SerializeField] Animator gloveAnimator;
     public bool hasCut = false;
+    bool afterClick = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,12 +31,16 @@ public class PillowBehavior : MonoBehaviour
                 !hasCut && 
                 scissors.GetComponent<ScissorsBehavior>().hasPickedUp &&
                 player.GetComponent<HoldingItem>().holdingObject == (int)ObjectToPick.scissors) {
-                
-                scissors2.SetActive(true);
-                this.StartCoroutine(_delayedPillowCutEffect());
-                scissors2Animator.SetTrigger("Scissor2Start");
-                this.StartCoroutine(_delayedGloveAnimation());
+                    qteController.GetComponent<QTEController>().StartQTE(15, "剪開枕頭");
+                    afterClick = true;
             }
+        }
+
+        if (afterClick && !qteController.GetComponent<QTEController>().qteShow) {
+            scissors2.SetActive(true);
+            this.StartCoroutine(_delayedPillowCutEffect());
+            scissors2Animator.SetTrigger("Scissor2Start");
+            this.StartCoroutine(_delayedGloveAnimation());
         }
     }
 

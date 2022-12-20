@@ -37,6 +37,8 @@ public class IngameUI : MonoBehaviour
     private string[] ObjectName = {
         "剪刀", "娃娃", "手套", "放大鏡", "枕頭", "特殊液體", "病歷表", "配方"
     };
+    public bool isPotionMixtureFinished = false;
+    [SerializeField] private GameObject specialLiquid;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +49,7 @@ public class IngameUI : MonoBehaviour
         }
         pourTimes = new int[10];
         beaker = GameObject.Find("Beaker");
+        specialLiquid.SetActive(false);
     }
 
     // Update is called once per frame
@@ -72,7 +75,7 @@ public class IngameUI : MonoBehaviour
     }
 
     public void pickUp(ObjectToPick pick) {
-        Debug.Log("Pick up " + pick);
+        Debug.Log("Pick up " + pick + ", index " + (int)pick);
         ShowHint("您已獲得" + ObjectName[(int)pick]);
         slotPointer = (int)pick;
         slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[(int)pick];
@@ -80,10 +83,10 @@ public class IngameUI : MonoBehaviour
             case ObjectToPick.records:
                 Button.ButtonClickedEvent _recordsEvent2 = new Button.ButtonClickedEvent();
                 _recordsEvent2.AddListener(() => {
-                    if (holdObject.GetComponent<HoldingItem>().holdingObject != -1) return;
-                    holdObject.GetComponent<HoldingItem>().holdingObject = (int)ObjectToPick.records;
-                    slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[8];
-                    slotButtons[slotPointer].GetComponent<Button>().enabled = false;
+                    if (holdObject.GetComponent<HoldingItem>().holdingObjectLeft != -1) return;
+                    holdObject.GetComponent<HoldingItem>().holdingObjectLeft = (int)ObjectToPick.records;
+                    slotButtons[(int)ObjectToPick.records].GetComponent<Image>().sprite = imageList[8];
+                    slotButtons[(int)ObjectToPick.records].GetComponent<Button>().enabled = false;
                     foreach (GameObject o in inGameUIPages)
                     {
                         if (o.name == "MedicalRecordPage")
@@ -102,10 +105,10 @@ public class IngameUI : MonoBehaviour
                 slotButtons[slotPointer].GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
                 slotButtons[slotPointer].GetComponent<Button>().onClick.AddListener(
                     () => {
-                        if (holdObject.GetComponent<HoldingItem>().holdingObject != -1) return;
-                        holdObject.GetComponent<HoldingItem>().holdingObject = (int)pick;
-                        slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[8];
-                        slotButtons[slotPointer].GetComponent<Button>().enabled = false;
+                        if (holdObject.GetComponent<HoldingItem>().holdingObjectLeft != -1) return;
+                        holdObject.GetComponent<HoldingItem>().holdingObjectLeft = (int)ObjectToPick.formula;
+                        slotButtons[(int)ObjectToPick.formula].GetComponent<Image>().sprite = imageList[8];
+                        slotButtons[(int)ObjectToPick.formula].GetComponent<Button>().enabled = false;
                         foreach (GameObject o in inGameUIPages)
                         {
                             if (o.name == "RecipePage")
@@ -124,10 +127,11 @@ public class IngameUI : MonoBehaviour
                 slotButtons[slotPointer].GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
                 slotButtons[slotPointer].GetComponent<Button>().onClick.AddListener(
                     () => {
+                        int mySlot = slotPointer;
                         if (holdObject.GetComponent<HoldingItem>().holdingObject != -1) return;
-                        holdObject.GetComponent<HoldingItem>().holdingObject = (int)pick;
-                        slotButtons[slotPointer].GetComponent<Image>().sprite = imageList[8];
-                        slotButtons[slotPointer].GetComponent<Button>().enabled = false;
+                        holdObject.GetComponent<HoldingItem>().holdingObject = mySlot;
+                        slotButtons[mySlot].GetComponent<Image>().sprite = imageList[8];
+                        slotButtons[mySlot].GetComponent<Button>().enabled = false;
                     }
                 );
                 break;
@@ -140,6 +144,14 @@ public class IngameUI : MonoBehaviour
         slotButtons[obj].GetComponent<Image>().sprite = imageList[obj];
         slotButtons[obj].GetComponent<Button>().enabled = true;
         holdObject.GetComponent<HoldingItem>().holdingObject = -1;
+    }
+
+    public void ReturnObjectLeft() {
+        int obj = holdObject.GetComponent<HoldingItem>().holdingObjectLeft;
+        if (obj == -1) return;
+        slotButtons[obj].GetComponent<Image>().sprite = imageList[obj];
+        slotButtons[obj].GetComponent<Button>().enabled = true;
+        holdObject.GetComponent<HoldingItem>().holdingObjectLeft = -1;
     }
 
     public void OnRecordNextClick() {
@@ -200,7 +212,10 @@ public class IngameUI : MonoBehaviour
         }
         if (count == 10) {
             Debug.Log("TODO: Finish medical");
-            
+            OnPotionBackClick();
+            Destroy(GameObject.Find("Beaker"));
+            specialLiquid.SetActive(true);
+            isPotionMixtureFinished = true;
         }
         totalPourTimes++;
         if (totalPourTimes > 35) {
@@ -228,6 +243,7 @@ public class IngameUI : MonoBehaviour
         }
         Cursor.lockState = CursorLockMode.Locked;
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = true;
+        GameObject.Find("PLAYER").GetComponent<PlayerMovement>().enabled = true;
         playerMovement.isStart = true;
     }
 
