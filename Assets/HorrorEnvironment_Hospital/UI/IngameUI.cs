@@ -38,6 +38,7 @@ public class IngameUI : MonoBehaviour
         "剪刀", "娃娃", "手套", "放大鏡", "枕頭", "特殊液體", "病歷表", "配方"
     };
     public bool isPotionMixtureFinished = false;
+    [SerializeField] private GameObject specialLiquid;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +49,7 @@ public class IngameUI : MonoBehaviour
         }
         pourTimes = new int[10];
         beaker = GameObject.Find("Beaker");
+        specialLiquid.SetActive(false);
     }
 
     // Update is called once per frame
@@ -211,7 +213,8 @@ public class IngameUI : MonoBehaviour
         if (count == 10) {
             Debug.Log("TODO: Finish medical");
             OnPotionBackClick();
-            ClearBeaker();
+            Destroy(GameObject.Find("Beaker"));
+            specialLiquid.SetActive(true);
             isPotionMixtureFinished = true;
         }
         totalPourTimes++;

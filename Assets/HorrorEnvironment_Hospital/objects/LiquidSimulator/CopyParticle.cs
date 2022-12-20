@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CopyParticle : MonoBehaviour
 {
+    [SerializeField] private Transform beaker;
     public GameObject particle;
     Vector3 original_pos;
     // Start is called before the first frame update
@@ -25,9 +26,10 @@ public class CopyParticle : MonoBehaviour
         _particle.GetComponent<SpriteRenderer>().enabled = true;
         _particle.GetComponent<SpriteRenderer>().color = color;
         for(int i=0; i<32; i++) {
-            Instantiate(_particle,
+            GameObject p = Instantiate(_particle,
                 new Vector3(original_pos.x, original_pos.y + 0.02f * i, original_pos.z),
                 Quaternion.identity);
+            p.transform.parent = beaker;
         }
     }
 }

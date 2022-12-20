@@ -111,11 +111,11 @@ public class PickObjectsBehaviourScript : MonoBehaviour
                 //     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.formula);
                 //     GameObject.Find("Recipe").SetActive(false);
                 // }
-                if (hit.collider.name == "SpecialLiquid")
-                {
-                    inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.liquid);
-                    GameObject.Find("SpecialLiquid").SetActive(false);
-                }
+                // if (hit.collider.name == "SpecialLiquid")
+                // {
+                //     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.liquid);
+                //     GameObject.Find("SpecialLiquid").SetActive(false);
+                // }
                 if (hit.collider.name == "Teddy")
                 {
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.doll);
