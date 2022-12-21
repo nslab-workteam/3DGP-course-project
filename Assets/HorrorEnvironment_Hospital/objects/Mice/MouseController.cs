@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MouseController : MonoBehaviour
+public class MouseController : MonoBehaviour, GameMechanism
 {
 
     public GameObject mouse;
     public GameObject player;
+    [SerializeField] private FrightenCounter fricnt;
 
     private GameObject[] miceList;
     private bool startChasing = false;
     private bool startDestroy = false;
     private bool startPlay = false;
+    private bool activated = false;
     // Start is called before the first frame update
     void Start()
     {
         miceList = new GameObject[50];
         for (int i=0; i<miceList.GetLength(0); i++) {
             miceList[i] = Instantiate(mouse);
+            miceList[i].transform.parent = this.transform;
         }
     }
 
@@ -56,6 +59,8 @@ public class MouseController : MonoBehaviour
             Destroy(m);
         }
         startChasing = false;
+        activated = true;
+        fricnt.count++;
         Destroy(this);
     }
 
@@ -73,5 +78,15 @@ public class MouseController : MonoBehaviour
             }
         }
         return true;
+    }
+
+    bool GameMechanism.isActivated()
+    {
+        return activated;
+    }
+
+    void GameMechanism.Skip()
+    {
+        
     }
 }

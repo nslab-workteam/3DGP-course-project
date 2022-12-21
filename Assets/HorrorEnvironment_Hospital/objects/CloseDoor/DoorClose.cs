@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DoorClose : MonoBehaviour, GameMechanism
 {
+    [SerializeField] private FrightenCounter fricnt;
     Animator doorAnimator;
     bool activated = false;
     // Start is called before the first frame update
@@ -23,6 +24,7 @@ public class DoorClose : MonoBehaviour, GameMechanism
             doorAnimator.SetTrigger("doorClose");
             GetComponent<AudioSource>().Play();
             activated = true;
+            fricnt.count++;
         }
     }
 

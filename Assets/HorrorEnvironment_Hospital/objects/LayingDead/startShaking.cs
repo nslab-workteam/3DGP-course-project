@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class startShaking : MonoBehaviour
+public class startShaking : MonoBehaviour, GameMechanism
 {
     private Animator[] temp;
     private Animator layingDeadAnimator;
     private bool count = false;
     private float timer, interval;
     private AudioSource scream;
+    private bool activated = false;
+    [SerializeField] private FrightenCounter fricnt;
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +61,19 @@ public class startShaking : MonoBehaviour
                 gameObject.SetActive(false);
                 timer = 0f;
                 count = false;
+                activated = true;
+                fricnt.count++;
             }
         }
+    }
+
+    public bool isActivated()
+    {
+        return activated;
+    }
+
+    public void Skip()
+    {
+        
     }
 }
