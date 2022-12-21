@@ -127,6 +127,28 @@ public class gameMenu : MonoBehaviour
     }
 
     public void OnStartClick() {
+        foreach(GameObject o in pages) {
+            if (o.name == "GameLevePage") {
+                o.SetActive(true);
+            } else {
+                o.SetActive(false);
+            }
+        }
+    }
+
+    public void OnLevel1Click()
+    {
+        menu.SetActive(false);
+        // call msgSys
+        dialogueManager.GetComponentInChildren<UsageCase>().StartDialog();
+        dialogueManager.GetComponentInChildren<UsageCase>().pause = false;
+        // wait for msgSys finish
+        player.transform.position = new Vector3(-127.1465072631836f, 50.60633850097656f,-54.12200164794922f);
+        //啟動教學對話
+    }
+
+    public void OnLevel2Click()
+    {
         menu.SetActive(false);
         // call msgSys
         dialogueManager.GetComponentInChildren<UsageCase>().StartDialog();

@@ -5,12 +5,13 @@ using UnityEngine;
 public class TVBehaviour : MonoBehaviour
 {
     public bool isPickedUp = false;
-    GameObject inGameUiManager;
     [SerializeField] private GameObject hammer;
+    [SerializeField] private GameObject TVSurface;
+    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-        inGameUiManager = GameObject.Find("IngameUIManager");
+        player = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
@@ -20,12 +21,13 @@ public class TVBehaviour : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 3f)) 
         {
-            // if (Input.GetMouseButtonDown(0) && 
-            //     hit.collider.name == "TV" && 
-            //     hammer.GetComponent<HammerBehavior>().isPickedUp) 
-            //     {
-                    
-            // }
+            if (Input.GetMouseButtonDown(0) && 
+                hit.collider.name == "TV" && 
+                hammer.GetComponent<HammerBehaviour>().isPickedUp &&
+                player.GetComponent<HoldingItem>().holdingObject == (int)ObjectToPick.hammer) 
+                {
+                    TVSurface.SetActive(false);
+            }
         }
     }
 }
