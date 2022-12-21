@@ -11,6 +11,7 @@ public class UsageCase : MonoBehaviour
     public TextAsset[] textAssets;
     public GameObject dialog;
     [SerializeField] private GameObject gameMenuManager;
+    [SerializeField] private IngameUI inGameUi;
     public int assetIndex = 0;
     public bool isDialogFinish = false;
     public bool pause = false;
@@ -27,19 +28,7 @@ public class UsageCase : MonoBehaviour
     }
 
     public void StartDialog() {
-        if (uiText == null)
-        {
-            Debug.LogError("UIText Component not assign.");
-        }
-        else {
-            Cursor.lockState = CursorLockMode.None;
-            gameMenuManager.GetComponent<gameMenu>().StartDialog();
-            ReadTextDataFromAsset(textAssets[assetIndex++]);
-            textIndex = 0;
-            msgSys.Next();
-            dialog.SetActive(true);
-            pause = false;
-        }
+        StartDialog(assetIndex++);
     }
 
     public void StartDialog(int i) {
@@ -56,6 +45,7 @@ public class UsageCase : MonoBehaviour
             msgSys.Next();
             dialog.SetActive(true);
             pause = false;
+            isDialogFinish = false;
         }
     }
 
@@ -113,8 +103,7 @@ public class UsageCase : MonoBehaviour
             isDialogFinish = true;
             dialog.SetActive(false);
             pause = true;
-            Cursor.lockState = CursorLockMode.Locked;
-            gameMenuManager.GetComponent<gameMenu>().AfterIntroDialog();
+            inGameUi.UnlockPlayer();
         }
     }
 
@@ -123,6 +112,6 @@ public class UsageCase : MonoBehaviour
         isDialogFinish = true;
         dialog.SetActive(false);
         pause = true;
-        Cursor.lockState = CursorLockMode.Locked;
+        inGameUi.UnlockPlayer();
     }
 }

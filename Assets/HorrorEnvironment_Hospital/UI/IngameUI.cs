@@ -21,6 +21,7 @@ public class IngameUI : MonoBehaviour
 {
     public GameObject inGameUI;
     public GameObject[] inGameUIPages;
+    public gameMenu mGameMenu;
     public GameObject backpack;
     public Sprite[] imageList;
     public GameObject[] slotButtons;
@@ -259,5 +260,42 @@ public class IngameUI : MonoBehaviour
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = true;
         GameObject.Find("PLAYER").GetComponent<PlayerMovement>().enabled = true;
         playerMovement.isStart = true;
+    }
+
+    public void LockPlayer() {
+        Cursor.lockState = CursorLockMode.None;
+        GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().isStart = false;
+        GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().isStart = false;
+    }
+
+    public void UnlockPlayer() {
+        Cursor.lockState = CursorLockMode.Locked;
+        GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().isStart = true;
+        GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().isStart = true;
+    }
+
+    public void OnFailed() {
+        foreach (GameObject o in inGameUIPages) {
+            if (o.name == "FailedPage") {
+                o.SetActive(true);
+            } else {
+                o.SetActive(false);
+            }
+        }
+    }
+
+    public void OnMenuClicked() {
+        foreach (GameObject o in inGameUIPages) {
+            Debug.Log(o.name);
+            o.SetActive(false);
+        }
+        mGameMenu.menu.SetActive(true);
+        foreach (GameObject o in mGameMenu.pages) {
+            if (o.name == "MainPage") {
+                o.SetActive(true);
+            } else {
+                o.SetActive(false);
+            }
+        }
     }
 }

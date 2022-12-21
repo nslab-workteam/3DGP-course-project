@@ -21,7 +21,6 @@ public class gameMenu : MonoBehaviour
     public List<GameObject> lightToClose;
     public GameObject[] pages;
     public GameObject[] SFX;
-    public GameObject aim;
     public GameObject dialogue;
     public GameObject dialogueManager;
     public GameObject startButton;
@@ -55,7 +54,9 @@ public class gameMenu : MonoBehaviour
     // character camera
     GameObject cam1;
     GameObject cam2;
-    GameObject inGameUi;
+    IngameUI inGameUi;
+
+    bool gameStartFlg = false;
 
     // Start is called before the first frame update
     void Start()
@@ -71,13 +72,12 @@ public class gameMenu : MonoBehaviour
                 o.SetActive(false);
             }
         }
-        aim.SetActive(false);
         dialogue.SetActive(false);
         resumeButton.SetActive(false);
         startButton.SetActive(true);
         player.GetComponentInChildren<Camera>().GetComponent<MouseLook>().isStart = false;
         player.GetComponent<PlayerMovement>().isStart = false;
-        inGameUi = GameObject.Find("InGameUI");
+        inGameUi = GameObject.Find("IngameUIManager").GetComponent<IngameUI>();
 
         //��
         SceneChar1 = GameObject.Find("PLAYER/character1");
@@ -105,24 +105,15 @@ public class gameMenu : MonoBehaviour
 
         //// Brightness slider update
         //pages[1].GetComponentInChildren<Slider>().SetValueWithoutNotify(LightIntensity);
-
-        // Check dialog finish
-        if (dialogueManager.GetComponentInChildren<UsageCase>().isDialogFinish) {
-            // Debug.Log("AfterIntroDialog");
-            AfterIntroDialog();
-            dialogueManager.GetComponentInChildren<UsageCase>().isDialogFinish = false;
-        }
     }
 
     void GamePause() {
         Cursor.lockState = CursorLockMode.None;
+        inGameUi.GetComponent<IngameUI>().LockPlayer();
         menu.SetActive(true);
-        aim.SetActive(false);
-        player.GetComponentInChildren<Camera>().GetComponent<MouseLook>().isStart = false;
         resumeButton.SetActive(true);
         startButton.SetActive(false);
         dialogueManager.GetComponentInChildren<UsageCase>().pause = true;
-
         myTimer.GetComponent<Timer>().timerIsRunning = false;
     }
 
@@ -151,7 +142,7 @@ public class gameMenu : MonoBehaviour
     {
         menu.SetActive(false);
         // call msgSys
-        dialogueManager.GetComponentInChildren<UsageCase>().StartDialog();
+        dialogueManager.GetComponentInChildren<UsageCase>().StartDialog(0);
         dialogueManager.GetComponentInChildren<UsageCase>().pause = false;
         // wait for msgSys finish
 
@@ -161,6 +152,8 @@ public class gameMenu : MonoBehaviour
     public void OnResumeClick() {
         menu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
+        GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().isStart = true;
+        GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().isStart = true;
         dialogueManager.GetComponentInChildren<UsageCase>().pause = false;
         myTimer.GetComponent<Timer>().timerIsRunning = true;
     }
@@ -230,7 +223,6 @@ public class gameMenu : MonoBehaviour
     }
 
     public void AfterIntroDialog() {
-        aim.SetActive(true);
         dialogue.SetActive(false);
 
         if (SceneChar1.activeSelf)
@@ -244,7 +236,6 @@ public class gameMenu : MonoBehaviour
     }
 
     public void StartDialog() {
-        aim.SetActive(false);
         dialogue.SetActive(true);
 
         if (SceneChar1.activeSelf)
