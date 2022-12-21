@@ -7,6 +7,7 @@ public class SinkParticle : MonoBehaviour
     public GameObject sink1Particle;
     public GameObject sink2Particle;
     public GameObject sink3Particle;
+    public AudioClip[] fountainSfx;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,14 +26,17 @@ public class SinkParticle : MonoBehaviour
                 if(hit.collider.name == "sink1")
                 {
                     sink1Particle.GetComponent<ParticleSystem>().Play();
+                    GetComponent<AudioSource>().PlayOneShot(fountainSfx[0]);
                 }
                 else if(hit.collider.name == "sink2")
                 {
                     sink2Particle.GetComponent<ParticleSystem>().Play();
+                    GetComponent<AudioSource>().PlayOneShot(fountainSfx[1]);
                 }
                 else if(hit.collider.name == "sink3")
                 {
                     sink3Particle.GetComponent<ParticleSystem>().Play();
+                    GetComponent<AudioSource>().PlayOneShot(fountainSfx[2]);
                 }
             }
         }
