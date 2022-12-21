@@ -12,7 +12,9 @@ public enum ObjectToPick {
     pillow,
     liquid,
     records,
-    formula
+    formula,
+    hammer,
+    key
 }
 
 public class IngameUI : MonoBehaviour
