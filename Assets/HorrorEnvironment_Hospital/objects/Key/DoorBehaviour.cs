@@ -6,6 +6,7 @@ public class DoorBehaviour : MonoBehaviour
 {
     GameObject player;
     [SerializeField] private GameObject key;
+    public GameObject fireworkParticle;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ public class DoorBehaviour : MonoBehaviour
                 player.GetComponent<HoldingItem>().holdingObject == (int)ObjectToPick.key) 
                 {
                     //成功
+                    fireworkParticle.GetComponent<ParticleSystem>().Play();
             }
         }
     }
