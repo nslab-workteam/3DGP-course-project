@@ -41,10 +41,11 @@ public class PillowBehavior : MonoBehaviour
 
         if (afterClick && !qteController.GetComponent<QTEController>().qteShow) {
             scissors2.SetActive(true);
-            GetComponent<AudioSource>().PlayDelayed(0.5f);
+            scissors2.GetComponent<AudioSource>().Play();
             this.StartCoroutine(_delayedPillowCutEffect());
-            scissors2Animator.SetTrigger("Scissor2Start");
             this.StartCoroutine(_delayedGloveAnimation());
+            Debug.Log("cut");
+            afterClick=false;
         }
     }
 
@@ -56,7 +57,8 @@ public class PillowBehavior : MonoBehaviour
     }
 
     IEnumerator _delayedPillowCutEffect(){
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
+        scissors2Animator.SetTrigger("Scissor2Start");
         pillowCutEffect.SetActive(true);
         pillowCutEffect.GetComponentInChildren<ParticleSystem>().Play();
     }
