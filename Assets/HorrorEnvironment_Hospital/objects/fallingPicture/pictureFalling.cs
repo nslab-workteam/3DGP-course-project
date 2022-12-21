@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class pictureFalling : MonoBehaviour, GameMechanism
 {
+    [SerializeField] private FrightenCounter fricnt;
     private GameObject cuteCatPic;
     public GameObject glass;
     public GameObject crackGlass;
@@ -58,6 +59,7 @@ public class pictureFalling : MonoBehaviour, GameMechanism
                 cuteCatPic.SetActive(false);
                 timer = 0f;
                 count = false;
+                fricnt.count++;
             }
         }
     }

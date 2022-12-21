@@ -22,6 +22,7 @@ public class activateMusicbox : MonoBehaviour, GameMechanism
 
     private int usingChar;
     public GameObject menu;
+    [SerializeField] private FrightenCounter fricnt;
 
     // Start is called before the first frame update
     void Start()
@@ -99,8 +100,6 @@ public class activateMusicbox : MonoBehaviour, GameMechanism
                 handleAnimator.speed = 0;
                 catAnimator.speed = 0;
 
-                activated = true;
-
                 MusicboxCam.tag = "Untagged";
                 MainCam.SetActive(true);
                 MusicboxCam.SetActive(false);
@@ -109,6 +108,7 @@ public class activateMusicbox : MonoBehaviour, GameMechanism
                 GameObject.Find("HA_ambience").GetComponent<AudioSource>().volume = tmp_volume;
 
                 activated = true;
+                fricnt.count++;
 
                 MainCam.SetActive(true);
                 MusicboxCam.SetActive(false);

@@ -12,6 +12,7 @@ public class AnnieBehaviour : MonoBehaviour, GameMechanism
     public AudioClip audio1;
     public AudioClip audio2;
     public bool activated = false;
+    [SerializeField] private FrightenCounter fricnt;
 
     private AnnieState state = AnnieState.Idle;
     private PostProcessingBehaviour vfx;
@@ -138,6 +139,7 @@ public class AnnieBehaviour : MonoBehaviour, GameMechanism
         vfx.profile.colorGrading.settings = settings;
         ghost.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
         // this.StartCoroutine(_FogOff());
+        fricnt.count++;
 
         // transition
         state = AnnieState.End;

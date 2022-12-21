@@ -6,6 +6,7 @@ public class DropBehaviourScript : MonoBehaviour, GameMechanism
 {
     private GameObject watcher;
 
+    [SerializeField] private FrightenCounter fricnt;
     public GameObject gravityManage;
     public bool activated = false;
 
@@ -53,6 +54,7 @@ public class DropBehaviourScript : MonoBehaviour, GameMechanism
         GetComponent<AudioSource>().PlayDelayed(0.5f);
         watcher.SetActive(true);
         activated = true;
+        fricnt.count++;
     }
 
     public void Skip() {
