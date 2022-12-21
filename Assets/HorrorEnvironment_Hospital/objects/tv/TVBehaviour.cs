@@ -8,6 +8,7 @@ public class TVBehaviour : MonoBehaviour
     [SerializeField] private GameObject hammer;
     [SerializeField] private GameObject TVSurface;
     GameObject player;
+    public GameObject TVParticle;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +27,7 @@ public class TVBehaviour : MonoBehaviour
                 hammer.GetComponent<HammerBehaviour>().isPickedUp &&
                 player.GetComponent<HoldingItem>().holdingObject == (int)ObjectToPick.hammer) 
                 {
+                    TVParticle.GetComponent<ParticleSystem>().Play();
                     TVSurface.SetActive(false);
             }
         }
