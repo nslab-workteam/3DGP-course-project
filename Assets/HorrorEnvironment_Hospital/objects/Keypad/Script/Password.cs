@@ -17,6 +17,7 @@ public class Password : MonoBehaviour
     private Animator[] temp; 
     private Animator recipeAnimator;
     public GameObject Recipe;
+    public GameObject suitcase;
 
     void Start()
     {
@@ -40,6 +41,7 @@ public class Password : MonoBehaviour
             inGameUiManager.GetComponent<IngameUI>().ShowHint("密碼正確");
             Debug.Log("Password is correct");
             suitcaseAnimator.SetTrigger("OpenSuitcase");
+            suitcase.GetComponent<AudioSource>().Play();
             recipeAnimator.SetTrigger("RecipeAnimation");
             GameObject.Find("suitcase").GetComponent<SuitcaseBehavior>().hasOpened = true;
             inGameUiManager.GetComponent<IngameUI>().OnKeypadBackClick();
