@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class LittleGirlBehavior : MonoBehaviour
 {
@@ -8,14 +9,25 @@ public class LittleGirlBehavior : MonoBehaviour
     [SerializeField] private GameObject paperStack;
     [SerializeField] private HoldingItem hold;
     [SerializeField] private PlayerMovement movement;
+    [SerializeField] private IngameUI inGameUi;
+
+    [Header("Game ending")]
+    [SerializeField] private Light sun;
+    [SerializeField] private Volume sceneEffect;
+    [SerializeField] private ParticleSystem ps;
+    private Animator animator;
     
     bool startDialogFlg = false;
     public bool hasTalkedTo = false;
     int stage = 0;
+    bool finishDialog = false;
     // Start is called before the first frame update
     void Start()
     {
-
+        animator = GetComponent<Animator>();
+        sun.enabled = false;
+        sceneEffect.enabled = true;
+        ps.Stop();
     }
 
     // Update is called once per frame
@@ -39,6 +51,11 @@ public class LittleGirlBehavior : MonoBehaviour
                 if (stage == 1) {
                     if (hold.holdingObject == (int)ObjectToPick.doll) {
                         StartDialogOnce(ref startDialogFlg, 3);
+                        sun.enabled = true;
+                        sceneEffect.enabled = false;
+                        ps.Play();
+                        animator.SetTrigger("Ending");
+                        finishDialog = true;
                     }
                 }
             }
@@ -46,6 +63,11 @@ public class LittleGirlBehavior : MonoBehaviour
         if (dialogManager.GetComponent<UsageCase>().isDialogFinish) {
             startDialogFlg = false;
             hasTalkedTo = true;
+        }
+        if (finishDialog && dialogManager.GetComponent<UsageCase>().isDialogFinish) {
+            inGameUi.LockPlayer();
+            inGameUi.OnSuccess();
+            finishDialog = false;
         }
     }
 
