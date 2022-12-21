@@ -115,6 +115,13 @@ public class gameMenu : MonoBehaviour
         startButton.SetActive(false);
         dialogueManager.GetComponentInChildren<UsageCase>().pause = true;
         myTimer.GetComponent<Timer>().timerIsRunning = false;
+        foreach(GameObject o in pages) {
+            if (o.name == "MainPage") {
+                o.SetActive(true);
+            } else {
+                o.SetActive(false);
+            }
+        }
     }
 
     public void OnStartClick() {

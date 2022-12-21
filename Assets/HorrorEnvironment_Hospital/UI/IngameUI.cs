@@ -14,7 +14,8 @@ public enum ObjectToPick {
     records,
     formula,
     hammer,
-    key
+    key,
+    none,
 }
 
 public class IngameUI : MonoBehaviour
@@ -38,10 +39,17 @@ public class IngameUI : MonoBehaviour
 
     public GameObject holdObject;
     private string[] ObjectName = {
-        "剪刀", "娃娃", "手套", "放大鏡", "枕頭", "特殊液體", "病歷表", "配方"
+        "剪刀", "娃娃", "手套", "放大鏡", "枕頭", "特殊液體", "病歷表", "配方", "鐵鎚", "鑰匙"
     };
     public bool isPotionMixtureFinished = false;
     [SerializeField] private GameObject specialLiquid;
+    [Header("Success Page")]
+    [SerializeField] private GameObject successPage;
+    [SerializeField] private Timer timer;
+    [SerializeField] private PickupCupcake cupcakeCounter;
+    [SerializeField] private Text timeElapsed;
+    [SerializeField] private Text cupCake;
+    [SerializeField] private Text frightened;
 
     // Start is called before the first frame update
     void Start()
@@ -88,7 +96,7 @@ public class IngameUI : MonoBehaviour
                 _recordsEvent2.AddListener(() => {
                     if (holdObject.GetComponent<HoldingItem>().holdingObjectLeft != -1) return;
                     holdObject.GetComponent<HoldingItem>().holdingObjectLeft = (int)ObjectToPick.records;
-                    slotButtons[(int)ObjectToPick.records].GetComponent<Image>().sprite = imageList[8];
+                    slotButtons[(int)ObjectToPick.records].GetComponent<Image>().sprite = imageList[(int)ObjectToPick.none];
                     slotButtons[(int)ObjectToPick.records].GetComponent<Button>().enabled = false;
                 });
                 slotButtons[slotPointer].GetComponent<Button>().onClick = _recordsEvent2;
@@ -99,7 +107,7 @@ public class IngameUI : MonoBehaviour
                     () => {
                         if (holdObject.GetComponent<HoldingItem>().holdingObjectLeft != -1) return;
                         holdObject.GetComponent<HoldingItem>().holdingObjectLeft = (int)ObjectToPick.formula;
-                        slotButtons[(int)ObjectToPick.formula].GetComponent<Image>().sprite = imageList[8];
+                        slotButtons[(int)ObjectToPick.formula].GetComponent<Image>().sprite = imageList[(int)ObjectToPick.none];
                         slotButtons[(int)ObjectToPick.formula].GetComponent<Button>().enabled = false;
                     }
                 );
@@ -111,7 +119,7 @@ public class IngameUI : MonoBehaviour
                         int mySlot = slotPointer;
                         if (holdObject.GetComponent<HoldingItem>().holdingObject != -1) return;
                         holdObject.GetComponent<HoldingItem>().holdingObject = mySlot;
-                        slotButtons[mySlot].GetComponent<Image>().sprite = imageList[8];
+                        slotButtons[mySlot].GetComponent<Image>().sprite = imageList[(int)ObjectToPick.none];
                         slotButtons[mySlot].GetComponent<Button>().enabled = false;
                     }
                 );
@@ -297,5 +305,27 @@ public class IngameUI : MonoBehaviour
                 o.SetActive(false);
             }
         }
+    }
+
+    public void OnSuccess() {
+        foreach (GameObject o in inGameUIPages) {
+            if (o.name == "SuccessPage") {
+                o.SetActive(true);
+            } else {
+                o.SetActive(false);
+            }
+        }
+        foreach (GameObject o in GameObject.FindGameObjectsWithTag("UpperLeftUI")) {
+            o.SetActive(false);
+        }
+
+        float timeUsed = 1200 - timer.timeRemaining;
+        int second = (int)(timeUsed % 60);
+        int minutes = (int)(timeUsed / 60);
+        timeElapsed.text = string.Format("{0:00}:{1:00}", minutes, second);
+        
+        cupCake.text = cupcakeCounter.foundCupcakeNum.ToString();
+
+        frightened.text = "0";
     }
 }
