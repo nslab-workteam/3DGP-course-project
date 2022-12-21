@@ -7,6 +7,7 @@ public class MixPotionsBehaviour : MonoBehaviour
 {
     public GameObject potionMixturePage;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject glove;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +20,8 @@ public class MixPotionsBehaviour : MonoBehaviour
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 3f)) {
-            if (hit.collider.name == "Potions" && Input.GetMouseButtonDown(0)) {
+            if (hit.collider.name == "Potions" && Input.GetMouseButtonDown(0) && 
+                player.GetComponent<HoldingItem>().holdingObject == (int)ObjectToPick.glove) {
                 potionMixturePage.SetActive(true);
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = true;
                 Cursor.lockState = CursorLockMode.None;
