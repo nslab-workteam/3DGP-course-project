@@ -326,6 +326,6 @@ public class IngameUI : MonoBehaviour
         
         cupCake.text = cupcakeCounter.foundCupcakeNum.ToString();
 
-        frightened.text = "0";
+        frightened.text = GameObject.Find("FrightenCounter").GetComponent<FrightenCounter>().count.ToString();
     }
 }

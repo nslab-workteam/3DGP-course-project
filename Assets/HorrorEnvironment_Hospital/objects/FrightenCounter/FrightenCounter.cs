@@ -18,7 +18,7 @@ public class FrightenCounter : MonoBehaviour
     void Update()
     {
         float fillAmount = (float)count / (float)total;
-        progressbar.fillAmount = fillAmount;
+        progressbar.fillAmount = Mathf.Lerp(progressbar.fillAmount, fillAmount, Time.deltaTime * 5);
     }
 
     public int FrightenTime() {
