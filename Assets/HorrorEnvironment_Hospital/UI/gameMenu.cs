@@ -142,6 +142,7 @@ public class gameMenu : MonoBehaviour
         dialogueManager.GetComponentInChildren<UsageCase>().pause = false;
         // wait for msgSys finish
         player.transform.position = new Vector3(-127.1465072631836f, 50.60633850097656f,-54.12200164794922f);
+        myTimer.GetComponent<Timer>().timerIsRunning = true;
         //啟動教學對話
     }
 

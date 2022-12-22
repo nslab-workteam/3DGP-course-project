@@ -12,8 +12,8 @@ public class LittleGirlBehavior : MonoBehaviour
     [SerializeField] private IngameUI inGameUi;
 
     [Header("Game ending")]
-    [SerializeField] private Light sun;
-    [SerializeField] private Volume sceneEffect;
+    [SerializeField] private Animator sun;
+    [SerializeField] private Animator sceneEffect;
     [SerializeField] private ParticleSystem ps;
     private Animator animator;
     
@@ -25,8 +25,6 @@ public class LittleGirlBehavior : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        sun.enabled = false;
-        sceneEffect.enabled = true;
         ps.Stop();
     }
 
@@ -51,8 +49,8 @@ public class LittleGirlBehavior : MonoBehaviour
                 if (stage == 1) {
                     if (hold.holdingObject == (int)ObjectToPick.doll) {
                         StartDialogOnce(ref startDialogFlg, 3);
-                        sun.enabled = true;
-                        sceneEffect.enabled = false;
+                        sun.SetTrigger("EnableSun");
+                        sceneEffect.SetTrigger("CloseEffect");
                         ps.Play();
                         animator.SetTrigger("Ending");
                         finishDialog = true;

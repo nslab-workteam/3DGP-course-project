@@ -5,8 +5,8 @@ using UnityEngine;
 public class DoorBehaviour : MonoBehaviour
 {
     GameObject player;
-    [SerializeField] private GameObject key;
     public GameObject fireworkParticle;
+    [SerializeField] private IngameUI ingameUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +21,13 @@ public class DoorBehaviour : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 3f)) 
         {
             if (Input.GetMouseButtonDown(0) && 
-                hit.collider.name == "Torus" && 
-                key.GetComponent<HammerBehaviour>().isPickedUp &&
+                hit.collider.name == "Torus" &&
                 player.GetComponent<HoldingItem>().holdingObject == (int)ObjectToPick.key) 
                 {
                     //成功
                     fireworkParticle.GetComponent<ParticleSystem>().Play();
+                    ingameUI.OnSuccessEasy();
+                    ingameUI.LockPlayer();
             }
         }
     }

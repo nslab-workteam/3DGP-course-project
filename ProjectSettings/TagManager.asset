@@ -8,6 +8,7 @@ TagManager:
   - liquid
   - hint
   - UpperLeftUI
+  - AchievementText
   layers:
   - Default
   - TransparentFX

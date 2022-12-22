@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public enum ObjectToPick {
     scissors,
@@ -305,6 +306,7 @@ public class IngameUI : MonoBehaviour
                 o.SetActive(false);
             }
         }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void OnSuccess() {
@@ -327,5 +329,28 @@ public class IngameUI : MonoBehaviour
         cupCake.text = cupcakeCounter.foundCupcakeNum.ToString();
 
         frightened.text = GameObject.Find("FrightenCounter").GetComponent<FrightenCounter>().count.ToString();
+    }
+
+    public void OnSuccessEasy() {
+        foreach (GameObject o in inGameUIPages) {
+            if (o.name == "SuccessPage") {
+                o.SetActive(true);
+            } else {
+                o.SetActive(false);
+            }
+        }
+        foreach (GameObject o in GameObject.FindGameObjectsWithTag("UpperLeftUI")) {
+            o.SetActive(false);
+        }
+        float timeUsed = 1200 - timer.timeRemaining;
+        int second = (int)(timeUsed % 60);
+        int minutes = (int)(timeUsed / 60);
+        timeElapsed.text = string.Format("{0:00}:{1:00}", minutes, second);
+        cupCake.text = "";
+        frightened.text = "";
+        foreach (GameObject o in GameObject.FindGameObjectsWithTag("AchievementText")) {
+            o.SetActive(false);
+        }
+        
     }
 }
