@@ -22,11 +22,13 @@ public class DoorBehaviour : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && 
                 hit.collider.name == "Torus" && 
-                key.GetComponent<HammerBehaviour>().isPickedUp &&
+                key.GetComponent<KeyBehaviour>().isPickedUp &&
                 player.GetComponent<HoldingItem>().holdingObject == (int)ObjectToPick.key) 
                 {
+                    Debug.Log("成功");
                     //成功
                     fireworkParticle.GetComponent<ParticleSystem>().Play();
+                    fireworkParticle.GetComponent<AudioSource>().Play();
             }
         }
     }

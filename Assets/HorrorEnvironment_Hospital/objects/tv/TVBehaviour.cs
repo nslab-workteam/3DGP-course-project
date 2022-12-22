@@ -28,6 +28,7 @@ public class TVBehaviour : MonoBehaviour
                 player.GetComponent<HoldingItem>().holdingObject == (int)ObjectToPick.hammer) 
                 {
                     TVParticle.GetComponent<ParticleSystem>().Play();
+                    this.GetComponent<AudioSource>().Play();
                     TVSurface.SetActive(false);
             }
         }
