@@ -21,13 +21,15 @@ public class DoorBehaviour : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 3f)) 
         {
             if (Input.GetMouseButtonDown(0) && 
-                hit.collider.name == "Torus" &&
+                hit.collider.name == "Torus" && 
                 player.GetComponent<HoldingItem>().holdingObject == (int)ObjectToPick.key) 
                 {
+                    Debug.Log("成功");
                     //成功
                     fireworkParticle.GetComponent<ParticleSystem>().Play();
                     ingameUI.OnSuccessEasy();
                     ingameUI.LockPlayer();
+                    fireworkParticle.GetComponent<AudioSource>().Play();
             }
         }
     }
