@@ -117,11 +117,10 @@ public class IngameUI : MonoBehaviour
                 slotButtons[slotPointer].GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
                 slotButtons[slotPointer].GetComponent<Button>().onClick.AddListener(
                     () => {
-                        int mySlot = slotPointer;
                         if (holdObject.GetComponent<HoldingItem>().holdingObject != -1) return;
-                        holdObject.GetComponent<HoldingItem>().holdingObject = mySlot;
-                        slotButtons[mySlot].GetComponent<Image>().sprite = imageList[(int)ObjectToPick.none];
-                        slotButtons[mySlot].GetComponent<Button>().enabled = false;
+                        holdObject.GetComponent<HoldingItem>().holdingObject = (int)pick;
+                        slotButtons[(int)pick].GetComponent<Image>().sprite = imageList[(int)ObjectToPick.none];
+                        slotButtons[(int)pick].GetComponent<Button>().enabled = false;
                     }
                 );
                 break;

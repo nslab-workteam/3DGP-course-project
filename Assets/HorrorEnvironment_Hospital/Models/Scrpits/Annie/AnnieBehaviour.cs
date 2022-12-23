@@ -102,9 +102,6 @@ public class AnnieBehaviour : MonoBehaviour, GameMechanism
         myCamera.GetComponent<MouseLook>().isStart = false;
         player.transform.LookAt(ghost.transform.position, Vector3.up);
         player.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-        ColorGradingModel.Settings settings = vfx.profile.colorGrading.settings;
-        settings.basic.contrast = Random.Range(0.3f, 1.7f);
-        vfx.profile.colorGrading.settings = settings;
 
         // transition
         coroutineFlag = CoroutineStart(coroutineFlag);
@@ -131,12 +128,6 @@ public class AnnieBehaviour : MonoBehaviour, GameMechanism
         // behaviour
         player.GetComponent<PlayerMovement>().enabled = true;
         myCamera.GetComponent<MouseLook>().isStart = true;
-        ColorGradingModel.Settings settings = vfx.profile.colorGrading.settings;
-        settings.basic.contrast = 1.07f;
-        settings.channelMixer.red = new Vector3(1f, 0.34f, -0.22f);
-        settings.channelMixer.green = new Vector3(0f, 1f, 0f);
-        settings.channelMixer.blue = new Vector3(0f, 0f, 1f);
-        vfx.profile.colorGrading.settings = settings;
         ghost.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
         // this.StartCoroutine(_FogOff());
         fricnt.count++;

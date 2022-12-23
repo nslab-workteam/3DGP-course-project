@@ -26,7 +26,7 @@ public class PickupCupcake : MonoBehaviour
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         Debug.DrawRay(ray.origin, ray.direction * 3f);
-        if (Physics.Raycast(ray, out hit, 3f))
+        if (Physics.Raycast(ray, out hit, 3f, LayerMask.NameToLayer("cupcake")))
         {
             if (Input.GetMouseButtonDown(0))
             {
