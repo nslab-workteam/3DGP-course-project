@@ -58,6 +58,10 @@ public class gameMenu : MonoBehaviour
 
     bool gameStartFlg = false;
 
+    // debug purpose
+    [Header("Debug Field")]
+    [SerializeField] private GameObject secondFloor; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -105,6 +109,12 @@ public class gameMenu : MonoBehaviour
 
         //// Brightness slider update
         //pages[1].GetComponentInChildren<Slider>().SetValueWithoutNotify(LightIntensity);
+
+        // debug purpose
+        if (Input.GetKeyDown(KeyCode.F1)) {
+            secondFloor.SetActive(true);
+            GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(21.02f, 8.8f, -1.1f);
+        }
     }
 
     void GamePause() {
