@@ -5,6 +5,7 @@ using UnityEngine;
 public class ScissorsBehavior : MonoBehaviour
 {
     [SerializeField] private GameObject littleGirl;
+    [SerializeField] private PlayerMovement movement;
     GameObject inGameUiManager;
     public bool hasPickedUp = false;
 
@@ -20,7 +21,8 @@ public class ScissorsBehavior : MonoBehaviour
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 3f)) {
-            if (Input.GetMouseButtonDown(0) && hit.collider.name == "Scissor") {
+            if (Input.GetMouseButtonDown(0) && hit.collider.name == "Scissor" &&
+                movement.isStart) {
                 if (littleGirl.GetComponent<LittleGirlBehavior>().hasTalkedTo) {
                     inGameUiManager.GetComponent<IngameUI>().pickUp(ObjectToPick.scissors);
                     inGameUiManager.GetComponent<IngameUI>().ShowHint("您已獲得剪刀");

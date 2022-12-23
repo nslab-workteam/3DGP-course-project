@@ -33,7 +33,8 @@ public class PillowBehavior : MonoBehaviour
                 hit.collider.name == "Pillow" &&
                 !hasCut && 
                 scissors.GetComponent<ScissorsBehavior>().hasPickedUp &&
-                player.GetComponent<HoldingItem>().holdingObject == (int)ObjectToPick.scissors) {
+                player.GetComponent<HoldingItem>().holdingObject == (int)ObjectToPick.scissors &&
+                player.GetComponent<PlayerMovement>().isStart) {
                     qteController.GetComponent<QTEController>().StartQTE(15, "剪開枕頭");
                     afterClick = true;
             }

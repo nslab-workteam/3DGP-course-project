@@ -5,6 +5,7 @@ using UnityEngine;
 public class ElevatorMessageBehaviour : MonoBehaviour
 {
     [SerializeField] private HoldingItem hold;
+    [SerializeField] private PlayerMovement movement;
     [SerializeField] private ParticleSystem waterDropPS;
     [SerializeField] private MeshRenderer elevatorMsg;
     public bool isMsgShow = false;
@@ -21,7 +22,8 @@ public class ElevatorMessageBehaviour : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 3f)) {
                 if (Input.GetMouseButtonDown(0)) {
-                    if (hit.collider.name == "ElevatorMessageWall" && hold.holdingObject == (int)ObjectToPick.liquid) {
+                    if (hit.collider.name == "ElevatorMessageWall" && hold.holdingObject == (int)ObjectToPick.liquid &&
+                        movement.isStart) {
                         waterDropPS.Play();
                         this.StartCoroutine(_ElevatorMessageShowUp());
                     }

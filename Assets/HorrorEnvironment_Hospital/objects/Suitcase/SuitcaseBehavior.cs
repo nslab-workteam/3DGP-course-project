@@ -5,6 +5,7 @@ using UnityEngine;
 public class SuitcaseBehavior : MonoBehaviour
 {
     [SerializeField] private GameObject inGameUiManager;
+    [SerializeField] private PlayerMovement movement;
     public bool hasOpened = false;
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,8 @@ public class SuitcaseBehavior : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 3f)) {
             if (Input.GetMouseButtonDown(0) && 
-                hit.collider.name == "suitcase") {
+                hit.collider.name == "suitcase" &&
+                movement.isStart) {
                     inGameUiManager.GetComponent<IngameUI>().inGameUIPages[4].SetActive(true);
                     Cursor.lockState = CursorLockMode.None;
                     GameObject.Find("PLAYER").GetComponent<PlayerMovement>().enabled = false;

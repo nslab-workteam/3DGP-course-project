@@ -19,8 +19,10 @@ public class MonsterRunStateBehaviour : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         agent.SetDestination(player.position);
+        agent.speed = 1;
         timePassed += Time.deltaTime;
         if (timePassed >= Random.Range(1, 5)) {
+            agent.speed = 0;
             int prob = Random.Range(1, 100);
             if (prob <= 50) {
                 animator.SetTrigger("Attack");
