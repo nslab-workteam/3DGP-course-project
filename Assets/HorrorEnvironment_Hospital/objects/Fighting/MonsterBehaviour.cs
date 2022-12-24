@@ -37,7 +37,7 @@ public class MonsterBehaviour : MonoBehaviour
             fightUI.SetActive(false);
             audioSource.PlayOneShot(clip);
             trigger.AfterFighting();
-            stage = 0;
+            blood = 100;
         }
     }
 

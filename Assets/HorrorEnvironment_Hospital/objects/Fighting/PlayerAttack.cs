@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     private float attkDelay = 0;
     [SerializeField] private GameObject arrow;
     [SerializeField] private GameObject player;
+    public bool canAtk = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,7 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!canAtk) return;
         attkDelay += Time.deltaTime;
         if (Input.GetMouseButton(1)) {
                 timePassed += Time.deltaTime;

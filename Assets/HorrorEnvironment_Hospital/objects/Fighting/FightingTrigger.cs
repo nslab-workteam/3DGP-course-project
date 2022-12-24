@@ -42,6 +42,7 @@ public class FightingTrigger : MonoBehaviour
     }
 
     public void AfterFighting() {
+        ambience.Stop();
         ambience.clip = backup;
         ambience.Play();
         ambience.loop = true;
