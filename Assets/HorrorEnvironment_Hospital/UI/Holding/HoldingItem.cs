@@ -33,7 +33,7 @@ public class HoldingItem : MonoBehaviour
         }else{
             holdObjectLeft.GetComponent<Image>().enabled = false;
         }
-        if (holdingObjectLeft == (int)ObjectToPick.records && Input.GetKeyDown(KeyCode.E)) {
+        if (holdingObjectLeft == (int)ObjectToPick.records && Input.GetKeyDown(KeyCode.Q)) {
             Cursor.lockState = CursorLockMode.None;
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = false;
             GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().isStart = false;
@@ -49,7 +49,7 @@ public class HoldingItem : MonoBehaviour
                 }
             }
         }
-        if (holdingObjectLeft == (int)ObjectToPick.formula && Input.GetKeyDown(KeyCode.E)) {
+        if (holdingObjectLeft == (int)ObjectToPick.formula && Input.GetKeyDown(KeyCode.Q)) {
             Cursor.lockState = CursorLockMode.None;
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().isStart = false;
             GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().isStart = false;

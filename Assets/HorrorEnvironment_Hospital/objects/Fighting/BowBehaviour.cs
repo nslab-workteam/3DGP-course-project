@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class BowBehaviour : MonoBehaviour
 {
+    [SerializeField] private Image weapon;
+    [SerializeField] private GameObject bow;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +18,10 @@ public class BowBehaviour : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnMouseDown(){
+        weapon.enabled = true;
+        bow.SetActive(false);
     }
 }

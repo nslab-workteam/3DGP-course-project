@@ -11,8 +11,7 @@ public class FightingTrigger : MonoBehaviour
     [SerializeField] private AudioSource ambience;
     [SerializeField] private AudioClip clip;
     [Header("UI")]
-    [SerializeField] private GameObject mBlood;
-    [SerializeField] private GameObject monsterBlood;
+    [SerializeField] private GameObject fightUI;
     private AudioClip backup;
     // Start is called before the first frame update
     void Start()
@@ -32,20 +31,25 @@ public class FightingTrigger : MonoBehaviour
             foreach(Animator i in doors) {
                 i.SetTrigger("CloseDoor");
             }
-            player.GetComponent<PlayerMovement>().maxWalkSpeed = 3;
-            player.GetComponent<PlayerMovement>().maxSprintSpeed = 5;
+            player.GetComponent<PlayerMovement>().maxWalkSpeed = 2.0f;
+            player.GetComponent<PlayerMovement>().maxSprintSpeed = 3;
+            fightUI.SetActive(true);
             ambience.clip = clip;
             ambience.Play();
             ambience.loop = true;
-            mBlood.SetActive(true);
-            monsterBlood.SetActive(true);
             StartCoroutine(DelayStartFighting());
         }
+    }
+
+    public void AfterFighting() {
+        ambience.clip = backup;
+        ambience.Play();
+        ambience.loop = true;
     }
 
     IEnumerator DelayStartFighting() {
         yield return new WaitForSeconds(3f);
         monster.SetTrigger("Start");
-        Destroy(this);
+        GetComponent<BoxCollider>().enabled = false;
     }
 }
