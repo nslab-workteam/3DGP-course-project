@@ -37,6 +37,7 @@ public class FightingTrigger : MonoBehaviour
             ambience.clip = clip;
             ambience.Play();
             ambience.loop = true;
+            GetComponent<BoxCollider>().enabled = false;
             StartCoroutine(DelayStartFighting());
         }
     }
