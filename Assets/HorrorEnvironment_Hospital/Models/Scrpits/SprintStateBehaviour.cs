@@ -20,7 +20,7 @@ public class SprintStateBehaviour : StateMachineBehaviour
     {
         Physics.IgnoreCollision(playerCollider, monsterCollider, true);
         player.GetComponent<PlayerMovement>().staticDrag = 0;
-        player.GetComponent<Rigidbody>().AddForce(player.transform.TransformDirection(Vector3.forward).normalized * 50f);
+        player.GetComponent<Rigidbody>().AddForce(player.transform.TransformDirection(Vector3.forward).normalized * 80f);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

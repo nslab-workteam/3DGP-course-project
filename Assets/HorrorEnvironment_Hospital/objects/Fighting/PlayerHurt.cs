@@ -10,8 +10,8 @@ public class PlayerHurt : MonoBehaviour
     [SerializeField] private Image blood;
     [SerializeField] private Volume boxVolume;
     [SerializeField] private IngameUI ingameUI;
-    [SerializeField] private CapsuleCollider playerCollider;
-    [SerializeField] private CapsuleCollider monsterCollider;
+    private Animator playerAni;
+    [SerializeField] private AudioClip hurtSound;
     public int bloodValue = 100;
     private float fillAmount = 0f;
     private float timePassed = 0;
@@ -20,6 +20,7 @@ public class PlayerHurt : MonoBehaviour
     void Start()
     {
         boxVolume.profile.TryGet<ChannelMixer>(out mixer);
+        playerAni = GameObject.FindWithTag("Player").GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -35,23 +36,15 @@ public class PlayerHurt : MonoBehaviour
     }
 
     public void DecreaseHealth() {
-        if (timePassed > 2f) {
-            timePassed = 0;
-            bloodValue -= 5;
-            mixer.redOutRedIn.value = 200;
-            // Physics.IgnoreCollision(playerCollider, monsterCollider, true);
-            StartCoroutine(DelayRestore());
-            // StartCoroutine(DelayRestoreCollision());
-        }
+        if (playerAni.GetCurrentAnimatorStateInfo(0).IsName("Sprint")) return;
+        bloodValue -= 5;
+        mixer.redOutRedIn.value = 200;
+        GetComponent<AudioSource>().PlayOneShot(hurtSound);
+        StartCoroutine(DelayRestore());
     }
 
     IEnumerator DelayRestore() {
         yield return new WaitForSeconds(0.5f);
         mixer.redOutRedIn.value = 65;
-    }
-
-    IEnumerator DelayRestoreCollision() {
-        yield return new WaitForSeconds(2f);
-        Physics.IgnoreCollision(playerCollider, monsterCollider, false);
     }
 }

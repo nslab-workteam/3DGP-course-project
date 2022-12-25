@@ -21,7 +21,7 @@ public class MonsterRunStateBehaviour : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         agent.SetDestination(player.position);
-        if (monsterState.stage == 1 && stateInfo.IsName("Run") || monsterState.stage == 2 && stateInfo.IsName("Running Crawl")) {
+        if (monsterState.stage == 1 && stateInfo.IsName("Run")) {
             timePassed += Time.deltaTime;
             if (timePassed >= Random.Range(5, 10)) {
                 int prob = Random.Range(1, 100);
@@ -30,6 +30,12 @@ public class MonsterRunStateBehaviour : StateMachineBehaviour
                 } else {
                     animator.SetTrigger("Scream");
                 }
+                timePassed = 0;
+            }
+        } else if(monsterState.stage == 2 && stateInfo.IsName("Running Crawl")) {
+            timePassed += Time.deltaTime;
+            if (timePassed >= Random.Range(5, 10)) {
+                animator.SetTrigger("Attack");
                 timePassed = 0;
             }
         } else if (monsterState.stage == 2 && stateInfo.IsName("Run")){

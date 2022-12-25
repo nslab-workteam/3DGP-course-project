@@ -12,12 +12,15 @@ public class MonsterBehaviour : MonoBehaviour
     [SerializeField] private GameObject fightUI;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip clip;
+    
+    [SerializeField] private AudioClip explode;
     [SerializeField] private FightingTrigger trigger;
+    private PlayerMovement playerMove;
     public int stage = 1;
     // Start is called before the first frame update
     void Start()
     {
-
+        playerMove = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -38,11 +41,14 @@ public class MonsterBehaviour : MonoBehaviour
             audioSource.PlayOneShot(clip);
             trigger.AfterFighting();
             blood = 100;
+            playerMove.maxWalkSpeed = 1.5f;
+            playerMove.maxSprintSpeed = 3;
         }
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.name.Contains("arrow")) {
+            audioSource.PlayOneShot(explode);
             blood -= attkInfo.force;
             Destroy(other.gameObject, 1f);
         }
