@@ -18,8 +18,12 @@ public class ArrowDirectionControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 target = transform.position + mRig.velocity.normalized * 3f;
-        transform.LookAt(target);
-        transform.Rotate(new Vector3(0, -90f, 0));
+        transform.rotation = Quaternion.LookRotation(mRig.velocity);
+        transform.Rotate(0, 90, 0);
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        mRig.useGravity = false;
+        GetComponent<CapsuleCollider>().isTrigger = true;
     }
 }

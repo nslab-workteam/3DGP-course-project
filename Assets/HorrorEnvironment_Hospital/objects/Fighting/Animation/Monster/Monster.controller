@@ -28,7 +28,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   attkSound: {fileID: 8300000, guid: 8bdf88699b1506041a24b7f5342a711c, type: 3}
   hurt: {fileID: 0}
-  attkRange: 2
+  attkRange: 2.5
 --- !u!114 &-8601551631655041305
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45,7 +45,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   attkSound: {fileID: 8300000, guid: 8bdf88699b1506041a24b7f5342a711c, type: 3}
   hurt: {fileID: 0}
-  attkRange: 3
+  attkRange: 3.5
 --- !u!1102 &-7208784098546302324
 AnimatorState:
   serializedVersion: 6
@@ -330,7 +330,7 @@ AnimatorController:
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
+    m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: Attack
     m_Type: 9

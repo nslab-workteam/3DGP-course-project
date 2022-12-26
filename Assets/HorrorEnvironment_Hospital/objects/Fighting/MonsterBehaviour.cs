@@ -53,4 +53,12 @@ public class MonsterBehaviour : MonoBehaviour
             Destroy(other.gameObject, 1f);
         }
     }
+
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.name.Contains("arrow")) {
+            audioSource.PlayOneShot(explode);
+            blood -= attkInfo.force;
+            Destroy(other.gameObject);
+        }
+    }
 }

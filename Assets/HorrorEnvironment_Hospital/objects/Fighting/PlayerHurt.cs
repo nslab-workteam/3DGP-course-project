@@ -31,12 +31,16 @@ public class PlayerHurt : MonoBehaviour
         blood.fillAmount = fillAmount;
 
         if (bloodValue <= 0) {
+            ingameUI.LockPlayer();
             ingameUI.OnFailed();
         }
     }
 
     public void DecreaseHealth() {
-        if (playerAni.GetCurrentAnimatorStateInfo(0).IsName("Sprint")) return;
+        if (playerAni.GetCurrentAnimatorStateInfo(0).IsName("Sprint")){
+            Debug.Log("On Sprint");
+            return;
+        }
         bloodValue -= 5;
         mixer.redOutRedIn.value = 200;
         GetComponent<AudioSource>().PlayOneShot(hurtSound);

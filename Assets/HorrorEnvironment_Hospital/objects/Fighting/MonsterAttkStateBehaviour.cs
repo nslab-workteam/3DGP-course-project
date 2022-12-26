@@ -11,7 +11,7 @@ public class MonsterAttkStateBehaviour : StateMachineBehaviour
     [SerializeField] private PlayerHurt hurt;
     private Transform player;
     private Transform monster;
-    [SerializeField] private float attkRange = 2;
+    [SerializeField] private float attkRange = 3f;
     private float timePassed = 0f;
     private bool hurted = false;
     private bool triggeredFlg = false;
@@ -78,7 +78,7 @@ public class MonsterAttkStateBehaviour : StateMachineBehaviour
         float cross1 = Cross2D(pa, pb);
         float cross2 = Cross2D(pb, pc);
         float cross3 = Cross2D(pc, pa);
-        Debug.Log(cross1 + ", " + cross2 + ", " + cross3);
+        // Debug.Log(cross1 + ", " + cross2 + ", " + cross3);
         if ((cross1 > 0 && cross2 > 0 && cross3 > 0) || (cross1 < 0 && cross2 < 0 && cross3 < 0)) {
             return true;
         }
