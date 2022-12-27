@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class PlayerAttack : MonoBehaviour
                 arrow_.transform.parent = player.transform;
                 arrow_.transform.localPosition = arrow_.transform.localPosition + new Vector3(0.25f, 2f, 1f);
                 arrow_.GetComponent<Rigidbody>().useGravity = true;
-                arrow_.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * force;
+                arrow_.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * force * 2;
                 arrow_.GetComponent<ArrowDirectionControl>().destroyAfterDelay = true;
 
                 force = 5;

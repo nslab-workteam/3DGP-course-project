@@ -17,9 +17,9 @@ public class SkipVideo : MonoBehaviour
     void Update()
     {
         timePassed += Time.deltaTime;
-        if (timePassed > 5f) {
+        if (timePassed > 3f) {
             if (Input.GetMouseButtonDown(0)) {
-                pd.time = 300.0f;
+                pd.time = 300.1f;
             }
         }
     }

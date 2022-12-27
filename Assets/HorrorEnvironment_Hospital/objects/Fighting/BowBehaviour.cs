@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class BowBehaviour : MonoBehaviour
 {
     [SerializeField] private Image weapon;
+     [SerializeField] private Image hint;
     [SerializeField] private GameObject bow;
     [SerializeField] private PlayerAttack atk;
     // Start is called before the first frame update
@@ -23,6 +24,7 @@ public class BowBehaviour : MonoBehaviour
 
     private void OnMouseDown(){
         weapon.enabled = true;
+        hint.enabled = true;
         bow.SetActive(false);
         atk.canAtk = true;
     }

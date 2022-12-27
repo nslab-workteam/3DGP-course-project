@@ -7,6 +7,7 @@ public class PlayerAbility : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private Image skill;
+    [SerializeField] private Text hint;
     private float timePassed = 0;
     private float cooldown = 20;
     // Start is called before the first frame update
@@ -21,10 +22,12 @@ public class PlayerAbility : MonoBehaviour
         timePassed += Time.deltaTime;
         if (timePassed >= cooldown) {
             skill.enabled = true;
+            hint.enabled = true;
             if (Input.GetKeyDown(KeyCode.E)) {
                 player.GetComponentInChildren<Animator>().SetTrigger("Sprint");
                 timePassed = 0;
                 skill.enabled = false;
+                hint.enabled = false;
             }
         }
         

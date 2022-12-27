@@ -32,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     float walkingParam = 0.0f;
 
     gameMenu gMenu;
+    float runningEnergyMax = 5f;
+    [SerializeField] float runningEnergyUsed = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -121,10 +123,17 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckSprint() {
         if (Input.GetKey(KeyCode.LeftShift)) {
-            moveSpeed = maxSprintSpeed;
-            walkingParam = 2.0f;
+            if (runningEnergyUsed <= runningEnergyMax) {
+                moveSpeed = maxSprintSpeed;
+                walkingParam = 2.0f;
+                runningEnergyUsed += Time.deltaTime;
+            } else {
+                moveSpeed = maxWalkSpeed;
+            }
         } else {
             moveSpeed = maxWalkSpeed;
+            runningEnergyUsed -= Time.deltaTime;
+            runningEnergyUsed = Mathf.Clamp(runningEnergyUsed, 0, 5f);
         }
     }
 
