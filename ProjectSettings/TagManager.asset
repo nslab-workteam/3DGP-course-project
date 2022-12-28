@@ -9,6 +9,7 @@ TagManager:
   - hint
   - UpperLeftUI
   - AchievementText
+  - elevator
   layers:
   - Default
   - TransparentFX

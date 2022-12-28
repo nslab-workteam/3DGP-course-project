@@ -81,7 +81,7 @@ public class AnnieBehaviour : MonoBehaviour, GameMechanism
         Vector3 lookAtPos = player.transform.position;
         lookAtPos.y = 0;
         ghost.transform.LookAt(lookAtPos, Vector3.up);
-        soundFlag1 = PlaySound1(soundFlag1);
+        
 
         // transition
         if ((player.transform.position - ghost.transform.position).magnitude <= Random.Range(4.0f, 6.0f)) {
@@ -102,6 +102,7 @@ public class AnnieBehaviour : MonoBehaviour, GameMechanism
         myCamera.GetComponent<MouseLook>().isStart = false;
         player.transform.LookAt(ghost.transform.position, Vector3.up);
         player.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+        soundFlag1 = PlaySound1(soundFlag1);
 
         // transition
         coroutineFlag = CoroutineStart(coroutineFlag);
