@@ -10,7 +10,9 @@ public class PlayerAttack : MonoBehaviour
     private float attkDelay = 0;
     [SerializeField] private GameObject arrow;
     [SerializeField] private GameObject player;
+    [SerializeField] private IngameUI ingameUI;
     public bool canAtk = false;
+    public bool cheated = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,8 +27,10 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetMouseButton(1)) {
                 timePassed += Time.deltaTime;
                 if (timePassed >= 1f) {
-                    force += 2.5f;
-                    force = Mathf.Clamp(force, 5f, 10f);
+                    if (!cheated){
+                        force += 2.5f;
+                        force = Mathf.Clamp(force, 5f, 10f);
+                    }
                 }
             }
         if (attkDelay >= 2f) {
@@ -38,14 +42,29 @@ public class PlayerAttack : MonoBehaviour
                 arrow_.transform.parent = player.transform;
                 arrow_.transform.localPosition = arrow_.transform.localPosition + new Vector3(0.25f, 2f, 1f);
                 arrow_.GetComponent<Rigidbody>().useGravity = true;
-                arrow_.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * force * 2;
+                float vFactor = Mathf.Clamp(force * 2, 5f, 10f);
+                arrow_.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * vFactor;
                 arrow_.GetComponent<ArrowDirectionControl>().destroyAfterDelay = true;
 
-                force = 5;
+                if (cheated) {
+                    force = 50;
+                } else {
+                    force = 5;
+                }
                 timePassed = 0;
                 attkDelay = 0;
             }
         }
-        
+        if (Input.GetKeyDown(KeyCode.F2)) {
+            cheated = !cheated;
+            if (cheated) {
+                ingameUI.ShowHint("作弊模式開啟");
+                force = 50;
+            } else {
+                ingameUI.ShowHint("作弊模式關閉");
+                force = 5;
+            }
+                
+        }
     }
 }
