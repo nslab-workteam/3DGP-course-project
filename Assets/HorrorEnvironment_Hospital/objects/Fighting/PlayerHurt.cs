@@ -15,6 +15,7 @@ public class PlayerHurt : MonoBehaviour
     public int bloodValue = 100;
     private float fillAmount = 0f;
     private float timePassed = 0;
+    public float immuneTime = 0;
     ChannelMixer mixer;
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class PlayerHurt : MonoBehaviour
         timePassed += Time.deltaTime;
         fillAmount = (float)bloodValue / 100.0f;
         blood.fillAmount = fillAmount;
+        immuneTime = Mathf.Clamp(immuneTime - Time.deltaTime, 0, 2);
 
         if (bloodValue <= 0) {
             ingameUI.LockPlayer();
@@ -37,7 +39,7 @@ public class PlayerHurt : MonoBehaviour
     }
 
     public void DecreaseHealth() {
-        if (playerAni.GetCurrentAnimatorStateInfo(0).IsName("Sprint")){
+        if (playerAni.GetCurrentAnimatorStateInfo(0).IsName("Sprint") || immuneTime > 0){
             Debug.Log("On Sprint");
             return;
         }

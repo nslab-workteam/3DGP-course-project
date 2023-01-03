@@ -48,6 +48,7 @@ public class MonsterBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.name.Contains("arrow")) {
+            other.gameObject.GetComponent<MeshRenderer>().enabled = false;
             other.gameObject.GetComponent<ParticleSystem>().Play();
             other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             audioSource.PlayOneShot(explode);
@@ -58,6 +59,7 @@ public class MonsterBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) {
         if (other.gameObject.name.Contains("arrow")) {
+            other.gameObject.GetComponent<MeshRenderer>().enabled = false;
             other.gameObject.GetComponent<ParticleSystem>().Play();
             audioSource.PlayOneShot(explode);
             blood -= attkInfo.force;

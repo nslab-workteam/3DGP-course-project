@@ -55,6 +55,7 @@ public class DropBehaviourScript : MonoBehaviour, GameMechanism
         watcher.SetActive(true);
         activated = true;
         fricnt.count++;
+        Destroy(this.gameObject, 5f);
     }
 
     public void Skip() {

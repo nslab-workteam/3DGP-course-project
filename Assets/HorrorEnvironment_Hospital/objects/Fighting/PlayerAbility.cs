@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerAbility : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+    [SerializeField] private PlayerHurt hurt;
     [SerializeField] private Image skill;
     [SerializeField] private Text hint;
     private float timePassed = 0;
@@ -25,6 +26,7 @@ public class PlayerAbility : MonoBehaviour
             hint.enabled = true;
             if (Input.GetKeyDown(KeyCode.E)) {
                 player.GetComponentInChildren<Animator>().SetTrigger("Sprint");
+                hurt.immuneTime = 2;
                 timePassed = 0;
                 skill.enabled = false;
                 hint.enabled = false;

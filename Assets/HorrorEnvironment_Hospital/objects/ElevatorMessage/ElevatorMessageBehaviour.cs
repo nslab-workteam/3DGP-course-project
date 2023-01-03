@@ -8,6 +8,7 @@ public class ElevatorMessageBehaviour : MonoBehaviour
     [SerializeField] private PlayerMovement movement;
     [SerializeField] private ParticleSystem waterDropPS;
     [SerializeField] private MeshRenderer elevatorMsg;
+    [SerializeField] private AudioSource pourSoundSource;
     public bool isMsgShow = false;
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,7 @@ public class ElevatorMessageBehaviour : MonoBehaviour
                         movement.isStart) {
                         waterDropPS.Play();
                         this.StartCoroutine(_ElevatorMessageShowUp());
+                        pourSoundSource.Play();
                     }
                 }
             }

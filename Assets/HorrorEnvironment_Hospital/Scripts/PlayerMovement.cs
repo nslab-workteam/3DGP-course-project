@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     gameMenu gMenu;
     float runningEnergyMax = 5f;
     [SerializeField] float runningEnergyUsed = 0f;
+    [SerializeField] private AudioSource sighSfx;
 
     // Start is called before the first frame update
     void Start()
@@ -129,6 +130,7 @@ public class PlayerMovement : MonoBehaviour
                 runningEnergyUsed += Time.deltaTime;
             } else {
                 moveSpeed = maxWalkSpeed;
+                sighSfx.Play();
             }
         } else {
             moveSpeed = maxWalkSpeed;

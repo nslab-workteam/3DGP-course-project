@@ -42,8 +42,11 @@ public class IngameUI : MonoBehaviour
     private string[] ObjectName = {
         "剪刀", "娃娃", "手套", "放大鏡", "枕頭", "特殊液體", "病歷表", "配方", "鐵鎚", "鑰匙"
     };
+    [Header("PotionMixture")]
     public bool isPotionMixtureFinished = false;
     [SerializeField] private GameObject specialLiquid;
+    [SerializeField] private AudioSource liquidSoundSource;
+    [SerializeField] private AudioClip liquidSoundClip;
     [Header("Success Page")]
     [SerializeField] private GameObject successPage;
     [SerializeField] private Timer timer;
@@ -191,6 +194,7 @@ public class IngameUI : MonoBehaviour
         } else {
             liquidSimulator.GetComponent<CopyParticle>().AddMoreLiquid(new Color(255f, 135f, 0f));
         }
+        StartCoroutine(DelayPlayLiquidSound());
         pourTimes[n-1]++;
         int count = 0;
         for(int i=0; i<10; i++) {
@@ -214,6 +218,11 @@ public class IngameUI : MonoBehaviour
             }
             ClearBeaker();
         }
+    }
+
+    IEnumerator DelayPlayLiquidSound() {
+        yield return new WaitForSeconds(1f);
+        liquidSoundSource.PlayOneShot(liquidSoundClip);
     }
 
     public void ClearBeaker() {
