@@ -35,7 +35,12 @@ public class MonsterRunStateBehaviour : StateMachineBehaviour
         } else if(monsterState.stage == 2 && stateInfo.IsName("Running Crawl")) {
             timePassed += Time.deltaTime;
             if (timePassed >= Random.Range(5, 10)) {
-                animator.SetTrigger("Attack");
+                int prob = Random.Range(1, 100);
+                if (prob <= 30) {
+                    animator.SetTrigger("Attack");
+                } else {
+                    animator.SetTrigger("Scream");
+                }
                 timePassed = 0;
             }
         } else if (monsterState.stage == 2 && stateInfo.IsName("Run")){

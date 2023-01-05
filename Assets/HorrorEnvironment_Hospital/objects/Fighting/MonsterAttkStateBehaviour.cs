@@ -9,10 +9,12 @@ public class MonsterAttkStateBehaviour : StateMachineBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip attkSound;
     [SerializeField] private PlayerHurt hurt;
+    private ParticleSystem attackEffect;
     private Transform player;
     private Transform monster;
     [SerializeField] private float attkRange = 3f;
     private float timePassed = 0f;
+    private float effectTime = 0f;
     private bool hurted = false;
     private bool triggeredFlg = false;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -32,6 +34,7 @@ public class MonsterAttkStateBehaviour : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         agent.SetDestination(monster.transform.position);
+        
         Debug.DrawRay(monster.position, monster.transform.TransformDirection(new Vector3(1, 0, 1)).normalized * attkRange);
         Debug.DrawRay(monster.position, monster.transform.TransformDirection(new Vector3(-1, 0, 1)).normalized * attkRange);
         if (IsPointInTriangle(player.transform.position,
@@ -39,7 +42,7 @@ public class MonsterAttkStateBehaviour : StateMachineBehaviour
                               monster.position, 
                               monster.position + monster.transform.TransformDirection(new Vector3(-1, 0, 1)).normalized * attkRange))
         {
-            Debug.Log("hurt player");
+            // Debug.Log("hurt player");
             hurted = true;
         }
         if (hurted && !triggeredFlg) {
@@ -54,10 +57,10 @@ public class MonsterAttkStateBehaviour : StateMachineBehaviour
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    // override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    // {
+
+    // }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

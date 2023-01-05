@@ -15,8 +15,12 @@ public class MonsterBehaviour : MonoBehaviour
     
     [SerializeField] private AudioClip explode;
     [SerializeField] private FightingTrigger trigger;
+    [SerializeField] private Transform following;
+    [SerializeField] private CapsuleCollider followerCollider;
+    [SerializeField] private ParticleSystem attackEffect;
     private PlayerMovement playerMove;
     public int stage = 1;
+    private bool landingFlg = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,16 +48,14 @@ public class MonsterBehaviour : MonoBehaviour
             playerMove.maxWalkSpeed = 1.5f;
             playerMove.maxSprintSpeed = 3;
         }
-    }
-
-    private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.name.Contains("arrow")) {
-            other.gameObject.GetComponent<MeshRenderer>().enabled = false;
-            other.gameObject.GetComponent<ParticleSystem>().Play();
-            other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            audioSource.PlayOneShot(explode);
-            blood -= attkInfo.force;
-            Destroy(other.gameObject, 1f);
+        followerCollider.center = following.localPosition;
+        if (following.localPosition.y > 1.1f) {
+            landingFlg = true;
+        }
+        if (following.localPosition.y < 1.1f && landingFlg) {
+            landingFlg = false;
+            Debug.Log("effect");
+            attackEffect.Play();
         }
     }
 
@@ -61,6 +63,7 @@ public class MonsterBehaviour : MonoBehaviour
         if (other.gameObject.name.Contains("arrow")) {
             other.gameObject.GetComponent<MeshRenderer>().enabled = false;
             other.gameObject.GetComponent<ParticleSystem>().Play();
+            other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             audioSource.PlayOneShot(explode);
             blood -= attkInfo.force;
             Destroy(other.gameObject, 1);

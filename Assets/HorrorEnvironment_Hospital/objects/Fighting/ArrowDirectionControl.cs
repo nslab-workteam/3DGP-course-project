@@ -23,7 +23,6 @@ public class ArrowDirectionControl : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        mRig.useGravity = false;
-        GetComponent<CapsuleCollider>().isTrigger = true;
+        Physics.IgnoreCollision(GetComponent<CapsuleCollider>(), other.collider);
     }
 }
