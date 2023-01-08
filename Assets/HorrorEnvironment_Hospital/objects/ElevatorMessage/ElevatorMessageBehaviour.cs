@@ -23,7 +23,7 @@ public class ElevatorMessageBehaviour : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 3f)) {
                 if (Input.GetMouseButtonDown(0)) {
-                    if (hit.collider.name == "ElevatorMessageWall" && hold.holdingObject == (int)ObjectToPick.liquid &&
+                    if ((hit.collider.name == "ElevatorMessageWall" || hit.collider.tag == "WallMessage") && hold.holdingObject == (int)ObjectToPick.liquid &&
                         movement.isStart) {
                         waterDropPS.Play();
                         this.StartCoroutine(_ElevatorMessageShowUp());

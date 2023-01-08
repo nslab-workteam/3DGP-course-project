@@ -6,6 +6,7 @@ public class elevatorButton : MonoBehaviour
 {
     public string toFloor;
     Animator elevatorAnimator;
+    [SerializeField] private ElevatorButtonState buttonState;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +21,16 @@ public class elevatorButton : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 3f) && Input.GetMouseButton(0)) {
             if (!(hit.collider.name == this.gameObject.name)) return;
             if (elevatorAnimator.GetCurrentAnimatorStateInfo(0).IsName(toFloor)) return;
+            if (buttonState.buttonClicked) return;
 
             elevatorAnimator.SetTrigger("to_" + toFloor);
+            buttonState.buttonClicked = true;
+            StartCoroutine(ClearState());
         }
+    }
+
+    IEnumerator ClearState() {
+        yield return new WaitForSeconds(5f);
+        buttonState.buttonClicked = false;
     }
 }

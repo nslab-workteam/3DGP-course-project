@@ -38,11 +38,11 @@ public class QTEController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        qteImage.SetActive(false);
-        qtePointer.SetActive(false);
+        qteImage.GetComponent<Image>().enabled = false;
+        qtePointer.GetComponent<Image>().enabled = false;
         qteBoard.SetActive(false);
         pointerAnimator = qtePointer.GetComponent<Animator>();
-        // StartQTE(15, "剪開枕頭");
+        // StartQTE(25, "剪開枕頭");
     }
 
     // Update is called once per frame
@@ -52,7 +52,7 @@ public class QTEController : MonoBehaviour
 
         totalTime += Time.deltaTime;
         timePassed += Time.deltaTime;
-        if (timePassed >= 0.5f) {
+        if (timePassed >= 0.5f && !turnPointer) {
             int _tmp = Random.Range(1, 100);
             if (_tmp <= threshold) {
                 TriggerSoundOnce(ref soundFlg);
@@ -85,8 +85,7 @@ public class QTEController : MonoBehaviour
                     StartCoroutine(EndOfQTE());
                 }
             }
-
-            if (nowAngle < 61 && nowAngle > 31) {
+            if (pointerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Failed")) {
                 GetComponent<AudioSource>().PlayOneShot(sounds[2]);
                 qteImage.GetComponent<Image>().color = Color.red;
                 pointerAnimator.speed = 0;
@@ -100,8 +99,8 @@ public class QTEController : MonoBehaviour
         float fillAmount = (float)totalTime / (float)limitTime;
         progressBarMask.GetComponent<Image>().fillAmount = fillAmount;
 
-        if (totalTime >= 0.5 * limitTime && counter <= 1) {
-            threshold = 20;
+        if (totalTime >= 0.5 * limitTime) {
+            threshold = 40;
         }
 
         if (totalTime >= limitTime) {
@@ -115,10 +114,12 @@ public class QTEController : MonoBehaviour
     IEnumerator EndOfQTE() {
         yield return new WaitForSeconds(0.5f);
         qteImage.GetComponent<Image>().color = Color.white;
-        qteImage.SetActive(false);
-        qtePointer.SetActive(false);
+        pointerAnimator.SetTrigger("end");
+        qteImage.GetComponent<Image>().enabled = false;
+        qtePointer.GetComponent<Image>().enabled = false;
         soundFlg = false;
         qteFlg = false;
+        pointerAnimator.speed = 1;
     }
 
     public void StartQTE(int second, string missionText) {
@@ -145,12 +146,11 @@ public class QTEController : MonoBehaviour
     IEnumerator TriggerQTE() {
         yield return new WaitForSeconds(1f);
         qteSlot = Random.Range(0, 5);
-        turnPointer = true;
-        qteImage.SetActive(true);
-        qtePointer.SetActive(true);
+        qtePointer.GetComponent<Image>().enabled = true;
+        qteImage.GetComponent<Image>().enabled = true;
         qteImage.GetComponent<Image>().sprite = qteTypes[qteSlot];
         qtePointer.GetComponent<RectTransform>().localRotation = Quaternion.Euler(0, 0, startAngle);
-        pointerAnimator.speed = 1;
         pointerAnimator.SetTrigger("qte");
+        turnPointer = true;
     }
 }

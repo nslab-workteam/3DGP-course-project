@@ -426,4 +426,8 @@ public class gameMenu : MonoBehaviour
     void SetPlayerSkin(int c) {
         // TODO
     }
+
+    public void OnExitClick() {
+        Application.Quit(0);
+    }
 }

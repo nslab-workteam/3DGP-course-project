@@ -15,6 +15,7 @@ public class LittleGirlBehavior : MonoBehaviour
     [SerializeField] private Animator sun;
     [SerializeField] private Animator sceneEffect;
     [SerializeField] private ParticleSystem ps;
+    [SerializeField] private Outline stackOutline;
     private Animator animator;
     
     bool startDialogFlg = false;
@@ -44,6 +45,7 @@ public class LittleGirlBehavior : MonoBehaviour
                     }else {
                         Debug.Log("Haven't picked up record");
                         StartDialogOnce(ref startDialogFlg, 2);
+                        stackOutline.enabled = true;
                     }
                 }
                 if (stage == 1) {

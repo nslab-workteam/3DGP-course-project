@@ -10,6 +10,7 @@ TagManager:
   - UpperLeftUI
   - AchievementText
   - elevator
+  - WallMessage
   layers:
   - Default
   - TransparentFX
